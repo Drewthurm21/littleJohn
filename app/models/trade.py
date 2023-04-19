@@ -13,6 +13,9 @@ class Trade(db.Model):
     trade_type = db.Column(db.String(90), nullable=False)
     timestamp = db.Column(db.Text, nullable=False)
 
+    # relationships
+    portfolio = db.relationship('Portfolio', back_populates='trades')
+
     def to_dict(self):
         return {
             'id': self.id,
