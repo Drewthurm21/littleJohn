@@ -7,6 +7,7 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     balance = db.Column(db.Numeric(asdecimal=False), nullable=False)
+    name = db.Column(db.String(90), nullable=False)
 
     # relationships
     trades = db.relationship('Trade', back_populates='portfolio')
