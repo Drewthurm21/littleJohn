@@ -2,7 +2,7 @@ from .db import db
 
 
 class Watchlist(db.model):
-    __tablename__ = 'portfolios'
+    __tablename__ = 'watchlists'
 
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.foreignKey('users.id'), nullable=False)

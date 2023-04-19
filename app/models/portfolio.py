@@ -7,8 +7,7 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     balance = db.Column(db.Numeric(asdecimal=False), nullable=False)
-    
-    
+
     def to_dict(self):
         return {
             'id': self.id,

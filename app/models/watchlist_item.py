@@ -2,7 +2,7 @@ from .db import db
 
 
 class Watchlist_Item(db.Model):
-    __tablename__ = 'watchlist_item'
+    __tablename__ = 'watchlist_items'
 
     id = db.Column(db.Integer, primary_key=True)
     watchlist_id = db.Column(db.Integer, db.foreignKey(
