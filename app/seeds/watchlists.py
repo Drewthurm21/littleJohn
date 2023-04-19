@@ -1,4 +1,4 @@
-from app.models import db, Watchlist
+from app.models import db, Watchlist, environment, SCHEMA
 
 
 # Adds a demo user, you can add other users here if you want
@@ -18,5 +18,10 @@ def seed_watchlists():
 
 
 def undo_watchlists():
-    db.session.execute('TRUNCATE watchlists RESTART IDENTITY CASCADE;')
-    db.session.commit()
+    if environment == 'production':
+        db.session.execute(
+            f'TRUNCATE {SCHEMA}.watchlists RESTART IDENTITY CASCADE;')
+        db.session.commit()
+    else:
+        db.session.execute('DELETE from watchlists;')
+        db.session.commit()

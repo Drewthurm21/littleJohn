@@ -1,4 +1,4 @@
-from app.models import db, Portfolio
+from app.models import db, Portfolio, environment, SCHEMA
 
 
 # Adds a demo user, you can add other users here if you want
@@ -18,5 +18,10 @@ def seed_portfolios():
 
 
 def undo_portfolios():
-    db.session.execute('TRUNCATE portfolios RESTART IDENTITY CASCADE;')
-    db.session.commit()
+    if environment == 'production':
+        db.session.execute(
+            f'TRUNCATE {SCHEMA}.portfolios RESTART IDENTITY CASCADE;')
+        db.session.commit()
+    else:
+        db.session.execute('DELETE from portfolios;')
+        db.session.commit()
