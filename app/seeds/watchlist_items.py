@@ -1,4 +1,4 @@
-from app.models import db, Watchlist_Item
+from app.models import db, Watchlist_Item, environment, SCHEMA
 
 
 def seed_watchlist_items():
@@ -22,5 +22,9 @@ def seed_watchlist_items():
 
 
 def undo_watchlist_items():
-    db.session.execute('TRUNCATE watchlist_items RESTART IDENTITY CASCADE;')
-    db.session.commit()
+    if environment == 'production':
+        db.session.execute(f'TRUNCATE {SCHEMA}.watchlist_items RESTART IDENTITY CASCADE;')
+        db.session.commit()
+    else:
+        db.session.execute('DELETE from watchlist_items;')
+        db.session.commit()

@@ -7,6 +7,7 @@ Create Date: 2023-04-12 17:15:57.933732
 """
 from alembic import op
 import sqlalchemy as sa
+from app.models import environment, SCHEMA
 
 
 # revision identifiers, used by Alembic.
@@ -27,6 +28,9 @@ def upgrade():
                     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
                     sa.PrimaryKeyConstraint('id')
                     )
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE portfolios SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

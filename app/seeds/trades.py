@@ -1,4 +1,4 @@
-from app.models import db, Trade
+from app.models import db, Trade, environment, SCHEMA
 from faker import Faker
 from random import randint
 
@@ -39,5 +39,9 @@ def seed_trades():
 
 
 def undo_trades():
-    db.session.execute('TRUNCATE trades RESTART IDENTITY CASCADE;')
-    db.session.commit()
+    if environment == 'production':
+        db.session.execute(f'TRUNCATE {SCHEMA}.trades RESTART IDENTITY CASCADE;')
+        db.session.commit()
+    else:
+        db.session.execute('DELETE from trades;')
+        db.session.commit()
