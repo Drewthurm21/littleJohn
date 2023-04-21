@@ -1,39 +1,62 @@
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import styled from 'styled-components';
+import * as sc from './styledComponents/'
+const { NavContainer, NavBtns } = sc.containers;
+const { CrossBar, BannerImg } = sc.misc;
 
 const StyledLink = styled(NavLink)`
   color: #000;
   text-decoration: none;
-  margin: 1rem;
+  border-radius: 3px;
   height: 100%;
+  width: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3em 0 0;
 
   &:hover {
-    text-decoration: underline;
+    border-bottom: 3px solid #00cf98;
+    -webkit-box-shadow: 0 6px 4px -4px #00cf98;
+    -moz-box-shadow: 0 6px 4px -4px #00cf98;
+    box-shadow: 0 px 4px -4px #00cf98;
   }
 
   &.active {
-    font-weight: bold;
+    text-decoration: underline;
   }
 `;
 
-const NavContainer = styled.nav`
-  border: 1px solid #000;
-  width: 100%;
-  height: 3rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-
-const links = [['/', 'Home'], ['/login', 'Login'], ['/sign-up', 'Sign Up']];
 
 export default function Navbar() {
+
+  const currentUser = useSelector(state => state.session.user);
+
+  let userLinks;
+  if (currentUser) userLinks = <LogoutButton />
+  else userLinks = <StyledLink to={'/login'} exact={true}>Login</StyledLink>
+
+
   return (
-    <NavContainer>
-      {links.map(([url, label], i) => <StyledLink key={i} to={url}>{label}</StyledLink>)}
-      <LogoutButton />
-    </NavContainer>
+    <>
+      <CrossBar />
+      <NavContainer>
+        <NavLink to='/' exact={true} activeClassName='active'>
+          <BannerImg />
+        </NavLink>
+        <NavBtns>
+          {[['/', 'Home'],
+          ['/portfolios', 'Portfolios'],
+          ['/trades', 'Trades']].map(([url, label], i) => (
+            <StyledLink key={i} to={url}>{label}</StyledLink>
+          ))}
+        </NavBtns>
+        <div style={{ width: '15em', height: '100%' }}>
+          {userLinks}
+        </div>
+      </NavContainer>
+    </>
   );
 }
