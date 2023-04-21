@@ -1,38 +1,38 @@
-
-import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import * as sc from './styledComponents/'
+const { NavContainer, NavBtnContainer } = sc.containers;
+const { CrossBar, BannerImg } = sc.misc;
+const { NavbarBtn } = sc.buttons;
 
-const NavBar = () => {
+
+export default function Navbar() {
+
+  const currentUser = useSelector(state => state.session.user);
+
+  let userLinks;
+  if (currentUser) userLinks = <LogoutButton />
+  else userLinks = <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
-      </ul>
-    </nav>
+    <>
+      <CrossBar />
+      <NavContainer>
+        <NavLink to='/' exact={true} activeClassName='active'>
+          <BannerImg />
+        </NavLink>
+        <NavBtnContainer>
+          {[['/', 'Home'],
+          ['/portfolios', 'Portfolios'],
+          ['/trades', 'Trades']].map(([url, label], i) => (
+            <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
+          ))}
+        </NavBtnContainer>
+        <div style={{ width: '15em', height: '100%', justifyContent: 'center' }}>
+          {userLinks}
+        </div>
+      </NavContainer>
+    </>
   );
 }
-
-export default NavBar;
