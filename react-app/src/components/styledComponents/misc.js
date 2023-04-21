@@ -4,7 +4,7 @@ const littleJohnLogo = require('../../assets/littleJohnBanner.png');
 export const CrossBar = styled.div`
   min-height: 2em;
   width: 100%;
-  background-color: var(--accent-color);
+  background-color: var(--green-ljt);
   position: relative;
   padding-bottom: 2px;
   transition: all 0.3s ease-in-out;

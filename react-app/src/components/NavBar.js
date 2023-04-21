@@ -1,33 +1,10 @@
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import styled from 'styled-components';
 import * as sc from './styledComponents/'
-const { NavContainer, NavBtns } = sc.containers;
+const { NavContainer, NavBtnContainer } = sc.containers;
 const { CrossBar, BannerImg } = sc.misc;
-
-const StyledLink = styled(NavLink)`
-  color: #000;
-  text-decoration: none;
-  border-radius: 3px;
-  height: 100%;
-  width: 4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 3em 0 0;
-
-  &:hover {
-    border-bottom: 3px solid #00cf98;
-    -webkit-box-shadow: 0 6px 4px -4px #00cf98;
-    -moz-box-shadow: 0 6px 4px -4px #00cf98;
-    box-shadow: 0 px 4px -4px #00cf98;
-  }
-
-  &.active {
-    text-decoration: underline;
-  }
-`;
+const { NavbarBtn } = sc.buttons;
 
 
 export default function Navbar() {
@@ -36,8 +13,7 @@ export default function Navbar() {
 
   let userLinks;
   if (currentUser) userLinks = <LogoutButton />
-  else userLinks = <StyledLink to={'/login'} exact={true}>Login</StyledLink>
-
+  else userLinks = <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
 
   return (
     <>
@@ -46,14 +22,14 @@ export default function Navbar() {
         <NavLink to='/' exact={true} activeClassName='active'>
           <BannerImg />
         </NavLink>
-        <NavBtns>
+        <NavBtnContainer>
           {[['/', 'Home'],
           ['/portfolios', 'Portfolios'],
           ['/trades', 'Trades']].map(([url, label], i) => (
-            <StyledLink key={i} to={url}>{label}</StyledLink>
+            <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
           ))}
-        </NavBtns>
-        <div style={{ width: '15em', height: '100%' }}>
+        </NavBtnContainer>
+        <div style={{ width: '15em', height: '100%', justifyContent: 'center' }}>
           {userLinks}
         </div>
       </NavContainer>

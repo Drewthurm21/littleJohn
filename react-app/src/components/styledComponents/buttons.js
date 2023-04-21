@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const SimpleBtn = styled.div`
   border-radius: 3px;
@@ -10,6 +11,25 @@ export const SimpleBtn = styled.div`
 
   &:hover {
     background-color: #3d3935;
+  }
+`;
+
+export const NavbarBtn = styled(NavLink)`
+  color: var(--black-ljt);
+  text-decoration: none;
+  border-radius: 3px;
+  height: 103%;
+  width: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3em 0 0;
+
+  &:hover {
+    border-bottom: 3px solid #00cf98;
+    -webkit-box-shadow: 0 6px 4px -4px #00cf98;
+    -moz-box-shadow: 0 6px 4px -4px #00cf98;
+    box-shadow: 0 px 4px -4px #00cf98;
   }
 `;
 
