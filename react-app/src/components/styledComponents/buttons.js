@@ -1,6 +1,44 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+export const CustomBtn = styled.button`
+  /* Text */
+  font-size: ${({ txSize }) => txSize || '1em'};
+  font-weight: ${({ txWeight }) => txWeight || 'normal'};
+  font-family: ${({ txFont }) => txFont || 'inherit'};
+  text-decoration: ${({ txDeco }) => txDeco || 'none'};
+
+  /* Colors & Border */
+  color: ${({ txColor }) => txColor || 'black'};
+  background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  border: ${({ border }) => border || 'none'};
+  border-radius: ${({ radius }) => radius || '3px'};
+  box-shadow: ${({ shadow }) => shadow || 'none'};
+  ${({ rounded }) => rounded && 'border-radius: 24px'};
+
+  /* Size & Space */
+  width: ${({ w }) => w || 'auto'};
+  height: ${({ h }) => h || 'auto'};
+  min-width: ${({ minW }) => minW || 'auto'};
+  min-height: ${({ minH }) => minH || 'auto'};
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+
+
+  /* Misc */
+  overflow: ${({ overflow }) => overflow || 'hidden'};
+  transition: ${({ transition }) => transition || ''};
+  cursor: ${({ cursor }) => cursor || 'pointer'};
+  content: ${({ content }) => content || 'none'};
+
+  &:hover {
+    background-color: ${({ bgColorHover }) => bgColorHover || ''};
+    box-shadow: ${({ shadowHover }) => shadowHover || ''};
+    transform: ${({ transformHover }) => transformHover || ''};
+    transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
+  }
+`;
+
 export const SimpleBtn = styled.div`
   border-radius: 3px;
   display: flex;

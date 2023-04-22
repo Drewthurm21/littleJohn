@@ -15,8 +15,12 @@ export default function Navbar() {
 
   let userLinks;
   if (currentUser) userLinks = <LogoutButton />
-  else userLinks = <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
-
+  else userLinks = (
+    <>
+      <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
+      <NavbarBtn to={'/signup'} exact={true}>Sign Up</NavbarBtn>
+    </>
+  )
   return (
     <>
       <NavContainer>
@@ -30,7 +34,7 @@ export default function Navbar() {
             <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
           ))}
         </NavBtnContainer>
-        <div style={{ width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
           {userLinks}
         </div>
       </NavContainer>

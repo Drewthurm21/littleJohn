@@ -19,10 +19,12 @@ export const StyledDiv = styled.div`
   /* Size & Space */
   width: ${({ w }) => w || ''};
   height: ${({ h }) => h || ''};
-  min-height: ${({ mh }) => mh || ''};
-  min-width: ${({ mw }) => mw || ''};
-  margin: ${({ m }) => m || '0'};
-  padding: ${({ p }) => p || '0'};
+  min-height: ${({ minH }) => minH || ''};
+  min-width: ${({ minW }) => minW || ''};
+  max-height: ${({ maxH }) => maxH || ''};
+  max-width: ${({ maxW }) => maxW || ''};
+  margin: ${({ margin }) => margin || '0'};
+  padding: ${({ pad }) => pad || '0'};
   ${({ marginY }) => marginY && `margin: ${marginY} 0 ${marginY} 0`};
   ${({ marginX }) => marginX && `margin: 0 ${marginX} 0 ${marginX}`};
   ${({ padY }) => padY && `padding: ${padY} 0 ${padY} 0`};
@@ -70,6 +72,19 @@ export const StyledSpan = styled.span`
   border: ${({ border }) => border || 'none'};
   border-radius: ${({ radius }) => radius || '0'};
   box-shadow: ${({ shadow }) => shadow || 'none'};
+  
+  /* Space */
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+  align-self: ${({ alignSelf }) => alignSelf || 'auto'};
+
+  /* Size & Position */
+  position: ${({ position }) => position || 'relative'};
+  top: ${({ top }) => top || '0'};
+  left: ${({ left }) => left || '0'};
+  right: ${({ right }) => right || '0'};
+  bottom: ${({ bottom }) => bottom || '0'};
+  ${({ selfBottom }) => selfBottom && `align-self: flex-end`};
 
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
