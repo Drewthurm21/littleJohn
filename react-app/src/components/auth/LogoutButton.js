@@ -12,6 +12,7 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 3px;
 
   &:hover {
     border-bottom: 3px solid #00cf98;

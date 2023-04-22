@@ -2,9 +2,11 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import * as sc from './styledComponents/'
-const { NavContainer, NavBtnContainer } = sc.containers;
-const { CrossBar, BannerImg } = sc.misc;
-const { NavbarBtn } = sc.buttons;
+const {
+  containers: { NavContainer, NavBtnContainer },
+  misc: { BannerImg, GlassDiv },
+  buttons: { NavbarBtn }
+} = sc;
 
 
 export default function Navbar() {
@@ -13,11 +15,14 @@ export default function Navbar() {
 
   let userLinks;
   if (currentUser) userLinks = <LogoutButton />
-  else userLinks = <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
-
+  else userLinks = (
+    <>
+      <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
+      <NavbarBtn to={'/signup'} exact={true}>Sign Up</NavbarBtn>
+    </>
+  )
   return (
     <>
-      <CrossBar />
       <NavContainer>
         <NavLink to='/' exact={true} activeClassName='active'>
           <BannerImg />
@@ -29,10 +34,11 @@ export default function Navbar() {
             <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
           ))}
         </NavBtnContainer>
-        <div style={{ width: '15em', height: '100%', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
           {userLinks}
         </div>
       </NavContainer>
+      <GlassDiv top={'3.9em'} blur="4px" />
     </>
   );
 }
