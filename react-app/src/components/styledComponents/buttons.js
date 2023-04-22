@@ -24,6 +24,8 @@ export const NavbarBtn = styled(NavLink)`
   align-items: center;
   justify-content: center;
   margin: 0 3em 0 0;
+  margin-bottom: 3px;
+  z-index: 1;
 
   &:hover {
     border-bottom: 3px solid #00cf98;
