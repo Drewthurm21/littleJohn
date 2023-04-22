@@ -1,38 +1,44 @@
-
-import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import * as sc from './styledComponents/'
+const {
+  containers: { NavContainer, NavBtnContainer },
+  misc: { BannerImg, GlassDiv },
+  buttons: { NavbarBtn }
+} = sc;
 
-const NavBar = () => {
+
+export default function Navbar() {
+
+  const currentUser = useSelector(state => state.session.user);
+
+  let userLinks;
+  if (currentUser) userLinks = <LogoutButton />
+  else userLinks = (
+    <>
+      <NavbarBtn to={'/login'} exact={true}>Login</NavbarBtn>
+      <NavbarBtn to={'/signup'} exact={true}>Sign Up</NavbarBtn>
+    </>
+  )
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
-      </ul>
-    </nav>
+    <>
+      <NavContainer>
+        <NavLink to='/' exact={true} activeClassName='active'>
+          <BannerImg />
+        </NavLink>
+        <NavBtnContainer>
+          {[['/', 'Home'],
+          ['/portfolios', 'Portfolios'],
+          ['/trades', 'Trades']].map(([url, label], i) => (
+            <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
+          ))}
+        </NavBtnContainer>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
+          {userLinks}
+        </div>
+      </NavContainer>
+      <GlassDiv top={'3.9em'} blur="4px" />
+    </>
   );
 }
-
-export default NavBar;
