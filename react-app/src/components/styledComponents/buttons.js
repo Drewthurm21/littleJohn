@@ -17,7 +17,7 @@ export const SimpleBtn = styled.div`
 export const NavbarBtn = styled(NavLink)`
   color: var(--black-ljt);
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 4px;
   height: 103%;
   width: 4em;
   display: flex;
@@ -29,7 +29,7 @@ export const NavbarBtn = styled(NavLink)`
     border-bottom: 3px solid #00cf98;
     -webkit-box-shadow: 0 6px 4px -4px #00cf98;
     -moz-box-shadow: 0 6px 4px -4px #00cf98;
-    box-shadow: 0 px 4px -4px #00cf98;
+    box-shadow: 0px 4px -4px #00cf98;
   }
 `;
 

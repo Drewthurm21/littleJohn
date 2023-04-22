@@ -7,8 +7,6 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
 import SplashPage from './components/SplashPage';
 
 function App() {
@@ -39,16 +37,10 @@ function App() {
           <Route path='/sign-up' exact={true}>
             <SignUpForm />
           </Route>
-          <ProtectedRoute path='/users' exact={true} >
-            <UsersList />
-          </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId' exact={true} >
-            <User />
-          </ProtectedRoute>
           <Route path='/home' exact={true} >
             {currentUser ?
-              <SplashPage /> :
-              <h1> Welcome to the home page! </h1>}
+              <h1> HOME </h1> :
+              <SplashPage />}
           </Route>
           <Route path='/' exact={true} >
             <Redirect to='/home' />
