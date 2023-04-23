@@ -1,6 +1,6 @@
 #db
 *dev.db
-
+/node_modules
 .env
 __pycache__/
 *.py[cod]
