@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const GridContainer = styled.div`
+export const AppGridContainer = styled.div`
   display: grid;
   height: 100%;
   min-height: 100vh;
@@ -15,7 +15,7 @@ export const GridContainer = styled.div`
   grid-gap: 0.25rem;
 `;
 
-export const AppContainer = styled.div`
+export const AppInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@ export const AppContainer = styled.div`
   grid-area: main;
 `;
 
-export const PageContainer = styled(AppContainer)`
+export const PageContainer = styled(AppInnerContainer)`
   width: 100%;
   height:100%;
 `;
@@ -34,12 +34,14 @@ export const Container = styled.div`
   flex-direction: ${({ col }) => col && 'column' || 'row'};
   justify-content: ${({ justify }) => justify || 'center'};
   align-items: ${({ align }) => align || 'center'};
+
   height: ${({ h }) => h || '100%'};
   width: ${({ w }) => w || '100%'};
   max-height: ${({ maxH }) => maxH || ''};
   max-width: ${({ maxW }) => maxW || ''};
   min-height: ${({ minH }) => minH || ''};
   min-width: ${({ minW }) => minW || ''};
+  
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
 
   ${({ inner }) => inner && `
@@ -48,8 +50,6 @@ export const Container = styled.div`
   `}
 
 `;
-
-
 
 export const NavContainer = styled.nav`
   display: flex;

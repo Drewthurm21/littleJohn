@@ -29,5 +29,26 @@
     --green-700:#00906a;
     --green-800:#007c5b;
     --green-900:#00674c;
-    --green-gradient:linear-gradient(74.84deg, rgb(0, 200, 5) 18.12%, rgb(195, 245, 60) 81.46%)
+    --red-50:#f7c1c1;
+    --red-100:#f4b1b1;
+    --red-200:#f19f9f;
+    --red-300:#ee8e8e;
+    --red-400:#eb7d7d;
+    --red-ljt:#e86c6c;
+    --red-500:#e55b5b;
+    --red-600:#e24a4a;
+    --red-700:#df3939;
+    --red-800:#dc2828;
+    --red-900:#d91717;
+    --indigo-50:#c7c7f7;
+    --indigo-100:#b9b9f4;
+    --indigo-200:#a9a9f1;
+    --indigo-300:#9a9aee;
+    --indigo-400:#8b8bed;
+    --indigo-ljt:#7c7cea;
+    --indigo-500:#6d6de7;
+    --indigo-600:#5e5ee4;
+    --indigo-700:#4f4fe1;
+    --indigo-800:#4040de;
+    --indigo-900: #18112d;
 }

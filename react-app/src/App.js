@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './store/session';
-import { AppContainer, GridContainer } from './components/styledComponents/containers';
+import { AppInnerContainer, AppGridContainer } from './components/styledComponents/containers';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -28,9 +28,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GridContainer>
+      <AppGridContainer>
         <NavBar />
-        <AppContainer>
+        <AppInnerContainer>
           <Switch>
             <Route path='/login' exact={true}>
               <LoginForm />
@@ -51,8 +51,8 @@ function App() {
             </ProtectedRoute>
           </Switch>
           <footer>Footer</footer>
-        </AppContainer>
-      </GridContainer>
+        </AppInnerContainer>
+      </AppGridContainer>
     </BrowserRouter>
   );
 }

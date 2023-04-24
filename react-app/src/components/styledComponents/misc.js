@@ -37,11 +37,13 @@ export const StyledDiv = styled.div`
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
   
   /* Colors & Border */
-  color: ${({ txColor }) => txColor || '#fff'};
+  color: ${({ txColor }) => txColor || '#000'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
   border: ${({ border }) => border || 'none'};
   border-radius: ${({ radius }) => radius || '0'};
   box-shadow: ${({ shadow }) => shadow || 'none'};
+  ${({ txWhite }) => txWhite && ({ color: 'white' })}
+  ${({ txBlack }) => txBlack && ({ color: 'black' })}
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -99,15 +101,6 @@ export const StyledSpan = styled.span`
   }
 `;
 
-export const CrossBar = styled.div`
-  min-height: 2em;
-  width: 100%;
-  background-color: ${({ bgColor }) => bgColor || `var(--green-ljt)`};
-  position: relative;
-  padding-bottom: 2px;
-  transition: all 0.3s ease-in-out;
-`;
-
 export const BannerImg = styled.div`
   content: '';
   width: 15em;
@@ -141,6 +134,7 @@ export const SpacerDiv = styled.div`
   min-height: ${({ h }) => h || '1em'};
   min-width: ${({ w }) => w || '100%'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  background-image: ${({ bgImage }) => bgImage || 'none'};
 `;
 
 export const StyledImg = styled.img`
