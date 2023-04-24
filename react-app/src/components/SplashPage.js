@@ -1,17 +1,9 @@
-import styled from 'styled-components';
 import * as sc from './styledComponents/'
 const {
   containers: { Container, PageContainer, },
-  misc: { SpacerDiv, StyledDiv, StyledSpan },
+  misc: { SpacerDiv, StyledDiv, StyledSpan, StyledImg },
   buttons: { CustomBtn }
 } = sc
-
-const imgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/product_hero_invest__d3559005213c848c01f05060ac9469e0.png'
-const PhoneImg = styled.img`
-  width: 100%;
-  max-width: 700px;
-  object-fit: contain;
-`;
 
 export default function SplashPage() {
 
@@ -34,9 +26,11 @@ export default function SplashPage() {
         </Container>
       </Container>
 
+      <SpacerDiv h='2em' bgColor='var(--green-gradient)' />
+
       <Container bgColor='#c3f53c'>
         <Container inner>
-          <PhoneImg src={imgSrc} alt='phone' />
+          <StyledImg src={phoneImgSrc} alt='phone' />
           <Container col>
             <StyledDiv txSize='3em'>Investing</StyledDiv>
             <StyledDiv>Intuitively</StyledDiv>
@@ -46,7 +40,7 @@ export default function SplashPage() {
 
       <Container bgColor='#c3f53c'>
         <Container inner>
-          <PhoneImg src={imgSrc} alt='phone' />
+          <StyledImg src={cryptoImgSrc} alt='phone' />
           <Container col>
             <StyledDiv txSize='3em'>Investing</StyledDiv>
             <StyledDiv>Intuitively</StyledDiv>
@@ -56,7 +50,7 @@ export default function SplashPage() {
 
       <Container bgColor='#c3f53c'>
         <Container inner>
-          <PhoneImg src={imgSrc} alt='phone' />
+          <StyledImg src={phoneImgSrc} alt='phone' />
           <Container col>
             <StyledDiv txSize='3em'>Investing</StyledDiv>
             <StyledDiv>Intuitively</StyledDiv>
@@ -66,20 +60,16 @@ export default function SplashPage() {
 
       <Container bgColor='#c3f53c'>
         <Container inner>
-          <PhoneImg src={imgSrc} alt='phone' />
+          <StyledImg src={phoneImgSrc} alt='phone' />
           <Container col>
             <StyledDiv txSize='3em'>Investing</StyledDiv>
             <StyledDiv>Intuitively</StyledDiv>
           </Container>
         </Container>
       </Container>
-
-
-      <StyledDiv txColor='white' txSize='100px' >EARN <StyledDiv margin='0 3rem 0 3rem' txColor='#ffcc69' txSize='132px'>4.4%</StyledDiv> APY</StyledDiv>
-      <StyledDiv txSize='65px'>On your cash!</StyledDiv>
-      <StyledDiv maxW='60%' txColor='white' txSize='1.5em' >
-        Earn more than ever on your uninvested cash, FDIC-insured up to $1.5 million*. Your first 30 days are free, then it’s just $5 a month.
-      </StyledDiv>
     </PageContainer >
   )
 };
+
+const phoneImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/product_hero_invest__d3559005213c848c01f05060ac9469e0.png'
+const cryptoImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/product_hero_crypto__6ef026ace9c7f7cf1047e15b98117523.png'

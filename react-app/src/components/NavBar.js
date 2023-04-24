@@ -25,7 +25,7 @@ export default function Navbar() {
     <>
       <NavContainer>
         <NavLink to='/' exact={true} activeClassName='active'>
-          <BannerImg />
+          <BannerImg bgImage={bannerImgSrc} />
         </NavLink>
         <NavBtnContainer>
           {[['/', 'Home'],
@@ -42,3 +42,5 @@ export default function Navbar() {
     </>
   );
 }
+
+const bannerImgSrc = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/src/assets/littleJohnBanner.png?raw=true'

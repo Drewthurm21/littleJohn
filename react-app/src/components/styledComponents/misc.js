@@ -29,13 +29,13 @@ export const StyledDiv = styled.div`
   ${({ padY }) => padY && `padding: ${padY} 0 ${padY} 0`};
   ${({ padX }) => padX && `padding: 0 ${padX} 0 ${padX}`};
 
-  /* Text */
+  /* Typography */
   font-size: ${({ txSize }) => txSize || '1em'};
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-align: ${({ txAlign }) => txAlign || 'left'};
-  text-decoration: ${({ txDecoration }) => txDecoration || 'none'};
-
+  text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  
   /* Colors & Border */
   color: ${({ txColor }) => txColor || '#fff'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
@@ -109,6 +109,7 @@ export const CrossBar = styled.div`
 `;
 
 export const BannerImg = styled.div`
+  content: '';
   width: 15em;
   height: 2.5em;
   background-image: ${({ bgImage }) => `url(${bgImage})`};
@@ -140,4 +141,10 @@ export const SpacerDiv = styled.div`
   min-height: ${({ h }) => h || '1em'};
   min-width: ${({ w }) => w || '100%'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
+`;
+
+export const StyledImg = styled.img`
+  width: 100%;
+  max-width: ${({ maxW }) => maxW || '100%'};
+  object-fit: contain;
 `;

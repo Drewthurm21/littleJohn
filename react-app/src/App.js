@@ -46,9 +46,8 @@ function App() {
             <Route path='/' exact={true} >
               <Redirect to='/home' />
             </Route>
-
             <ProtectedRoute path='*'>
-              <h1>404: Page Not Found</h1>
+              <h1 style={{ color: 'black' }}>404: Page Not Found</h1>
             </ProtectedRoute>
           </Switch>
           <footer>Footer</footer>
