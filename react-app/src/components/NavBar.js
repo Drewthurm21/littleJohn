@@ -4,7 +4,7 @@ import LogoutButton from './auth/LogoutButton';
 import * as sc from './styledComponents/'
 const {
   containers: { NavContainer, NavBtnContainer },
-  misc: { BannerImg, GlassDiv },
+  misc: { BannerImg, GlassBox },
   buttons: { NavbarBtn }
 } = sc;
 
@@ -38,7 +38,7 @@ export default function Navbar() {
           {userLinks}
         </div>
       </NavContainer>
-      <GlassDiv top={'3.9em'} blur="4px" />
+      <GlassBox position='fixed' w='100%' top={'4rem'} />
     </>
   );
 }

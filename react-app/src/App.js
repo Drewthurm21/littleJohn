@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './store/session';
-import { AppContainer } from './components/styledComponents/containers';
+import { AppContainer, GridContainer } from './components/styledComponents/containers';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -28,30 +28,32 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContainer>
+      <GridContainer>
         <NavBar />
-        <Switch>
-          <Route path='/login' exact={true}>
-            <LoginForm />
-          </Route>
-          <Route path='/signup' exact={true}>
-            <SignUpForm />
-          </Route>
-          <Route path='/home' exact={true} >
-            {currentUser ?
-              <h1> HOME </h1> :
-              <SplashPage />}
-          </Route>
-          <Route path='/' exact={true} >
-            <Redirect to='/home' />
-          </Route>
+        <AppContainer>
+          <Switch>
+            <Route path='/login' exact={true}>
+              <LoginForm />
+            </Route>
+            <Route path='/signup' exact={true}>
+              <SignUpForm />
+            </Route>
+            <Route path='/home' exact={true} >
+              {currentUser ?
+                <h1> HOME </h1> :
+                <SplashPage />}
+            </Route>
+            <Route path='/' exact={true} >
+              <Redirect to='/home' />
+            </Route>
 
-          <ProtectedRoute path='*'>
-            <h1>404: Page Not Found</h1>
-          </ProtectedRoute>
-        </Switch>
-        <footer>Footer</footer>
-      </AppContainer>
+            <ProtectedRoute path='*'>
+              <h1>404: Page Not Found</h1>
+            </ProtectedRoute>
+          </Switch>
+          <footer>Footer</footer>
+        </AppContainer>
+      </GridContainer>
     </BrowserRouter>
   );
 }

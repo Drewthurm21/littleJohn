@@ -7,17 +7,17 @@ const {
 } = sc
 
 const imgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/product_hero_invest__d3559005213c848c01f05060ac9469e0.png'
-const PhoneImg = styled.div`
+const PhoneImg = styled.img`
   width: 100%;
-  height: 100%;
+  max-width: 700px;
+  object-fit: contain;
 `;
 
 export default function SplashPage() {
 
   return (
     <PageContainer>
-      <SpacerDiv h='30em' />
-      <Container minH='50vw' bgColor='#000'>
+      <Container bgColor='#000'>
         <Container inner col bgColor='#000'>
           <StyledDiv w='80%'>
             <StyledSpan txColor='white' txSize='132px' txWeight='500'>Earn</StyledSpan>
@@ -36,9 +36,7 @@ export default function SplashPage() {
 
       <Container bgColor='#c3f53c'>
         <Container inner>
-          <PhoneImg >
-            <img src={imgSrc} alt="phone" />
-          </PhoneImg>
+          <PhoneImg src={imgSrc} alt='phone' />
           <Container col>
             <StyledDiv txSize='3em'>Investing</StyledDiv>
             <StyledDiv>Intuitively</StyledDiv>
@@ -46,15 +44,36 @@ export default function SplashPage() {
         </Container>
       </Container>
 
-      <Container inner>
-        <PhoneImg >
-          <img src={imgSrc} alt="phone" />
-        </PhoneImg>
-        <Container col>
-          <div style={{ fontSize: '5em', }}>INVEST</div>
-          <div>Intuitively</div>
+      <Container bgColor='#c3f53c'>
+        <Container inner>
+          <PhoneImg src={imgSrc} alt='phone' />
+          <Container col>
+            <StyledDiv txSize='3em'>Investing</StyledDiv>
+            <StyledDiv>Intuitively</StyledDiv>
+          </Container>
         </Container>
       </Container>
+
+      <Container bgColor='#c3f53c'>
+        <Container inner>
+          <PhoneImg src={imgSrc} alt='phone' />
+          <Container col>
+            <StyledDiv txSize='3em'>Investing</StyledDiv>
+            <StyledDiv>Intuitively</StyledDiv>
+          </Container>
+        </Container>
+      </Container>
+
+      <Container bgColor='#c3f53c'>
+        <Container inner>
+          <PhoneImg src={imgSrc} alt='phone' />
+          <Container col>
+            <StyledDiv txSize='3em'>Investing</StyledDiv>
+            <StyledDiv>Intuitively</StyledDiv>
+          </Container>
+        </Container>
+      </Container>
+
 
       <StyledDiv txColor='white' txSize='100px' >EARN <StyledDiv margin='0 3rem 0 3rem' txColor='#ffcc69' txSize='132px'>4.4%</StyledDiv> APY</StyledDiv>
       <StyledDiv txSize='65px'>On your cash!</StyledDiv>

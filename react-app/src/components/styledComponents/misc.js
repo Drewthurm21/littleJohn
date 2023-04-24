@@ -1,5 +1,4 @@
 import styled from "styled-components";
-const littleJohnLogo = require('../../assets/littleJohnBanner.png');
 
 export const StyledDiv = styled.div`
   /* Layout */
@@ -112,23 +111,27 @@ export const CrossBar = styled.div`
 export const BannerImg = styled.div`
   width: 15em;
   height: 2.5em;
-  background-image: url(${littleJohnLogo});
+  background-image: ${({ bgImage }) => `url(${bgImage})`};
   background-size: cover;
   left: 0;
   border: none;
 `;
 
-export const GlassDiv = styled.div`
+export const GlassBox = styled.div`
   content: '';
-  min-height: 2.5em;
-  position: absolute;
+  height: ${({ h }) => h || '30px'};
+  width: ${({ w }) => w || '30px'};
+  position: ${({ position }) => position || 'absolute'};
   top: ${({ top }) => top || '0'};
-  width: 100%;
-  /* background: linear-gradient()(transparent 20%, transparent 30%, black); */
-  backdrop-filter: blur(${({ blur }) => blur || '5px'});
-  -webkit-backdrop-filter:${({ blur }) => `blur(${blur})` || 'blur( 1px )'};
-  -webkit-mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
+  left: ${({ left }) => left || '0'};
+  right: ${({ right }) => right || '0'};
+  bottom: ${({ bottom }) => bottom || '0'};
+  z-index: 4;
+
+  backdrop-filter: blur(${({ blur }) => blur || '8px'});
   mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
+
+  ${({ minW }) => minW && `min-width: ${minW}`};
 `;
 
 export const SpacerDiv = styled.div`
