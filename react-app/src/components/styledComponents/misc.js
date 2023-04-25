@@ -35,14 +35,20 @@ export const StyledDiv = styled.div`
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-align: ${({ txAlign }) => txAlign || 'left'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
-  
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
+  ${({ bold }) => bold && ({ fontWeight: 'bold' })}
+  ${({ txSmall }) => txSmall && ({ fontSize: '.8vw' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2vw' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '3vw' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '5vw' })}
+
   /* Colors & Border */
   color: ${({ txColor }) => txColor || '#000'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
   border: ${({ border }) => border || 'none'};
   border-radius: ${({ radius }) => radius || '0'};
   box-shadow: ${({ shadow }) => shadow || 'none'};
-  ${({ txWhite }) => txWhite && ({ color: 'white' })}
+    ${({ txWhite }) => txWhite && ({ color: 'white' })}
   ${({ txBlack }) => txBlack && ({ color: 'black' })}
   
   /* Misc */
@@ -66,6 +72,11 @@ export const StyledSpan = styled.span`
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
+  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};
@@ -85,7 +96,13 @@ export const StyledSpan = styled.span`
   left: ${({ left }) => left || '0'};
   right: ${({ right }) => right || '0'};
   bottom: ${({ bottom }) => bottom || '0'};
-  ${({ selfBottom }) => selfBottom && `align-self: flex-end`};
+  ${({ footNote }) => footNote && `
+  align-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+  `};
 
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -115,12 +132,12 @@ export const GlassBox = styled.div`
   content: '';
   height: ${({ h }) => h || '30px'};
   width: ${({ w }) => w || '30px'};
-  position: ${({ position }) => position || 'absolute'};
+  position: ${({ position }) => position || 'relative'};
   top: ${({ top }) => top || '0'};
   left: ${({ left }) => left || '0'};
   right: ${({ right }) => right || '0'};
   bottom: ${({ bottom }) => bottom || '0'};
-  z-index: 4;
+  z-index: ${({ zIndex }) => zIndex || ''};
 
   backdrop-filter: blur(${({ blur }) => blur || '8px'});
   mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
@@ -140,5 +157,7 @@ export const SpacerDiv = styled.div`
 export const StyledImg = styled.img`
   width: 100%;
   max-width: ${({ maxW }) => maxW || '100%'};
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
   object-fit: contain;
 `;
