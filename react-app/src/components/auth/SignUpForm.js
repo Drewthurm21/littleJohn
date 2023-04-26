@@ -1,93 +1,95 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { login, signUp } from '../../store/session';
+import { CustomBtn } from '../styledComponents/buttons';
+import { StyledDiv, StyledInput, Checkmark } from '../styledComponents/misc';
+import { signupFormValidator } from './FormValidators';
+
 
 const SignUpForm = () => {
-  const [errors, setErrors] = useState([]);
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const [signupClicked, setSignupClicked] = useState(false);
+
+  useEffect(() => {
+    const formInfo = { username, email, password, repeatPassword };
+    const validatedForm = signupFormValidator(formInfo);
+
+    if (validatedForm.isValid) setErrors({})
+    else setErrors(validatedForm.errors);
+
+  }, [email, password, repeatPassword, username, signupClicked])
+
   const user = useSelector(state => state.session.user);
-  const dispatch = useDispatch();
+  if (user) return <Redirect to='/' />;
+
+  const createInput = (options, i) => {
+    const { label, type, name, value, checkVal, onChange } = options;
+    return (<>
+      <label key={i} style={{ color: 'black' }} htmlFor='email'>{label}</label>
+      {signupClicked && errors[name] && <StyledDiv>{errors[name]}</StyledDiv>}
+      <StyledDiv key={i} direction='row'>
+        <StyledInput h='3vw' w='18vw' margin='8px 0 2vh 0'
+          name='email' type={type} value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+        {!checkVal && <Checkmark>✓</Checkmark>}
+      </StyledDiv>
+    </>
+    )
+  };
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data)
-      }
-    }
+    setSignupClicked(true);
+    if (Object.keys(errors).length) return;
+
+    const data = await dispatch(signUp(username, email, password));
+    if (data) setErrors(data);
   };
 
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
+  const demoLogin = async () => {
+    const data = await dispatch(login('littleJohn@littleJohn.com', 'password'));
+    if (data) setErrors(data);
   };
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
-
-  if (user) {
-    return <Redirect to='/' />;
-  }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+    <StyledDiv direction='column'>
+      {[
+        {
+          label: 'Username', type: 'text', name: 'username',
+          value: username, checkVal: errors.username, onChange: setUsername
+        },
+        {
+          label: 'Email', type: 'text', name: 'email',
+          value: email, checkVal: errors.email, onChange: setEmail
+        },
+        {
+          label: 'Password', type: 'password', name: 'password',
+          value: password, checkVal: errors.password, onChange: setPassword
+        },
+        {
+          label: 'Repeat Password', type: 'password', name: 'repeatPassword',
+          value: repeatPassword, checkVal: errors.repeatPassword, onChange: setRepeatPassword
+        },
+      ].map((input, i) => createInput(input, i))}
+
+      <CustomBtn rounded margin='0 0 2vh 0'
+        txColor='white' bgColor='black'
+        onClick={onSignUp}
+      >Sign Up</CustomBtn>
+
+      <CustomBtn rounded
+        txColor='white' bgColor='black'
+        onClick={demoLogin}
+      >Log in as Demo User</CustomBtn>
+
+    </StyledDiv>
   );
 };
 

@@ -15,7 +15,7 @@ export default function SignupPage() {
         >
           <StyledDiv txXLarge >Create your login</StyledDiv>
           <StyledDiv maxW='75%' txMedium >We'll need your username, a valid email address, and a password. You'll use this login to access LittleJohn next time.</StyledDiv>
-          <StyledImg w='500px' h='520px' src={rocketsImgSrc} />
+          <StyledImg w='500px' src={rocketsImgSrc} />
         </StyledDiv>
         <StyledDiv h='100%' minW='50%' direction='column'
           pad='0 0 0 60px'>

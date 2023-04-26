@@ -51,8 +51,8 @@ function App() {
               <h1 style={{ color: 'black' }}>404: Page Not Found</h1>
             </ProtectedRoute>
           </Switch>
-          <footer>Footer</footer>
         </AppInnerContainer>
+        <div className='footer'>Footer</div>
       </AppGridContainer>
     </BrowserRouter>
   );
