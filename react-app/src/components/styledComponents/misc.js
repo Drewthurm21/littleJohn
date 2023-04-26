@@ -5,8 +5,8 @@ export const StyledDiv = styled.div`
   display: ${({ display }) => display || 'flex'};
   flex-wrap: ${({ wrap }) => wrap || 'wrap'};
   flex-direction: ${({ direction }) => direction || 'row'};
-  justify-content: ${({ justify }) => justify || 'center'};
-  align-items: ${({ align }) => align || 'center'};
+  justify-content: ${({ justify }) => justify || ''};
+  align-items: ${({ align }) => align || ''};
   
   /* Positioning */
   position: ${({ position }) => position || ''};
@@ -159,5 +159,7 @@ export const StyledImg = styled.img`
   max-width: ${({ maxW }) => maxW || '100%'};
   margin: ${({ margin }) => margin || '0px'};
   padding: ${({ pad }) => pad || '0px'};
-  object-fit: contain;
+  object-fit: cover;
+  
+  border-radius: ${({ radius }) => radius || '0'};
 `;

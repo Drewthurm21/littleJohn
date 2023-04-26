@@ -7,6 +7,10 @@ export const CustomBtn = styled.button`
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};

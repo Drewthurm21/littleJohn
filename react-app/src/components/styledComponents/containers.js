@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const AppGridContainer = styled.div`
   display: grid;
   height: 100%;
@@ -41,12 +40,24 @@ export const Container = styled.div`
   max-width: ${({ maxW }) => maxW || ''};
   min-height: ${({ minH }) => minH || ''};
   min-width: ${({ minW }) => minW || ''};
+
+  margin: ${({ margin }) => margin || '0'};
+  padding: ${({ padding }) => padding || '0'};
   
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  border: ${({ border }) => border || 'none'};
+
+  overflow-y: ${({ overflowY }) => overflowY || 'hidden'};
+  overflow-x: ${({ overflowX }) => overflowX || 'hidden'};
+
 
   ${({ inner }) => inner && `
   padding: 0 10% 0 10%;
   max-width: 2000px;
+  `}
+
+  ${({ rounded }) => rounded && `
+  border-radius: 24px;
   `}
 
 `;
@@ -75,3 +86,10 @@ export const NavBtnContainer = styled(Container)`
   max-width: 1000px;
   width: 33%;
 `;
+
+export const SliderContainer = styled(Container)`
+  width: 70vw;
+  max-width: 1000px;
+  height: 900px;
+  padding: 0 10% 0 10%;
+  `;

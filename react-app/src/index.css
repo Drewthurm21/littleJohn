@@ -1,11 +1,4 @@
 /* TODO Add site wide styles */
-*, :after, :before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
-
 :root {
     --eerie-black: #0b0b0b;
     --logo-green:#00cf98;
@@ -54,4 +47,57 @@
     --indigo-700:#4f4fe1;
     --indigo-800:#4040de;
     --indigo-900: #18112d;
+}
+
+*, :after, :before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slider {
+    height: 700px;
+    width: 100%;
+}
+  
+.card {
+    position: absolute;
+    top: 0;
+    right: 10%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 25vw;
+    min-width: 400px;
+    object-fit: cover;
+    cursor: pointer;
+    z-index: 0;
+    opacity: 0;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.card--active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 99;
+}
+
+.card--left {
+    transform: translateX(-125%) scale(0.8);
+    transition: 500ms;
+    opacity: 0.3;
+}
+
+.card--right {
+    transform: translateX(125%) scale(0.8);
+    transition: 500ms;
+    opacity: 0.3;
 }

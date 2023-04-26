@@ -1,4 +1,6 @@
+import Slider, { SliderCard } from './Slider'
 import * as sc from './styledComponents/'
+
 const {
   containers: { Container, PageContainer, },
   misc: { SpacerDiv, StyledDiv, StyledSpan, StyledImg },
@@ -9,8 +11,8 @@ export default function SplashPage() {
 
   return (
     <PageContainer>
-      <Container bgColor='#000'>
-        <Container inner col bgColor='#000'>
+      <Container bgColor='#000' >
+        <Container inner col bgColor='#000' minH='800px'>
           <StyledDiv w='80%'>
             <StyledDiv txWhite txSize='9vw' txWeight='500'>Earn</StyledDiv>
             <StyledDiv pad='0 1rem 1rem 1rem' txColor='#ffc757' txSize='9vw' txWeight='500'>4.4%</StyledDiv>
@@ -28,15 +30,12 @@ export default function SplashPage() {
 
       <SpacerDiv h='2em' bgImage={greenGradient} />
 
-      <Container bgColor='#f0ebe6' h='900px'>
-        <Container inner>
-          <StyledImg src={phoneImgSrc} alt='phone' />
-          <Container col>
-
-          </Container>
-        </Container>
+      <Container col bgColor='#f0ebe6' minH='800px'>
+        <Slider />
       </Container>
-      <Container bgColor='var(--bright-green)'>
+
+
+      <Container bgColor='var(--bright-green)' minH='800px'>
         <Container inner justify='space-between'>
           <StyledImg src={phoneImgSrc} alt='phone' margin='0 5rem 0 0' />
           <Container col align='flex-start'>
@@ -51,7 +50,7 @@ export default function SplashPage() {
         </Container>
       </Container>
 
-      <Container bgColor='var(--indigo-900)' h='900px'>
+      <Container bgColor='var(--indigo-900)' minH='800px'>
         <Container inner>
           <StyledImg src={cryptoImgSrc} alt='crypto' margin='0 5rem 0 0' />
           <Container col align='flex-start'>
