@@ -1,12 +1,6 @@
-import * as sc from './components/styledComponents'
 import LoginForm from './components/auth/LoginForm'
-const {
-  containers: { Container, PageContainer, },
-  misc: { ImageDiv, StyledDiv, StyledSpan, StyledImg },
-  buttons: { CustomBtn }
-} = sc
-
-
+import { Container, PageContainer } from './components/styledComponents/containers'
+import { ImageDiv, SpacerDiv, StyledDiv } from './components/styledComponents/misc'
 
 export default function LoginPage() {
 
@@ -21,7 +15,10 @@ export default function LoginPage() {
           content=''
         />
 
-        <StyledDiv minW='50%'>
+        <StyledDiv h='100%' minW='50%' direction='column'
+          pad='0 0 0 60px'>
+          <SpacerDiv h='25%' />
+          <StyledDiv txMedium margin='0 0 8vh 0'>Sign up with LittleJohn</StyledDiv>
           <LoginForm />
         </StyledDiv>
       </Container>

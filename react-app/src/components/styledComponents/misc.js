@@ -164,3 +164,64 @@ export const StyledImg = styled.img`
   cursor: ${({ cursor }) => cursor || 'default'};
   border-radius: ${({ radius }) => radius || '0'};
 `;
+
+export const StyledInput = styled.input`
+  /* Text */
+  font-size: ${({ txSize }) => txSize || '1em'};
+  font-weight: ${({ txWeight }) => txWeight || 'normal'};
+  font-family: ${({ txFont }) => txFont || 'inherit'};
+  text-decoration: ${({ txDeco }) => txDeco || 'none'};
+
+  /* Colors & Border */
+  color: ${({ txColor }) => txColor || 'black'};
+  background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  border: ${({ border }) => border || 'none'};
+  border-radius: ${({ radius }) => radius || '0'};
+  box-shadow: ${({ shadow }) => shadow || 'none'};
+
+  /* Space */
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+  align-self: ${({ alignSelf }) => alignSelf || 'auto'};
+  width: ${({ w }) => w || '100%'};
+  height: ${({ h }) => h || '100%'};
+
+  /* Size & Position */
+  position: ${({ position }) => position || 'relative'};
+  top: ${({ top }) => top || '0'};
+  left: ${({ left }) => left || '0'};
+  right: ${({ right }) => right || '0'};
+  bottom: ${({ bottom }) => bottom || '0'};
+  
+  /* Misc */
+  overflow: ${({ overflow }) => overflow || 'hidden'};
+  transition: ${({ transition }) => transition || 'none'};
+  cursor: ${({ cursor }) => cursor || 'default'};
+  content: ${({ content }) => content || 'none'};
+  
+  &:hover {
+    border: ${({ borderHover }) => borderHover || 'none'};
+    background-color: ${({ bgColorHover }) => bgColorHover || 'transparent'};
+    box-shadow: ${({ shadowHover }) => shadowHover || 'none'};
+    transform: ${({ transformHover }) => transformHover || 'none'};
+    transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
+  }
+
+  &:focus {
+    outline: none;
+    border: ${({ borderFocus }) => borderFocus || 'none'};
+    color: ${({ txColorFocus }) => txColorFocus || 'black'};
+
+  }
+
+  &::placeholder,
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder {
+    color: ${({ placeholderColor }) => placeholderColor || 'black'};
+  }
+
+  :valid {
+    border: ${({ borderValid }) => borderValid || '1px solid black'};
+  }
+  
+`;

@@ -67,7 +67,7 @@ export default function Slider() {
     setTimeout(() => {
       setIndex((index + 1) % cards.length);
       console.log(index);
-    }, 5000);
+    }, 3500);
   }, [index]);
 
   return (
