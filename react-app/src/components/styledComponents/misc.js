@@ -60,9 +60,9 @@ export const StyledDiv = styled.div`
   content: ${({ content }) => content || 'none'};
 
   &:hover {
-    background-color: ${({ bgColorHover }) => bgColorHover || 'transparent'};
-    box-shadow: ${({ shadowHover }) => shadowHover || 'none'};
-    transform: ${({ transformHover }) => transformHover || 'none'};
+    background-color: ${({ bgColorHover }) => bgColorHover || ''};
+    box-shadow: ${({ shadowHover }) => shadowHover || ''};
+    transform: ${({ transformHover }) => transformHover || ''};
     transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
   }
 `;
