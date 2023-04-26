@@ -3,11 +3,11 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './store/session';
 import { AppInnerContainer, AppGridContainer } from './components/styledComponents/containers';
-import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import SplashPage from './components/SplashPage';
+import SplashPage from './SplashPage';
+import LoginPage from './LoginPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function App() {
         <AppInnerContainer>
           <Switch>
             <Route path='/login' exact={true}>
-              <LoginForm />
+              <LoginPage />
             </Route>
             <Route path='/signup' exact={true}>
               <SignUpForm />

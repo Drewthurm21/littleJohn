@@ -4,7 +4,7 @@ import LogoutButton from './auth/LogoutButton';
 import * as sc from './styledComponents/'
 const {
   containers: { NavContainer, NavBtnContainer },
-  misc: { BannerImg, GlassBox },
+  misc: { ImageDiv, GlassBox },
   buttons: { NavbarBtn }
 } = sc;
 
@@ -25,7 +25,7 @@ export default function Navbar() {
     <>
       <NavContainer>
         <NavLink to='/' exact={true} activeClassName='active'>
-          <BannerImg bgImage={bannerImgSrc} />
+          <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
         </NavLink>
         <NavBtnContainer>
           {[['/', 'Home'],
