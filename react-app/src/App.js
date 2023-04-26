@@ -8,6 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import SplashPage from './SplashPage';
 import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
+import MissingPage from './MissingPage';
+import './index.css';
 
 
 function App() {
@@ -39,17 +41,21 @@ function App() {
             <Route path='/signup' exact={true}>
               <SignupPage />
             </Route>
-            <Route path='/home' exact={true} >
-              {currentUser ?
-                <h1> HOME </h1> :
-                <SplashPage />}
-            </Route>
-            <Route path='/' exact={true} >
-              <Redirect to='/home' />
-            </Route>
-            <ProtectedRoute path='*'>
-              <h1 style={{ color: 'black' }}>404: Page Not Found</h1>
+            <ProtectedRoute path='/home' exact={true} >
+              <h1> HOME </h1>
             </ProtectedRoute>
+            <ProtectedRoute path='/portfolios' exact={true} >
+              <h1> portfolios </h1>
+            </ProtectedRoute>
+            <ProtectedRoute path='/trades' exact={true} >
+              <h1> trades </h1>
+            </ProtectedRoute>
+            <Route path='/' exact={true} >
+              <SplashPage />
+            </Route>
+            <Route path='*'>
+              <MissingPage />
+            </Route>
           </Switch>
         </AppInnerContainer>
         <div className='footer'>Footer</div>

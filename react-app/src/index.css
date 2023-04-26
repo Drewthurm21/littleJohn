@@ -101,18 +101,3 @@
     opacity: 0.3;
 }
 
-.mediaCol {
-    @media (max-width: 2000px) {
-        flex-direction: column;
-    }    
-};
-
-
-.footer {
-    width: 100%;
-    height: 100%;
-    grid-area: footer;
-    color: black;
-    border-top: 1px solid black;
-    background-color: black;
-}
