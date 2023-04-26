@@ -14,12 +14,10 @@ export const SliderCard = ({ cardInfo }) => {
   const { titleText, imgSrc, infoText, btnText, disclaimer } = cardInfo
   const history = useHistory()
 
-  const goToSignup = () => {
-    history.push('/signup')
-  }
+  const goToSignup = () => history.push('/signup')
 
   return (
-    <StyledDiv onClick={goToSignup} h='550px' w='45vw' cursor='pointer'>
+    <StyledDiv onClick={goToSignup} h='600px' w='45vw' cursor='pointer'>
       <Container rounded col bgColor='white'>
 
         {/* card top */}
@@ -59,41 +57,26 @@ export const SliderCard = ({ cardInfo }) => {
   );
 };
 
-
 export default function Slider() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIndex((index + 1) % cards.length);
-      console.log(index);
-    }, 3500);
+    setTimeout(() => setIndex((index + 1) % cards.length), 3500);
   }, [index]);
 
   return (
     <div className="slider">
       <div className="carousel">
         {cards.map((item, i) => {
-          const indexLeft = mod(index - 1, cards.length);
-          const indexRight = mod(index + 1, cards.length);
+          const indexLeft = ((index + 1) % cards.length);
 
           let className = "card";
-
-          if (i === index) {
-            className = "card card--active";
-          } else if (i === indexRight) {
-            className = "card card--right";
-          } else if (i === indexLeft) {
-            className = "card card--left";
-          } else className = "card";
+          if (i === index) className += " card--active"
+          else if (i === indexLeft) className += " card--right"
+          else className += " card--left";
 
           return (
-            <div to='/signup'
-              key={item.id}
-              className={className}
-              src={item.image}
-              alt="Comic"
-            >
+            <div key={item.id} className={className}>
               <SliderCard cardInfo={item} />
             </div>
           );
@@ -136,8 +119,3 @@ const cards = [
   },
 ];
 
-const mod = (n, m) => {
-  let result = n % m;
-  // Return a positive value
-  return result >= 0 ? result : result + m;
-};

@@ -18,7 +18,7 @@ export default function LoginPage() {
         <StyledDiv h='100%' minW='50%' direction='column'
           pad='0 0 0 60px'>
           <SpacerDiv h='25%' />
-          <StyledDiv txMedium margin='0 0 8vh 0'>Sign up with LittleJohn</StyledDiv>
+          <StyledDiv txMedium margin='0 0 8vh 0'>Log in to LittleJohn</StyledDiv>
           <LoginForm />
         </StyledDiv>
       </Container>

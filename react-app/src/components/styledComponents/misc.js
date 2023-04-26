@@ -7,7 +7,7 @@ export const StyledDiv = styled.div`
   flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || ''};
   align-items: ${({ align }) => align || ''};
-  ${({ gridArea }) => gridArea && `grid-area: ${gridArea};` || ''};
+  ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
   
   /* Positioning */
   position: ${({ position }) => position || ''};
@@ -60,9 +60,9 @@ export const StyledDiv = styled.div`
   content: ${({ content }) => content || 'none'};
 
   &:hover {
-    background-color: ${({ bgColorHover }) => bgColorHover || 'transparent'};
-    box-shadow: ${({ shadowHover }) => shadowHover || 'none'};
-    transform: ${({ transformHover }) => transformHover || 'none'};
+    background-color: ${({ bgColorHover }) => bgColorHover || ''};
+    box-shadow: ${({ shadowHover }) => shadowHover || ''};
+    transform: ${({ transformHover }) => transformHover || ''};
     transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
   }
 `;
@@ -156,13 +156,20 @@ export const SpacerDiv = styled.div`
 `;
 
 export const StyledImg = styled.img`
-  width: 100%;
+  width: ${({ w }) => w || '100%'};
+  height: ${({ h }) => h || ''};
   max-width: ${({ maxW }) => maxW || '100%'};
   margin: ${({ margin }) => margin || '0px'};
   padding: ${({ pad }) => pad || '0px'};
   object-fit: cover;
   cursor: ${({ cursor }) => cursor || 'default'};
   border-radius: ${({ radius }) => radius || '0'};
+
+  @media only screen and (max-width: 768px) {
+    width: 50%;
+    max-width: 70%;
+    
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -223,5 +230,5 @@ export const StyledInput = styled.input`
   :valid {
     border: ${({ borderValid }) => borderValid || '1px solid black'};
   }
-  
+
 `;
