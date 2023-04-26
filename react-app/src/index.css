@@ -3,7 +3,7 @@
     --eerie-black: #0b0b0b;
     --logo-green:#00cf98;
     --bright-green: #c3f53c;
-
+    --splash-gradient: linear-gradient(74.84deg, rgb(0, 200, 5) 18.12%, rgb(195, 245, 60) 81.46%);
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
     --gray-200: #e5e7eb;
@@ -47,6 +47,7 @@
     --indigo-700:#4f4fe1;
     --indigo-800:#4040de;
     --indigo-900: #18112d;
+    
 }
 
 *, :after, :before {
@@ -100,3 +101,8 @@
     opacity: 0.3;
 }
 
+.mediaCol {
+    @media (max-width: 2000px) {
+        flex-direction: column;
+    }    
+};

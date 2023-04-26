@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+
 
 export const AppGridContainer = styled.div`
   display: grid;
@@ -30,7 +32,7 @@ export const PageContainer = styled(AppInnerContainer)`
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: ${({ col }) => col && 'column' || 'row'};
+  flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || 'center'};
   align-items: ${({ align }) => align || 'center'};
 
@@ -60,6 +62,8 @@ export const Container = styled.div`
   border-radius: 24px;
   `}
 
+  ${({ col }) => col && `flex-direction: column;`}
+  
 `;
 
 export const NavContainer = styled.nav`
@@ -112,4 +116,12 @@ export const GridContainer = styled.div`
     "${grid2x2}1 ${grid2x2}2"
     "${grid2x2}3 ${grid2x2}4";
   `)}
+`;
+
+export const SplashContainer = styled(Container)`
+  @media screen and (min-width: 420px) and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
