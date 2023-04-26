@@ -7,6 +7,7 @@ export const StyledDiv = styled.div`
   flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || ''};
   align-items: ${({ align }) => align || ''};
+  ${({ gridArea }) => gridArea && `grid-area: ${gridArea};` || ''};
   
   /* Positioning */
   position: ${({ position }) => position || ''};
@@ -35,12 +36,12 @@ export const StyledDiv = styled.div`
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-align: ${({ txAlign }) => txAlign || 'left'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
-  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
-  ${({ bold }) => bold && ({ fontWeight: 'bold' })}
-  ${({ txSmall }) => txSmall && ({ fontSize: '.8vw' })}
-  ${({ txMedium }) => txMedium && ({ fontSize: '1.2vw' })}
-  ${({ txLarge }) => txLarge && ({ fontSize: '3vw' })}
-  ${({ txXLarge }) => txXLarge && ({ fontSize: '5vw' })}
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })};
+  ${({ bold }) => bold && ({ fontWeight: 'bold' })};
+  ${({ txSmall }) => txSmall && ({ fontSize: '.8vw' })};
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2vw' })};
+  ${({ txLarge }) => txLarge && ({ fontSize: '3vw' })};
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '5vw' })};
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || '#000'};
@@ -48,8 +49,8 @@ export const StyledDiv = styled.div`
   border: ${({ border }) => border || 'none'};
   border-radius: ${({ radius }) => radius || '0'};
   box-shadow: ${({ shadow }) => shadow || 'none'};
-    ${({ txWhite }) => txWhite && ({ color: 'white' })}
-  ${({ txBlack }) => txBlack && ({ color: 'black' })}
+  ${({ txWhite }) => txWhite && ({ color: 'white' })};
+  ${({ txBlack }) => txBlack && ({ color: 'black' })};
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -72,11 +73,11 @@ export const StyledSpan = styled.span`
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
-  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
-  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })}
-  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })}
-  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })}
-  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })}
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })};
+  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })};
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })};
+  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })};
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })};
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};
@@ -118,10 +119,10 @@ export const StyledSpan = styled.span`
   }
 `;
 
-export const BannerImg = styled.div`
+export const ImageDiv = styled.div`
   content: '';
-  width: 15em;
-  height: 2.5em;
+  width: ${({ w }) => w || '100%'};
+  height: ${({ h }) => h || '100%'};
   background-image: ${({ bgImage }) => `url(${bgImage})`};
   background-size: cover;
   left: 0;

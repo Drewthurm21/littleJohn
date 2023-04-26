@@ -86,3 +86,30 @@ export const NavBtnContainer = styled(Container)`
   max-width: 1000px;
   width: 33%;
 `;
+
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${({ cols }) => cols || 1}, 1fr);
+  grid-template-rows: repeat(${({ rows }) => rows || 1}, 1fr);
+  grid-gap: ${({ gap }) => gap || '0'};
+  grid-template-areas: ${({ areas }) => areas || 'none'};
+  
+  height: ${({ h }) => h || '100%'};
+  width: ${({ w }) => w || '100%'};
+  max-height: ${({ maxH }) => maxH || ''};
+  max-width: ${({ maxW }) => maxW || ''};
+  min-height: ${({ minH }) => minH || ''};
+  min-width: ${({ minW }) => minW || ''};
+
+  margin: ${({ margin }) => margin || '0'};
+  padding: ${({ padding }) => padding || '0'};
+
+  ${({ grid2x2 }) => grid2x2 && (`
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "${grid2x2}1 ${grid2x2}2"
+    "${grid2x2}3 ${grid2x2}4";
+  `)}
+`;

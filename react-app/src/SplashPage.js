@@ -1,4 +1,4 @@
-import Slider, { SliderCard } from './components/Slider'
+import Slider from './components/Slider'
 import * as sc from './components/styledComponents'
 
 const {
