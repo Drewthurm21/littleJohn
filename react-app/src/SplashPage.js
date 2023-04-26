@@ -1,5 +1,5 @@
-import Slider, { SliderCard } from './Slider'
-import * as sc from './styledComponents/'
+import Slider from './components/Slider'
+import * as sc from './components/styledComponents'
 
 const {
   containers: { Container, PageContainer, },

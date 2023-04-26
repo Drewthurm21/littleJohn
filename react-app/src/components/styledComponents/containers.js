@@ -77,8 +77,8 @@ export const NavContainer = styled.nav`
   -webkit-backdrop-filter: blur( 5px );
   border-bottom: 4px solid rgba( 220,220,220 0.35 );
   grid-area: nav;
-  z-index: 3;
-`;
+  z-index: 10;
+  `;
 
 export const NavBtnContainer = styled(Container)`
   overflow: hidden;
@@ -87,9 +87,29 @@ export const NavBtnContainer = styled(Container)`
   width: 33%;
 `;
 
-export const SliderContainer = styled(Container)`
-  width: 70vw;
-  max-width: 1000px;
-  height: 900px;
-  padding: 0 10% 0 10%;
-  `;
+
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${({ cols }) => cols || 1}, 1fr);
+  grid-template-rows: repeat(${({ rows }) => rows || 1}, 1fr);
+  grid-gap: ${({ gap }) => gap || '0'};
+  grid-template-areas: ${({ areas }) => areas || 'none'};
+  
+  height: ${({ h }) => h || '100%'};
+  width: ${({ w }) => w || '100%'};
+  max-height: ${({ maxH }) => maxH || ''};
+  max-width: ${({ maxW }) => maxW || ''};
+  min-height: ${({ minH }) => minH || ''};
+  min-width: ${({ minW }) => minW || ''};
+
+  margin: ${({ margin }) => margin || '0'};
+  padding: ${({ padding }) => padding || '0'};
+
+  ${({ grid2x2 }) => grid2x2 && (`
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "${grid2x2}1 ${grid2x2}2"
+    "${grid2x2}3 ${grid2x2}4";
+  `)}
+`;

@@ -3,17 +3,15 @@ import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { StyledSpan } from './styledComponents/misc';
 
 const {
   containers: { Container },
-  misc: { StyledDiv, StyledImg },
+  misc: { StyledDiv, StyledImg, StyledSpan },
   buttons: { CustomBtn }
 } = sc
 
 export const SliderCard = ({ cardInfo }) => {
   const { titleText, imgSrc, infoText, btnText, disclaimer } = cardInfo
-
   const history = useHistory()
 
   const goToSignup = () => {
@@ -26,7 +24,7 @@ export const SliderCard = ({ cardInfo }) => {
 
         {/* card top */}
         <StyledDiv w='100%' h='100%' >
-          <StyledImg radius='20px 20px 0 0' src={imgSrc} />
+          <StyledImg cursor='pointer' radius='20px 20px 0 0' src={imgSrc} />
         </StyledDiv>
 
         {/* card bottom */}
@@ -52,14 +50,10 @@ export const SliderCard = ({ cardInfo }) => {
               </StyledSpan>
               {disclaimer}
             </StyledDiv>
-            <StyledDiv>
-              <CustomBtn txSmall rounded border='1px solid white' h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
-            </StyledDiv>
+            <CustomBtn margin='0 0 28px 0' txSmall rounded border='1px solid white'
+              h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
           </StyledDiv>
-
         </StyledDiv>
-
-
       </Container>
     </StyledDiv>
   );
@@ -73,7 +67,7 @@ export default function Slider() {
     setTimeout(() => {
       setIndex((index + 1) % cards.length);
       console.log(index);
-    }, 5000);
+    }, 3500);
   }, [index]);
 
   return (
@@ -112,12 +106,6 @@ export default function Slider() {
 const blocksImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/fractional__37876c3de0a752366b0b352fad9b9be5.png'
 const phoneImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/ncw__977abc0ba9a87ade9df79b4e33db30a7.jpg'
 const stockLendingImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/stocklending__9e8a647e0363cbbbd79dc4a2509c9b62.png'
-const fourPctImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/_next/static/images/goldsweep__7fe8c8990e5cf136ba96ceb4bab4e08b.png'
-const cardOne = {
-  titleText: ['Step up to the', 'new 4.4% APY'],
-  imgSrc: fourPctImgSrc,
-}
-
 
 const cards = [
   {
@@ -153,103 +141,3 @@ const mod = (n, m) => {
   // Return a positive value
   return result >= 0 ? result : result + m;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-export default function ResponsiveSlider({ cards }) {
-
-  return (
-    <SliderContainer>
-      <h1>YO</h1>
-      <Slider {...defaultSliderSettings}>
-        <SliderCard index={1} options={cardOne} />
-        <SliderCard index={2} options={cardOne} />
-        <SliderCard index={3} options={cardOne} />
-        <SliderCard index={4} options={cardOne} />
-      </Slider>
-    </SliderContainer>
-  );
-}
-
-
-const defaultSliderSettings = {
-  dots: true,
-  infinite: false,
-  initialSlide: 0,
-  className: "slider",
-  centerMode: true,
-  centerPadding: "60px",
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 1
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
-};
-
-*/

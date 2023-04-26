@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/session';
 
-const StyledDiv = styled.div`
-  color: var(--black-ljt);
+const LogoutBtn = styled.div`
+  color: var(--eerie-black);
   text-decoration: none;
   border-radius: 3px;
   height: 100%;
@@ -29,7 +29,7 @@ const StyledDiv = styled.div`
 const LogoutButton = () => {
   const dispatch = useDispatch()
   const onLogout = async (e) => await dispatch(logout());
-  return <StyledDiv onClick={onLogout}>Logout</StyledDiv>;
+  return <LogoutBtn onClick={onLogout}>Logout</LogoutBtn>;
 };
 
 export default LogoutButton;
