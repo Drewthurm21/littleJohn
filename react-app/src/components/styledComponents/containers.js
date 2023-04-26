@@ -1,22 +1,31 @@
 import styled from "styled-components";
 
-export const AppContainer = styled.div`
+export const AppGridContainer = styled.div`
+  display: grid;
+  height: 100%;
+  min-height: 100vh;
+  color: white;
+  grid-template-rows: 4rem 1fr 20px;
+  grid-template-areas:
+      "nav nav nav nav"
+      "main main main main"
+      "footer footer footer footer";
+  text-align: center;
+  grid-gap: 0.25rem;
+`;
+
+export const AppInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  height: 100vh;
-  width: 100vw;
-  overflow-y: auto;
-  overflow-x: hidden;
+  grid-area: main;
 `;
 
-export const PageContainer = styled(AppContainer)`
-  flex-direction: column;
+export const PageContainer = styled(AppInnerContainer)`
   width: 100%;
   height:100%;
-  padding: 25% 0% 0 0%;
 `;
 
 export const Container = styled.div`
@@ -24,21 +33,39 @@ export const Container = styled.div`
   flex-direction: ${({ col }) => col && 'column' || 'row'};
   justify-content: ${({ justify }) => justify || 'center'};
   align-items: ${({ align }) => align || 'center'};
+
   height: ${({ h }) => h || '100%'};
   width: ${({ w }) => w || '100%'};
   max-height: ${({ maxH }) => maxH || ''};
-  max-width: ${({ maxW }) => maxW || '100%'};
+  max-width: ${({ maxW }) => maxW || ''};
   min-height: ${({ minH }) => minH || ''};
   min-width: ${({ minW }) => minW || ''};
+
+  margin: ${({ margin }) => margin || '0'};
+  padding: ${({ padding }) => padding || '0'};
+  
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
-  ${({ inner }) => inner && `padding: 0 10% 0 10%`}
+  border: ${({ border }) => border || 'none'};
+
+  overflow-y: ${({ overflowY }) => overflowY || 'hidden'};
+  overflow-x: ${({ overflowX }) => overflowX || 'hidden'};
+
+
+  ${({ inner }) => inner && `
+  padding: 0 10% 0 10%;
+  max-width: 2000px;
+  `}
+
+  ${({ rounded }) => rounded && `
+  border-radius: 24px;
+  `}
+
 `;
 
 export const NavContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 4rem;
   width: 100%;
   padding: 0 10% 0 10%;
   justify-content: space-between;
@@ -49,6 +76,8 @@ export const NavContainer = styled.nav`
   backdrop-filter: blur( 8px );
   -webkit-backdrop-filter: blur( 5px );
   border-bottom: 4px solid rgba( 220,220,220 0.35 );
+  grid-area: nav;
+  z-index: 3;
 `;
 
 export const NavBtnContainer = styled(Container)`
@@ -57,3 +86,10 @@ export const NavBtnContainer = styled(Container)`
   max-width: 1000px;
   width: 33%;
 `;
+
+export const SliderContainer = styled(Container)`
+  width: 70vw;
+  max-width: 1000px;
+  height: 900px;
+  padding: 0 10% 0 10%;
+  `;

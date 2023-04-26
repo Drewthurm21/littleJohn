@@ -1,13 +1,12 @@
 import styled from "styled-components";
-const littleJohnLogo = require('../../assets/littleJohnBanner.png');
 
 export const StyledDiv = styled.div`
   /* Layout */
   display: ${({ display }) => display || 'flex'};
   flex-wrap: ${({ wrap }) => wrap || 'wrap'};
   flex-direction: ${({ direction }) => direction || 'row'};
-  justify-content: ${({ justify }) => justify || 'center'};
-  align-items: ${({ align }) => align || 'center'};
+  justify-content: ${({ justify }) => justify || ''};
+  align-items: ${({ align }) => align || ''};
   
   /* Positioning */
   position: ${({ position }) => position || ''};
@@ -30,19 +29,27 @@ export const StyledDiv = styled.div`
   ${({ padY }) => padY && `padding: ${padY} 0 ${padY} 0`};
   ${({ padX }) => padX && `padding: 0 ${padX} 0 ${padX}`};
 
-  /* Text */
+  /* Typography */
   font-size: ${({ txSize }) => txSize || '1em'};
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-align: ${({ txAlign }) => txAlign || 'left'};
-  text-decoration: ${({ txDecoration }) => txDecoration || 'none'};
+  text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
+  ${({ bold }) => bold && ({ fontWeight: 'bold' })}
+  ${({ txSmall }) => txSmall && ({ fontSize: '.8vw' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2vw' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '3vw' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '5vw' })}
 
   /* Colors & Border */
-  color: ${({ txColor }) => txColor || '#fff'};
+  color: ${({ txColor }) => txColor || '#000'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
   border: ${({ border }) => border || 'none'};
   border-radius: ${({ radius }) => radius || '0'};
   box-shadow: ${({ shadow }) => shadow || 'none'};
+    ${({ txWhite }) => txWhite && ({ color: 'white' })}
+  ${({ txBlack }) => txBlack && ({ color: 'black' })}
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -65,6 +72,11 @@ export const StyledSpan = styled.span`
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  ${({ underline }) => underline && ({ textDecoration: 'underline' })}
+  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};
@@ -84,7 +96,13 @@ export const StyledSpan = styled.span`
   left: ${({ left }) => left || '0'};
   right: ${({ right }) => right || '0'};
   bottom: ${({ bottom }) => bottom || '0'};
-  ${({ selfBottom }) => selfBottom && `align-self: flex-end`};
+  ${({ footNote }) => footNote && `
+  align-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+  `};
 
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -100,35 +118,31 @@ export const StyledSpan = styled.span`
   }
 `;
 
-export const CrossBar = styled.div`
-  min-height: 2em;
-  width: 100%;
-  background-color: ${({ bgColor }) => bgColor || `var(--green-ljt)`};
-  position: relative;
-  padding-bottom: 2px;
-  transition: all 0.3s ease-in-out;
-`;
-
 export const BannerImg = styled.div`
+  content: '';
   width: 15em;
   height: 2.5em;
-  background-image: url(${littleJohnLogo});
+  background-image: ${({ bgImage }) => `url(${bgImage})`};
   background-size: cover;
   left: 0;
   border: none;
 `;
 
-export const GlassDiv = styled.div`
+export const GlassBox = styled.div`
   content: '';
-  min-height: 2.5em;
-  position: absolute;
+  height: ${({ h }) => h || '30px'};
+  width: ${({ w }) => w || '30px'};
+  position: ${({ position }) => position || 'relative'};
   top: ${({ top }) => top || '0'};
-  width: 100%;
-  /* background: linear-gradient()(transparent 20%, transparent 30%, black); */
-  backdrop-filter: blur(${({ blur }) => blur || '5px'});
-  -webkit-backdrop-filter:${({ blur }) => `blur(${blur})` || 'blur( 1px )'};
-  -webkit-mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
+  left: ${({ left }) => left || '0'};
+  right: ${({ right }) => right || '0'};
+  bottom: ${({ bottom }) => bottom || '0'};
+  z-index: ${({ zIndex }) => zIndex || ''};
+
+  backdrop-filter: blur(${({ blur }) => blur || '8px'});
   mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
+
+  ${({ minW }) => minW && `min-width: ${minW}`};
 `;
 
 export const SpacerDiv = styled.div`
@@ -137,4 +151,15 @@ export const SpacerDiv = styled.div`
   min-height: ${({ h }) => h || '1em'};
   min-width: ${({ w }) => w || '100%'};
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  background-image: ${({ bgImage }) => bgImage || 'none'};
+`;
+
+export const StyledImg = styled.img`
+  width: 100%;
+  max-width: ${({ maxW }) => maxW || '100%'};
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+  object-fit: cover;
+  
+  border-radius: ${({ radius }) => radius || '0'};
 `;

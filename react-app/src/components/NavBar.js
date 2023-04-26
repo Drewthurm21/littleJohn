@@ -4,7 +4,7 @@ import LogoutButton from './auth/LogoutButton';
 import * as sc from './styledComponents/'
 const {
   containers: { NavContainer, NavBtnContainer },
-  misc: { BannerImg, GlassDiv },
+  misc: { BannerImg, GlassBox },
   buttons: { NavbarBtn }
 } = sc;
 
@@ -25,7 +25,7 @@ export default function Navbar() {
     <>
       <NavContainer>
         <NavLink to='/' exact={true} activeClassName='active'>
-          <BannerImg />
+          <BannerImg bgImage={bannerImgSrc} />
         </NavLink>
         <NavBtnContainer>
           {[['/', 'Home'],
@@ -38,7 +38,9 @@ export default function Navbar() {
           {userLinks}
         </div>
       </NavContainer>
-      <GlassDiv top={'3.9em'} blur="4px" />
+      <GlassBox position='fixed' w='100%' top={'4rem'} />
     </>
   );
 }
+
+const bannerImgSrc = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/src/assets/littleJohnBanner.png?raw=true'
