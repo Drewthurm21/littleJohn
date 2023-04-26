@@ -87,7 +87,7 @@
 .card--active {
     opacity: 1;
     transform: scale(1);
-    z-index: 99;
+    z-index: 1;
 }
 
 .card--left {

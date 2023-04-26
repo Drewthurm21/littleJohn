@@ -52,14 +52,10 @@ export const SliderCard = ({ cardInfo }) => {
               </StyledSpan>
               {disclaimer}
             </StyledDiv>
-            <StyledDiv>
-              <CustomBtn txSmall rounded border='1px solid white' h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
-            </StyledDiv>
+            <CustomBtn margin='0 0 28px 0' txSmall rounded border='1px solid white'
+              h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
           </StyledDiv>
-
         </StyledDiv>
-
-
       </Container>
     </StyledDiv>
   );

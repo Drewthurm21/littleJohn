@@ -77,8 +77,8 @@ export const NavContainer = styled.nav`
   -webkit-backdrop-filter: blur( 5px );
   border-bottom: 4px solid rgba( 220,220,220 0.35 );
   grid-area: nav;
-  z-index: 3;
-`;
+  z-index: 10;
+  `;
 
 export const NavBtnContainer = styled(Container)`
   overflow: hidden;

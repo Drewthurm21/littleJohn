@@ -57,7 +57,7 @@ export const SimpleBtn = styled.div`
 `;
 
 export const NavbarBtn = styled(NavLink)`
-  color: var(--black-ljt);
+  color: var(--eerie-black);
   text-decoration: none;
   border-radius: 4px;
   height: 103%;

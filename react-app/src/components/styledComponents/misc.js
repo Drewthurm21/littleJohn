@@ -137,7 +137,7 @@ export const GlassBox = styled.div`
   left: ${({ left }) => left || '0'};
   right: ${({ right }) => right || '0'};
   bottom: ${({ bottom }) => bottom || '0'};
-  z-index: ${({ zIndex }) => zIndex || ''};
+  z-index: ${({ zIndex }) => zIndex || '9'};
 
   backdrop-filter: blur(${({ blur }) => blur || '8px'});
   mask-image: linear-gradient(to bottom,black 10%,transparent 80%);
