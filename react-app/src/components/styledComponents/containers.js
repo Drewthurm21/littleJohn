@@ -86,10 +86,3 @@ export const NavBtnContainer = styled(Container)`
   max-width: 1000px;
   width: 33%;
 `;
-
-export const SliderContainer = styled(Container)`
-  width: 70vw;
-  max-width: 1000px;
-  height: 900px;
-  padding: 0 10% 0 10%;
-  `;

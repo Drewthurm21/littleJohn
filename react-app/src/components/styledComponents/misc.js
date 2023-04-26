@@ -160,6 +160,6 @@ export const StyledImg = styled.img`
   margin: ${({ margin }) => margin || '0px'};
   padding: ${({ pad }) => pad || '0px'};
   object-fit: cover;
-  
+  cursor: ${({ cursor }) => cursor || 'default'};
   border-radius: ${({ radius }) => radius || '0'};
 `;

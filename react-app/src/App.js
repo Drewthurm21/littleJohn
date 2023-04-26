@@ -7,7 +7,7 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import SplashPage from './components/SplashPage';
+import SplashPage from './SplashPage';
 
 function App() {
   const dispatch = useDispatch();
