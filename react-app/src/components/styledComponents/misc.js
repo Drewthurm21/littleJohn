@@ -131,7 +131,7 @@ export const ImageDiv = styled.div`
 
 export const GlassBox = styled.div`
   content: '';
-  height: ${({ h }) => h || '30px'};
+  height: ${({ h }) => h || '60px'};
   width: ${({ w }) => w || '30px'};
   position: ${({ position }) => position || 'relative'};
   top: ${({ top }) => top || '0'};
@@ -188,10 +188,11 @@ export const StyledInput = styled.input`
 
   /* Space */
   margin: ${({ margin }) => margin || '0px'};
-  padding: ${({ pad }) => pad || '0px'};
+  padding: ${({ pad }) => pad || '0 0 0 1vw'};
   align-self: ${({ alignSelf }) => alignSelf || 'auto'};
   width: ${({ w }) => w || '100%'};
   height: ${({ h }) => h || '100%'};
+  ${({ minH }) => minH && `min-height: ${minH}`};
 
   /* Size & Position */
   position: ${({ position }) => position || 'relative'};
@@ -231,4 +232,11 @@ export const StyledInput = styled.input`
     border: ${({ borderValid }) => borderValid || '1px solid black'};
   }
 
+`;
+
+
+export const Checkmark = styled.span`
+    margin: 8px;
+    color: green;
+    font-size: 24px;
 `;
