@@ -24,6 +24,7 @@ export default function SplashPage() {
           </StyledDiv>
           <SpacerDiv h='2em' />
           <CustomBtn rounded border='1px solid white' w='70px' h='45px' minW='170px' bgColor='#ffc757'>Get Started</CustomBtn>
+          <SpacerDiv h='2em' />
           <StyledSpan selfBottom txSmall txColor='gray' >*Terms apply. Rates subject to change</StyledSpan>
         </Container>
       </Container>
