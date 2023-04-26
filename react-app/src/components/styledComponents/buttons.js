@@ -7,6 +7,10 @@ export const CustomBtn = styled.button`
   font-weight: ${({ txWeight }) => txWeight || 'normal'};
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
+  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })}
+  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })}
+  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })}
+  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};
@@ -17,10 +21,10 @@ export const CustomBtn = styled.button`
   ${({ rounded }) => rounded && 'border-radius: 24px'};
 
   /* Size & Space */
-  width: ${({ w }) => w || 'auto'};
-  height: ${({ h }) => h || 'auto'};
-  min-width: ${({ minW }) => minW || 'auto'};
-  min-height: ${({ minH }) => minH || 'auto'};
+  width: ${({ w }) => w || '170px'};
+  height: ${({ h }) => h || '45px'};
+  min-width: ${({ minW }) => minW || '170px'};
+  min-height: ${({ minH }) => minH || '45px'};
   margin: ${({ margin }) => margin || '0px'};
   padding: ${({ pad }) => pad || '0px'};
 
