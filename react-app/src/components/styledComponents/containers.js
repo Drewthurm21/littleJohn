@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
 
-
-
 export const AppGridContainer = styled.div`
   display: grid;
   height: 100%;
   min-height: 100vh;
   color: white;
-  grid-template-rows: 4rem 1fr 20px;
+  grid-template-rows: 4rem 1fr 70px;
   grid-template-areas:
       "nav nav nav nav"
       "main main main main"
@@ -25,10 +23,6 @@ export const AppInnerContainer = styled.div`
   grid-area: main;
 `;
 
-export const PageContainer = styled(AppInnerContainer)`
-  width: 100%;
-  height:100%;
-`;
 
 export const Container = styled.div`
   display: flex;
@@ -65,6 +59,7 @@ export const Container = styled.div`
   ${({ col }) => col && `flex-direction: column;`}
   
 `;
+
 
 export const NavContainer = styled.nav`
   display: flex;

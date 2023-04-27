@@ -1,12 +1,10 @@
 import { useHistory } from 'react-router-dom'
 import Slider from './components/Slider'
-import * as sc from './components/styledComponents'
 import { splashPageData } from './data/splashPageData'
-const {
-  containers: { Container, PageContainer, SplashContainer },
-  misc: { SpacerDiv, StyledDiv, StyledSpan, StyledImg },
-  buttons: { CustomBtn }
-} = sc
+import { Container, SplashContainer } from './components/styledComponents/containers'
+import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from './components/styledComponents/misc'
+import { CustomBtn } from './components/styledComponents/buttons'
+
 
 export default function SplashPage() {
   const history = useHistory()
@@ -14,7 +12,7 @@ export default function SplashPage() {
   const goToSignup = () => history.push('/signup')
 
   return (
-    <PageContainer>
+    <Container col>
       <Container bgColor='#000' >
         <Container inner col bgColor='#000' minH='65vh'>
           <StyledDiv w='80%'>
@@ -45,7 +43,7 @@ export default function SplashPage() {
 
       {splashPageData.map((options) => splashSection(options, goToSignup))}
 
-    </PageContainer >
+    </Container >
   )
 };
 
