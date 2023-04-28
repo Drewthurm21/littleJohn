@@ -23,13 +23,14 @@ const updateWatchlist = (watchlist) => ({
   watchlist
 });
 
-export const getWatchlistsThunk = () => async (dispatch) => {
-  const response = await fetch('/api/watchlists/');
+
+export const getWatchlistsThunk = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}/watchlists`);
   const watchlists = await response.json();
   dispatch(getWatchlists(watchlists));
-}
+};
 
-export const addWatchlistThunk = (watchlist) => async (dispatch) => {
+export const createWatchlistThunk = (watchlist) => async (dispatch) => {
   const response = await fetch('/api/watchlists/', {
     method: 'POST',
     headers: {
@@ -39,7 +40,19 @@ export const addWatchlistThunk = (watchlist) => async (dispatch) => {
   });
   const newWatchlist = await response.json();
   dispatch(addWatchlist(newWatchlist));
-}
+};
+
+export const addWatchlistItemThunk = (listId, watchlistItem) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/${listId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(watchlistItem)
+  });
+  const updatedWatchlist = await response.json();
+  dispatch(updateWatchlist(updatedWatchlist));
+};
 
 export const deleteWatchlistThunk = (watchlistId) => async (dispatch) => {
   const response = await fetch(`/api/watchlists/${watchlistId}`, {
@@ -47,7 +60,16 @@ export const deleteWatchlistThunk = (watchlistId) => async (dispatch) => {
   });
   const deletedWatchlist = await response.json();
   dispatch(deleteWatchlist(deletedWatchlist.id));
-}
+};
+
+export const deleteWatchlistItemThunk = (listId, ticker) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/${listId}/${ticker}`, {
+    method: 'DELETE'
+  });
+
+  const updatedWatchlist = await response.json();
+  dispatch(updateWatchlist(updatedWatchlist));
+};
 
 export const updateWatchlistThunk = (watchlist) => async (dispatch) => {
   const response = await fetch(`/api/watchlists/${watchlist.id}`, {
@@ -59,7 +81,7 @@ export const updateWatchlistThunk = (watchlist) => async (dispatch) => {
   });
   const updatedWatchlist = await response.json();
   dispatch(updateWatchlist(updatedWatchlist));
-}
+};
 
 const initialState = {};
 

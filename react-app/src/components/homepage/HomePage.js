@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../styledComponents/containers';
-import { StyledDiv, StyledSpan } from '../styledComponents/misc';
-import { PlusBtn } from '../styledComponents/buttons';
+import { StyledDiv } from '../styledComponents/misc';
 import ChartContainer from './LineChart';
-
-import Watchlist from '../sidebar/Watchlist';
+import Sidebar from '../Sidebar/Sidebar';
 
 
 export default function HomePage() {
@@ -23,7 +21,11 @@ export default function HomePage() {
             <ChartContainer data={testData} />
           </StyledDiv>
 
-          <StyledDiv>MAIN AREA</StyledDiv>
+          {/* Portfolios */}
+          <StyledDiv h='30vh'>
+            PORTFOLIOS
+          </StyledDiv>
+
           {/* NEWS */}
           <StyledDiv>
             NEWS
@@ -32,28 +34,7 @@ export default function HomePage() {
       </Container>
 
 
-      {/* sidebar */}
-      <StyledDiv position='sticky' w='20vw' h='100%' direction='column'
-        margin='0 2vw 0 0' pad='8px'
-        border='1px solid var(--gray-200)' >
-        <StyledDiv justify='space-between' align='center'
-          txSize='18px' txWeight='bold'
-          customBorder='border-bottom: 1px solid var(--gray-200);'
-        >
-          <StyledSpan>Lists</StyledSpan>
-          <StyledDiv w='15px' h='15px'>
-            <PlusBtn />
-          </StyledDiv>
-        </StyledDiv>
-        <StyledDiv direction='column'>
-          {Object.values(watchlists).map(list => (
-            <Watchlist key={list.id} {...list} />
-          ))}
-        </StyledDiv>
-
-
-      </StyledDiv>
-
+      <Sidebar />
     </Container>
   )
 };
