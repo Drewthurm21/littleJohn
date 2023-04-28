@@ -78,11 +78,12 @@ export const NavbarBtn = styled(NavLink)`
 
 
 export const PlusBtn = styled.div`
-  width: 30px;
-  height: 30px;
-  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+  transform: translateY(-10%);
   padding: 0;
   margin: 0;
+  cursor: pointer;
 
   &::before,
   &::after {
@@ -95,16 +96,18 @@ export const PlusBtn = styled.div`
   &::before {
     top: 0;
     left: 50%;
-    width: 4px;
+    width: 2px;
     height: 100%;
-    margin-left: -2px;
+    margin-left: -1px;
+    background-color: var(--money-green)
   }
-
+  
   &::after {
     top: 50%;
     left: 0;
     width: 100%;
-    height: 4px;
-    margin-top: -2px;
+    height: 2px;
+    margin-top: -1px;
+    background-color: var(--money-green)
   }
 `;

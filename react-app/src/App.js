@@ -5,12 +5,12 @@ import { authenticate } from './store/session';
 import { AppInnerContainer, AppGridContainer } from './components/styledComponents/containers';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-
-import SplashPage from './SplashPage';
-import SignupPage from './SignupPage';
-import LoginPage from './LoginPage';
-import MissingPage from './MissingPage';
-import HomePage from './HomePage';
+import SplashPage from './components/SplashPage';
+import SignupPage from './components/auth/SignupPage';
+import LoginPage from './components/auth/LoginPage';
+import MissingPage from './components/MissingPage';
+import HomePage from './components/HomePage';
+import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
 
 
@@ -43,7 +43,7 @@ function App() {
               <SignupPage />
             </Route>
             <ProtectedRoute path='/home' exact={true} >
-              <HomePage> HOME </HomePage>
+              <HomePage />
             </ProtectedRoute>
             <ProtectedRoute path='/portfolios' exact={true} >
               <h1> portfolios </h1>

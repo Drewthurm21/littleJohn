@@ -1,6 +1,6 @@
-import SignUpForm from "./components/auth/SignUpForm";
-import { Container } from "./components/styledComponents/containers";
-import { SpacerDiv, StyledDiv, StyledImg } from "./components/styledComponents/misc";
+import SignUpForm from "./SignUpForm";
+import { Container } from "../styledComponents/containers";
+import { SpacerDiv, StyledDiv, StyledImg } from "../styledComponents/misc";
 const rocketsImgSrc = 'https://cdn.robinhood.com/app_assets/odyssey/rockets.png'
 
 export default function SignupPage() {

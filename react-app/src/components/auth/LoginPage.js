@@ -1,6 +1,6 @@
-import LoginForm from './components/auth/LoginForm'
-import { Container } from './components/styledComponents/containers'
-import { ImageDiv, SpacerDiv, StyledDiv } from './components/styledComponents/misc'
+import LoginForm from './LoginForm'
+import { Container } from '../styledComponents/containers'
+import { ImageDiv, SpacerDiv, StyledDiv } from '../styledComponents/misc'
 
 export default function LoginPage() {
 

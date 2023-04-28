@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom'
-import Slider from './components/Slider'
-import { splashPageData } from './data/splashPageData'
-import { Container, SplashContainer } from './components/styledComponents/containers'
-import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from './components/styledComponents/misc'
-import { CustomBtn } from './components/styledComponents/buttons'
+import Slider from './Slider'
+import { splashPageData } from '../data/splashPageData'
+import { Container, SplashContainer } from './styledComponents/containers'
+import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from './styledComponents/misc'
+import { CustomBtn } from './styledComponents/buttons'
 
 
 export default function SplashPage() {

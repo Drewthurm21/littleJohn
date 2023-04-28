@@ -28,7 +28,7 @@ export default function Navbar() {
           <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
         </NavLink>
         <NavBtnContainer>
-          {[['/', 'Home'],
+          {[['/home', 'Home'],
           ['/portfolios', 'Portfolios'],
           ['/trades', 'Trades']].map(([url, label], i) => (
             <NavbarBtn key={i} to={url}>{label}</NavbarBtn>

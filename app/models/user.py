@@ -35,4 +35,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            'portfolios': {portfolio.id: portfolio.to_dict() for portfolio in self.portfolios},
+            'watchlists': {watchlist.id: watchlist.to_dict() for watchlist in self.watchlists}
         }

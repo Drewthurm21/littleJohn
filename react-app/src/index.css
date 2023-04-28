@@ -3,6 +3,7 @@
     --eerie-black: #0b0b0b;
     --logo-green:#00cf98;
     --bright-green: #c3f53c;
+    --money-green: #00c805;
     --splash-gradient: linear-gradient(74.84deg, rgb(0, 200, 5) 18.12%, rgb(195, 245, 60) 81.46%);
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
@@ -55,6 +56,12 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+.k-chart,
+.k-chart-surface {
+    width: 100%;
+    height: 100%;
 }
 
 .carousel {

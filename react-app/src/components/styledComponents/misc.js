@@ -51,6 +51,7 @@ export const StyledDiv = styled.div`
   box-shadow: ${({ shadow }) => shadow || 'none'};
   ${({ txWhite }) => txWhite && ({ color: 'white' })};
   ${({ txBlack }) => txBlack && ({ color: 'black' })};
+  ${({ customBorder }) => customBorder && `${customBorder}`};
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
@@ -131,7 +132,7 @@ export const ImageDiv = styled.div`
 
 export const GlassBox = styled.div`
   content: '';
-  height: ${({ h }) => h || '60px'};
+  height: ${({ h }) => h || '30px'};
   width: ${({ w }) => w || '30px'};
   position: ${({ position }) => position || 'relative'};
   top: ${({ top }) => top || '0'};
