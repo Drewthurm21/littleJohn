@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Sparkline } from "@progress/kendo-react-charts";
-import { Container } from './styledComponents/containers'
-import { StyledDiv, StyledSpan } from './styledComponents/misc'
-import { PlusBtn } from './styledComponents/buttons'
-import ChartContainer from './charts/LineChart'
+import { Container } from '../styledComponents/containers';
+import { StyledDiv, StyledSpan } from '../styledComponents/misc';
+import { PlusBtn } from '../styledComponents/buttons';
+import ChartContainer from './LineChart';
+
+import Watchlist from '../sidebar/Watchlist';
 
 
 export default function HomePage() {
@@ -44,29 +45,9 @@ export default function HomePage() {
             <PlusBtn />
           </StyledDiv>
         </StyledDiv>
-
-        <StyledDiv>
-
-        </StyledDiv>
         <StyledDiv direction='column'>
-          {user && Object.values(watchlists).map(list => (
-            <StyledDiv key={list.id} align='center' w='100%'>
-              <StyledDiv>{list.name}
-                {list.items.map(stock => (
-                  <StyledDiv key={stock.id}
-                    h='3.5vh' w='100%'
-                    justify='space-between' align='center'
-                  >
-                    <StyledDiv>{stock}</StyledDiv>
-                    <Sparkline
-                      type='area' data={testData.dataPoints}
-                      style={{ color: 'green' }} >
-                    </Sparkline>
-
-                  </StyledDiv>
-                ))}
-              </StyledDiv>
-            </StyledDiv>
+          {Object.values(watchlists).map(list => (
+            <Watchlist key={list.id} {...list} />
           ))}
         </StyledDiv>
 

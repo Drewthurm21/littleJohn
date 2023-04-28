@@ -9,7 +9,7 @@ import SplashPage from './components/SplashPage';
 import SignupPage from './components/auth/SignupPage';
 import LoginPage from './components/auth/LoginPage';
 import MissingPage from './components/MissingPage';
-import HomePage from './components/HomePage';
+import HomePage from './components/homepage/HomePage';
 import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
 
