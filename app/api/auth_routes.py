@@ -3,6 +3,7 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+import os
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -41,7 +42,17 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return user.to_dict()
+        alpha_vantage_key = os.environ.get('ALPHA_VANTAGE_API_KEY')
+        finnhub_key = os.environ.get('FINNHUB_API_KEY')
+
+        return {
+            'user': user.to_dict(),
+            'apiKeys': {
+                'alpha_vantage': alpha_vantage_key,
+                'finnhub': finnhub_key
+            }
+        }
+
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

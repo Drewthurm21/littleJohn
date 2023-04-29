@@ -2,17 +2,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import ChartContainer from './LineChart';
-import Sidebar from '../Sidebar/Sidebar';
+import Sidebar from '../sidebar/Sidebar';
 
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
 
-  const { watchlists } = user;
 
   return (
-    <Container margin='5vh' justify='space-between' >
+    <Container margin='8vh' justify='space-between' >
       <Container margin='0 1vh 0 3vh' align='flex-start'>
 
         {/* main area */}
@@ -33,8 +32,10 @@ export default function HomePage() {
         </StyledDiv>
       </Container>
 
-
+      {/* sidebar */}
       <Sidebar />
+      <StyledDiv>
+      </StyledDiv>
     </Container>
   )
 };

@@ -23,10 +23,11 @@ export default function Sidebar() {
       margin='0 2vw 0 0' pad='8px'
       border='1px solid var(--gray-200)' >
       <StyledDiv justify='space-between' align='center'
-        txSize='18px' txWeight='bold'
+        txSize='18px' txWeight='bold' margin='1vh 0'
         customBorder='border-bottom: 1px solid var(--gray-200);'
       >
-        <StyledSpan>Lists</StyledSpan>
+        <StyledSpan >Lists</StyledSpan>
+
         <StyledDiv w='15px' h='15px'>
           <PlusBtn />
         </StyledDiv>
