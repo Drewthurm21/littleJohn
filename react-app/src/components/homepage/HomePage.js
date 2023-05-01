@@ -11,8 +11,8 @@ export default function HomePage() {
 
 
   return (
-    <Container margin='8vh' justify='space-between' >
-      <Container inner align='flex-start'>
+    <Container margin='5vh' justify='space-between' align='flex-start'>
+      <Container inner >
 
         {/* main area */}
         <StyledDiv w='100%' direction='column' >
@@ -31,8 +31,8 @@ export default function HomePage() {
       </Container>
 
       {/* sidebar */}
-      <Sidebar />
-      <StyledDiv>
+      <StyledDiv h='50vh' position='sticky' align='flex-start'>
+        <Sidebar />
       </StyledDiv>
     </Container>
   )

@@ -166,6 +166,7 @@ export const StyledImg = styled.img`
   object-fit: cover;
   cursor: ${({ cursor }) => cursor || 'default'};
   border-radius: ${({ radius }) => radius || '0'};
+  border: ${({ border }) => border || 'none'};
 
   @media only screen and (max-width: 768px) {
     width: 50%;

@@ -19,7 +19,7 @@ export default function Sidebar() {
 
   return (
 
-    <StyledDiv position='sticky' w='20vw' h='100%' direction='column'
+    <StyledDiv w='20vw' h='100%' direction='column'
       margin='0 2vw 0 0' pad='8px'
       border='1px solid var(--gray-200)' >
       <StyledDiv justify='space-between' align='center'
