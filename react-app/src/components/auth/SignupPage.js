@@ -7,9 +7,9 @@ export default function SignupPage() {
 
 
   return (
-    <Container justify='space-between'>
+    <Container spaceBetween>
       <StyledDiv h='100%' w='100%' pad='15% 0 0 0'
-        direction='column' align='center' justify='space-between'
+        direction='column' align='center' spaceBetween
         bgColor='#82c8d2'
       >
         <StyledDiv txXLarge >Create your login</StyledDiv>

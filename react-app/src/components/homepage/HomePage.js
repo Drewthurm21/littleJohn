@@ -11,7 +11,7 @@ export default function HomePage() {
 
 
   return (
-    <Container margin='5vh' justify='space-between' align='flex-start'>
+    <Container margin='5vh' spaceBetween align='flex-start'>
       <Container inner >
 
         {/* main area */}

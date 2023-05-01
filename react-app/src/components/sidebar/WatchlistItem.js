@@ -28,10 +28,8 @@ export default function WatchlistItem({ ticker }) {
 
 
   return data && (
-    <StyledDiv w='100%'
-      margin='0 0 8px 0'
-      justify='space-between'
-      customBorder='border-bottom: 1px solid var(--gray-200);'
+    <StyledDiv w='100%' margin='0 0 8px 0'
+      spaceBetween customBorder='border-bottom: 1px solid var(--gray-400);'
     >
       <StyledDiv w='50px'>{ticker}</StyledDiv>
 
@@ -44,7 +42,7 @@ export default function WatchlistItem({ ticker }) {
         <Tooltip format="currency" />
       </Sparkline>
 
-      <StyledDiv w='40' justify='space-between' direction='column' align='center'>
+      <StyledDiv w='40' spaceBetween direction='column' align='center'>
         <StyledDiv txSmall>${Number(data[ticker]?.currentPrice).toFixed(2)}</StyledDiv>
         <StyledDiv txSmall
           txColor={data[ticker]?.movement > 0 ? 'var(--money-green)' : 'var(--red-500)'}>{data[ticker]?.movement?.toFixed(2)}%</StyledDiv>

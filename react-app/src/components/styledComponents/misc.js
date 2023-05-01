@@ -8,7 +8,7 @@ export const StyledDiv = styled.div`
   justify-content: ${({ justify }) => justify || ''};
   align-items: ${({ align }) => align || ''};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
-  
+  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
   /* Positioning */
   position: ${({ position }) => position || ''};
   top: ${({ top }) => top || ''};

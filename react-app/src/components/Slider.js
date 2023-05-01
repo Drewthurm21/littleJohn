@@ -36,7 +36,7 @@ export const SliderCard = ({ cardInfo }) => {
           </StyledDiv>
 
           {/* bottom right */}
-          <StyledDiv w='48%' direction='column' justify='space-between'>
+          <StyledDiv w='48%' direction='column' spaceBetween>
             <StyledDiv>
               {infoText && infoText.map((text, i) => (
                 <StyledDiv txSize='1vw' key={i} >{text}</StyledDiv>

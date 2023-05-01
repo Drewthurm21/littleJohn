@@ -41,17 +41,19 @@ export default function NewsSection() {
       setPageSize(50 - startIndex)
       return
     }
+
+    setPageSize(size)
   }
 
 
 
   return (
     <>
-      <StyledDiv justify='space-between'>
+      <StyledDiv spaceBetween>
         <StyledDiv txSize='2vh' margin='0 0 3vh 0'>Market News</StyledDiv>
         <StyledDiv w='150px' direction='column' justify='space-evenly' align='center'>
           <StyledDiv underline txSize='1.2vh' margin='0 0 10px 0'>Page controls</StyledDiv>
-          <StyledDiv direction='row' justify='space-between' w='100%' margin='0 0 8px 0'>
+          <StyledDiv direction='row' spaceBetween w='100%' margin='0 0 8px 0'>
             <NewsButton onClick={() => changePageSize(5)}>5</NewsButton>
             <NewsButton onClick={() => changePageSize(10)}>10</NewsButton>
             <NewsButton onClick={() => changePageSize(25)}>25</NewsButton>
@@ -87,19 +89,18 @@ export default function NewsSection() {
 const NewsArticle = ({ article }) => {
   return (
     <StyledDiv w='100%' h='10vh'
-      pad='1vh' margin='0 0 1vh 0' justify='space-between'
-      customBorder='border-bottom: 1px solid var(--gray-200);'
+      pad='1vh' margin='0 0 1vh 0' spaceBetween
+      customBorder='border-bottom: 1px solid var(--gray-400);'
       bgColorHover='var(--gray-100);' pointer
       onClick={() => window.open(article.url, '_blank')}
       key={article.url}>
       <StyledDiv direction='column' w='70%'>
-        <StyledDiv pointer txSize='1.5vh' >{article.source}</StyledDiv>
+        <StyledDiv pointer txSize='1.5vh' underline margin='0 0 2vh 0'>{article.source}</StyledDiv>
         <StyledDiv pointer >{article.title}</StyledDiv>
       </StyledDiv>
       <StyledImg pointer w='13%' h='100%'
         src={article.banner_image || ljLogo} alt='photo'
-        border='1px solid var(--eerie-black);'
-      />
+        border='1px solid var(--eerie-black);' />
     </StyledDiv>
   )
 }
@@ -116,13 +117,13 @@ const NewsButton = styled.span`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: var(--gray-200);
+    background-color: var(--gray-400);
     color: var(--eerie-black);
     cursor: ${({ disabled }) => disabled ? 'mouse' : 'pointer'}
   }
 
   ${({ disabled }) => disabled && `
-    background-color: var(--gray-200);
+    background-color: var(--gray-400);
     color: var(--gray-400);
     cursor: mouse;
   `}

@@ -21,10 +21,10 @@ export default function Sidebar() {
 
     <StyledDiv w='20vw' h='100%' direction='column'
       margin='0 2vw 0 0' pad='8px'
-      border='1px solid var(--gray-200)' >
-      <StyledDiv justify='space-between' align='center'
+      border='1px solid var(--gray-400)' >
+      <StyledDiv spaceBetween align='center'
         txSize='18px' txWeight='bold' margin='1vh 0'
-        customBorder='border-bottom: 1px solid var(--gray-200);'
+        customBorder='border-bottom: 1px solid var(--gray-400);'
       >
         <StyledSpan >Lists</StyledSpan>
 

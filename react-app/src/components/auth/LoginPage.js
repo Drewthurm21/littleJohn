@@ -6,7 +6,7 @@ export default function LoginPage() {
 
 
   return (
-    <Container justify='space-between'>
+    <Container spaceBetween>
       <ImageDiv
         minW='50%'
         minH='100%'
