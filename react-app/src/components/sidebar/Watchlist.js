@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyledDiv, StyledSpan, Chevron } from '../styledComponents/misc';
+import { StyledDiv, StyledSpan, ChevronContainer, Chevron } from '../styledComponents/misc';
 import WatchlistItem from './WatchlistItem';
 
 export default function Watchlist({ name, items }) {
@@ -18,7 +18,9 @@ export default function Watchlist({ name, items }) {
             justify='center' align='center'
             onClick={() => setExpanded(!expanded)}
           >
-            <Chevron className={expanded ? 'rotate-down' : 'rotate-up'} />
+            <ChevronContainer hoverColor='var(--money-green)'>
+              <Chevron color='black' className={expanded ? 'rotate-down' : 'rotate-up'} />
+            </ChevronContainer>
           </StyledDiv>
         </StyledDiv>
 

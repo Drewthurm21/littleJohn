@@ -245,15 +245,36 @@ export const Checkmark = styled.span`
 
 export const Chevron = styled.span`
   display: inline-block;
-  width: 13px;
-  height: 13px;
-  border-top: 2px solid #000;
-  border-right: 2px solid #000;
+  width: ${({ size }) => size || '13px'};
+  height:${({ size }) => size || '13px'};
+
+  ${({ color }) => color && `
+  border-top: 2px solid ${color}; 
+  border-right: 2px solid ${color};
+  `};
 
   ${({ up }) => up && `transform: rotate(-45deg);`};
   ${({ down }) => down && `transform: rotate(135deg);`};
-  ${({ left }) => left && `transform: rotate(135deg);`};
-  ${({ right }) => right && `transform: rotate(-45deg);`};
+  ${({ left }) => left && `transform: rotate(-135deg);`};
+  ${({ right }) => right && `transform: rotate(45deg);`};
 
   transition: all 0.3s ease-in-out;
+`;
+
+export const ChevronContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ w }) => w || '100%'};
+  height: ${({ h }) => h || '100%'};
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+  background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  border: ${({ border }) => border || 'none'};
+  cursor: ${({ cursor }) => cursor || 'pointer'};
+
+  &:hover ${Chevron} {
+    border-top: 2px solid ${({ hoverColor }) => hoverColor || '#000'};
+    border-right: 2px solid ${({ hoverColor }) => hoverColor || '#000'};
+  }
 `;

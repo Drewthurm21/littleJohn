@@ -34,20 +34,19 @@ export default function SplashPage() {
           <StyledSpan selfBottom txSmall txColor='gray' >*Terms apply. Rates subject to change</StyledSpan>
         </Container>
       </Container>
-
       <SpacerDiv h='2em' bgImage='var(--splash-gradient)' />
-
       <Container col bgColor='#f0ebe6' minH='65vh'>
         <Slider />
       </Container>
 
-      {splashPageData.map((options) => splashSection(options, goToSignup))}
+      {splashPageData.map((options) => createSplashSection(options, goToSignup))}
 
     </Container >
   )
 };
 
-function splashSection(options, cb) {
+
+function createSplashSection(options, cb) {
   const {
     heroText, mainText, subText, disclaimer,
     heroColor, textColor, bgColor,
