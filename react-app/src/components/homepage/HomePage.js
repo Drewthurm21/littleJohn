@@ -15,7 +15,7 @@ export default function HomePage() {
       <Container inner >
 
         {/* main area */}
-        <StyledDiv w='100%' direction='column' >
+        <StyledDiv w='100%' col  >
           <StyledDiv h='500px'>
             <ChartContainer data={testData} />
           </StyledDiv>
@@ -34,7 +34,7 @@ export default function HomePage() {
       <StyledDiv h='50vh' position='sticky' align='flex-start'>
         <Sidebar />
       </StyledDiv>
-    </Container>
+    </Container >
   )
 };
 

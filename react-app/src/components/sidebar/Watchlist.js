@@ -4,20 +4,33 @@ import WatchlistItem from './WatchlistItem';
 
 export default function Watchlist({ name, items }) {
   const [expanded, setExpanded] = useState(false)
+  const [showEditList, setShowEditList] = useState(false)
 
   return (
-    <StyledDiv direction='column'>
-      <StyledDiv align='center' w='100%'>
-
-        <StyledDiv h='3vh' w='100%' margin='0 0 1vh 0'
-          spaceBetween align='center'
+    <StyledDiv col  >
+      <StyledDiv align='center'>
+        <StyledDiv h='3vh' w='100%' pad='3px' margin='0 0 1vh 0'
+          spaceBetween align='center' bgColorHover='var(--gray-100)'
           customBorder='border-bottom: 1px solid var(--gray-900);'>
           <StyledSpan txSize='18px' txWeight='bold'>{name}</StyledSpan>
           <StyledDiv w='30%' h='100%' spaceBetween>
-            <StyledDiv w='45%' justify='center' align='center'
-              radius='5px' cursor='pointer' bold
-              bgColorHover='var(--gray-400)'>...</StyledDiv>
-            <StyledDiv h='100%' w='20px' margin='0 5px 0 0'
+            <StyledDiv w='40%' justify='center' align='center'
+              radius='5px' cursor='pointer'
+              bgColorHover='var(--gray-400)'
+              onClick={() => setShowEditList(!showEditList)}>
+              <StyledDiv bold>...</StyledDiv>
+              {showEditList && (
+                <StyledDiv col bgColor='var(--gray-100)'
+                  position='absolute' top='100%' left='0'
+                  w='100%' h='100%' pad='5px' radius='5px'
+                  customBorder='border: 1px solid var(--gray-400);'>
+                  <StyledDiv txColor='red'>Remove</StyledDiv>
+                  <StyledDiv txColor='red'>Rename</StyledDiv>
+                </StyledDiv>
+              )}
+            </StyledDiv>
+
+            <StyledDiv h='100%' w='20px'
               justify='center' align='center'
               onClick={() => setExpanded(!expanded)}>
               <ChevronContainer hoverColor='var(--money-green)'>
@@ -34,7 +47,7 @@ export default function Watchlist({ name, items }) {
             ))}
           </StyledDiv>
         </StyledDiv>
-      </StyledDiv>
-    </StyledDiv>
+      </StyledDiv >
+    </StyledDiv >
   )
 }

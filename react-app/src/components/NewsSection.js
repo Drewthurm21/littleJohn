@@ -51,23 +51,23 @@ export default function NewsSection() {
     <>
       <StyledDiv spaceBetween>
         <StyledDiv txSize='2vh' margin='0 0 3vh 0'>Market News</StyledDiv>
-        <StyledDiv w='150px' direction='column' justify='space-evenly' align='center'>
+        <StyledDiv w='150px' col justify='space-evenly' align='center'>
           <StyledDiv underline txSize='1.2vh' margin='0 0 10px 0'>Page controls</StyledDiv>
-          <StyledDiv direction='row' spaceBetween w='100%' margin='0 0 8px 0'>
+          <StyledDiv spaceBetween w='100%' margin='0 0 8px 0'>
             <NewsButton onClick={() => changePageSize(5)}>5</NewsButton>
             <NewsButton onClick={() => changePageSize(10)}>10</NewsButton>
             <NewsButton onClick={() => changePageSize(25)}>25</NewsButton>
           </StyledDiv>
-          <StyledDiv w='100%' direction='row' justify='space-evenly'
+          <StyledDiv w='100%' justify='space-evenly'
           >
-            <NewsButton
+            <NewsButton w='30px'
               disabled={startIndex - pageSize < 0}
               onClick={() => changePage('prev')}>
               <ChevronContainer>
                 <Chevron left color='white' />
               </ChevronContainer>
             </NewsButton>
-            <NewsButton
+            <NewsButton w='30px'
               disabled={startIndex + pageSize * 2 > 50}
               onClick={() => changePage('next')}>
               <ChevronContainer>
@@ -94,7 +94,7 @@ const NewsArticle = ({ article }) => {
       bgColorHover='var(--gray-100);' pointer
       onClick={() => window.open(article.url, '_blank')}
       key={article.url}>
-      <StyledDiv direction='column' w='70%'>
+      <StyledDiv col w='70%'>
         <StyledDiv pointer txSize='1.5vh' underline margin='0 0 2vh 0'>{article.source}</StyledDiv>
         <StyledDiv pointer >{article.title}</StyledDiv>
       </StyledDiv>
@@ -110,8 +110,8 @@ const NewsButton = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
-  width: 40px;
+  height: ${({ h }) => h || '25px'};
+  width: ${({ w }) => w || '40px'};
   border-radius: 4px;
   background-color: var(--eerie-black);
   transition: all 0.2s ease-in-out;

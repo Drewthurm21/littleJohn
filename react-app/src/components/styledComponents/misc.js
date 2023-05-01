@@ -7,8 +7,10 @@ export const StyledDiv = styled.div`
   flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || ''};
   align-items: ${({ align }) => align || ''};
+  ${({ col }) => col && ({ flexDirection: 'column' })};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
   ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
+
   /* Positioning */
   position: ${({ position }) => position || ''};
   top: ${({ top }) => top || ''};

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSparklineInfo } from '../../store/stocks';
 import Sparkline, { Tooltip, Size } from 'devextreme-react/sparkline';
-import { StyledDiv, StyledSpan } from '../styledComponents/misc';
+import { StyledDiv } from '../styledComponents/misc';
 
 const sparkSettings = {
   lineWidth: 1,
@@ -42,12 +42,12 @@ export default function WatchlistItem({ ticker }) {
         <Tooltip format="currency" />
       </Sparkline>
 
-      <StyledDiv w='40' spaceBetween direction='column' align='center'>
+      <StyledDiv w='40' spaceBetween col align='center'>
         <StyledDiv txSmall>${Number(data[ticker]?.currentPrice).toFixed(2)}</StyledDiv>
         <StyledDiv txSmall
           txColor={data[ticker]?.movement > 0 ? 'var(--money-green)' : 'var(--red-500)'}>{data[ticker]?.movement?.toFixed(2)}%</StyledDiv>
       </StyledDiv>
-    </StyledDiv>
+    </StyledDiv >
   )
 };
 

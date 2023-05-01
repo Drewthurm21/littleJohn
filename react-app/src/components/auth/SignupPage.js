@@ -9,20 +9,20 @@ export default function SignupPage() {
   return (
     <Container spaceBetween>
       <StyledDiv h='100%' w='100%' pad='15% 0 0 0'
-        direction='column' align='center' spaceBetween
+        col align='center' spaceBetween
         bgColor='#82c8d2'
       >
         <StyledDiv txXLarge >Create your login</StyledDiv>
         <StyledDiv maxW='75%' txMedium >We'll need your username, a valid email address, and a password. You'll use this login to access LittleJohn next time.</StyledDiv>
         <StyledImg w='500px' src={rocketsImgSrc} />
       </StyledDiv>
-      <StyledDiv h='100%' minW='50%' direction='column'
-        pad='0 0 0 60px'>
+      <StyledDiv h='100%' minW='50%' col
+        pad='0 0 0 60px' >
         <SpacerDiv h='25%' />
         <StyledDiv txColor='black' txMedium margin='0 0 8vh 0'>Sign up with LittleJohn</StyledDiv>
         <SignUpForm />
-      </StyledDiv>
-    </Container>
+      </StyledDiv >
+    </Container >
   )
 
 };

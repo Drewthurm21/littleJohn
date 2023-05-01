@@ -19,7 +19,7 @@ export default function MissingPage() {
         </ImageDiv>
       </StyledDiv>
 
-      <StyledDiv direction='column' align='center'>
+      <StyledDiv col align='center'>
         <StyledDiv fontFamily='Arvo' txSize='40px' margin='0 0 1vh 0'>Uh oh, looks like it broke...</StyledDiv>
         <StyledDiv txSize='24px'>We'll fix it - Just one second!</StyledDiv>
         <CustomBtn rounded w='15vw' margin='2vh 0' txColor='white' bgColor='black' onClick={goToHome}>Head back home...</CustomBtn>
