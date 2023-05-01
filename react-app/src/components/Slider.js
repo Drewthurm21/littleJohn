@@ -62,6 +62,8 @@ export default function Slider() {
 
   useEffect(() => {
     setTimeout(() => setIndex((index + 1) % cards.length), 3500);
+
+    return () => clearTimeout();
   }, [index]);
 
   return (

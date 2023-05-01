@@ -55,10 +55,11 @@ export const StyledDiv = styled.div`
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
-  transition: ${({ transition }) => transition || 'none'};
+  transition: ${({ transition }) => transition || 'all 0.4s ease-in-out'};
   background-image: ${({ bgImage }) => bgImage || 'none'};
-  cursor: ${({ cursor }) => cursor || 'default'};
   content: ${({ content }) => content || 'none'};
+  cursor: ${({ cursor }) => cursor || 'default'};
+  ${({ pointer }) => pointer && ({ cursor: 'pointer' })};
 
   &:hover {
     background-color: ${({ bgColorHover }) => bgColorHover || ''};
@@ -235,9 +236,23 @@ export const StyledInput = styled.input`
 
 `;
 
-
 export const Checkmark = styled.span`
     margin: 8px;
     color: green;
     font-size: 24px;
+`;
+
+export const Chevron = styled.span`
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+
+  ${({ up }) => up && `transform: rotate(-45deg);`};
+  ${({ down }) => down && `transform: rotate(135deg);`};
+  ${({ left }) => left && `transform: rotate(135deg);`};
+  ${({ right }) => right && `transform: rotate(-45deg);`};
+
+  transition: all 0.3s ease-in-out;
 `;

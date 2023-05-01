@@ -1,21 +1,9 @@
-import { useState, useEffect } from 'react';
-import { StyledDiv, StyledSpan } from '../styledComponents/misc';
+import { useState } from 'react';
+import { StyledDiv, StyledSpan, Chevron } from '../styledComponents/misc';
 import WatchlistItem from './WatchlistItem';
+
 export default function Watchlist({ name, items }) {
-
   const [expanded, setExpanded] = useState(false)
-  const [sparklines, setSparklines] = useState([])
-
-  const sparks = items.map((ticker, i) => (
-    <WatchlistItem key={i + ticker} ticker={ticker} />
-  ))
-
-  useEffect(() => {
-    if (expanded) setSparklines(sparks)
-    else setSparklines([])
-
-  }, [expanded])
-
 
   return (
     <StyledDiv direction='column'>
@@ -26,13 +14,20 @@ export default function Watchlist({ name, items }) {
           customBorder='border-bottom: 1px solid var(--gray-900);'
         >
           <StyledSpan txSize='18px' txWeight='bold'>{name}</StyledSpan>
-          <StyledSpan onClick={() => setExpanded(!expanded)} txSize='14px'>
-            {expanded ? 'Hide' : 'Show'}
-          </StyledSpan>
+          <StyledDiv h='100%' w='20px' margin='0 5px 0 0'
+            justify='center' align='center'
+            onClick={() => setExpanded(!expanded)}
+          >
+            <Chevron className={expanded ? 'rotate-down' : 'rotate-up'} />
+          </StyledDiv>
         </StyledDiv>
 
-        <StyledDiv>
-          {sparklines}
+        <StyledDiv id='ex-container'>
+          <StyledDiv id='watchlist' className={expanded ? 'expanded' : ''}>
+            {items.map((ticker, i) => (
+              <WatchlistItem key={i + ticker} ticker={ticker} />
+            ))}
+          </StyledDiv>
         </StyledDiv>
       </StyledDiv>
     </StyledDiv>

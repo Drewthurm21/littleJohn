@@ -3,7 +3,7 @@ import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import ChartContainer from './LineChart';
 import Sidebar from '../sidebar/Sidebar';
-
+import NewsSection from '../NewsSection'
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function HomePage() {
 
   return (
     <Container margin='8vh' justify='space-between' >
-      <Container margin='0 1vh 0 3vh' align='flex-start'>
+      <Container inner align='flex-start'>
 
         {/* main area */}
         <StyledDiv w='100%' direction='column' >
@@ -26,9 +26,7 @@ export default function HomePage() {
           </StyledDiv>
 
           {/* NEWS */}
-          <StyledDiv>
-            NEWS
-          </StyledDiv>
+          <NewsSection />
         </StyledDiv>
       </Container>
 

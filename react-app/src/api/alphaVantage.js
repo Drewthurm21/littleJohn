@@ -9,9 +9,9 @@ const avQueryFunctions = {
   monthly: ['TIME_SERIES_MONTHLY', 'Monthly Time Series'],
   monthlyAdjusted: ['TIME_SERIES_MONTHLY_ADJUSTED', 'Monthly Adjusted Time Series'],
   quote: ['GLOBAL_QUOTE', 'Global Quote'],
-  search: ['SYMBOL_SEARCH', 'bestMatches']
+  search: ['SYMBOL_SEARCH', 'bestMatches'],
+  news: ['NEWS_SENTIMENT', 'feed']
 }
-
 
 const today = new Date()
 const pastDates = {
@@ -24,26 +24,36 @@ const pastDates = {
 }
 
 export const getSparklineData = async (ticker, apiKey) => {
-  const { daily } = avQueryFunctions
-
-  const res = await fetch(`${baseUrl}function=${daily[0]}&output=compact&interval=1min&symbol=${ticker}&date=${pastDates.oneMonth}&apikey=${apiKey}`)
+  const [queryType, dataKey] = avQueryFunctions["daily"]
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&output=compact&interval=1min&symbol=${ticker}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
-
     return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
-  } else {
-    let _data = Object.values(parsedData[daily[1]]).reverse()
-    const tickerData = _data.reduce((acc, curr) => {
-      acc.push(curr["4. close"])
-      return acc
-    }, [])
-    const startingPrice = _data[0]["4. close"]
-    const currentPrice = _data[99]["4. close"]
-    const movement = ((currentPrice - startingPrice) / startingPrice) * 100
-
-    console.log({ tickerData, currentPrice, movement })
-
-    return { tickerData, currentPrice, movement }
   }
+
+  let _data = Object.values(parsedData[dataKey]).reverse()
+  const tickerData = _data.reduce((acc, curr) => {
+    acc.push(curr["4. close"])
+    return acc
+  }, [])
+  const startingPrice = _data[0]["4. close"]
+  const currentPrice = _data[99]["4. close"]
+  const movement = ((currentPrice - startingPrice) / startingPrice) * 100
+
+  return { tickerData, currentPrice, movement }
 };
+
+export const getGeneralNews = async (apiKey) => {
+  const { news } = avQueryFunctions
+  const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
+  }
+
+  const { feed } = parsedData
+
+  return feed
+}

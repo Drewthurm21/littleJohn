@@ -43,13 +43,15 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         alpha_vantage_key = os.environ.get('ALPHA_VANTAGE_API_KEY')
+        alpha_vantage_alt = os.environ.get('ALPHA_VANTAGE_ALT_KEY')
         finnhub_key = os.environ.get('FINNHUB_API_KEY')
 
         return {
             'user': user.to_dict(),
             'apiKeys': {
+                'finnhub': finnhub_key,
                 'alpha_vantage': alpha_vantage_key,
-                'finnhub': finnhub_key
+                'alpha_vantage_alt': alpha_vantage_alt
             }
         }
 
