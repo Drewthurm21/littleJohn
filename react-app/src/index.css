@@ -130,7 +130,7 @@
     transform: rotate(-225deg);
 }
 
-#doughnuts-container {
+/* #doughnuts-container {
     overflow: hidden;
     height: 100%;
     width: 100%;
@@ -140,4 +140,4 @@
     position: absolute;
     padding-right: 17px; 
     box-sizing: content-box; 
-}
+} */

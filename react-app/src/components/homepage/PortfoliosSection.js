@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
 import { Chevron, ChevronContainer, StyledDiv } from '../styledComponents/misc';
-import PortfolioDoughnut from '../portfolio/PortfolioDoughnut';
+import PortfolioDoughnut from '../DoughnutChart';
 
 
 export default function PortfoliosSection() {
@@ -31,9 +31,9 @@ export default function PortfoliosSection() {
           </StyledDiv>
         </StyledDiv>
       </StyledDiv>
-      <StyledDiv id='doughnuts-container' noWrap>
+      <StyledDiv noWrap>
         {portfolios && Object.values(portfolios).map(portfolio => (
-          <StyledDiv id='doughnut-container'
+          <StyledDiv
             key={`${portfolio.id} ${portfolio.name}`}>
             <StyledDiv>{portfolio.name}</StyledDiv>
             <PortfolioDoughnut portfolio={portfolio} />

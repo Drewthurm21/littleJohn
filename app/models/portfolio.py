@@ -24,4 +24,5 @@ class Portfolio(db.Model):
             'owner_id': self.owner_id,
             'balance': self.balance,
             'name': self.name,
+            'trades': {trade.id: trade.to_dict() for trade in self.trades},
         }
