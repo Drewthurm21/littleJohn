@@ -17,15 +17,10 @@ export default function Sidebar() {
 
   useEffect(() => {
     dispatch(getWatchlistsThunk(user.id))
-
-    document.addEventListener('click', (e) => {
-      console.log(e.target)
-    })
   }, [dispatch, user.id])
 
   const handleCreateWatchlist = (e) => {
     e.stopPropagation()
-    console.log('clicked')
     if (newListName.length === 0 || watchlists[newListName]) return
     dispatch(createWatchlistThunk({ name: newListName, owner_id: user.id }))
     setNewListName('')
