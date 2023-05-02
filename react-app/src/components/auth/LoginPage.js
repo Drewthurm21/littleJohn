@@ -1,26 +1,25 @@
-import LoginForm from './components/auth/LoginForm'
-import { Container } from './components/styledComponents/containers'
-import { ImageDiv, SpacerDiv, StyledDiv } from './components/styledComponents/misc'
+import LoginForm from './LoginForm'
+import { Container } from '../styledComponents/containers'
+import { ImageDiv, SpacerDiv, StyledDiv } from '../styledComponents/misc'
 
 export default function LoginPage() {
 
 
   return (
-    <Container justify='space-between'>
+    <Container spaceBetween>
       <ImageDiv
-        minW='50%'
-        minH='100%'
+        w='50%'
         bgImage={loginImgSrc}
         content=''
       />
 
-      <StyledDiv h='100%' minW='50%' direction='column'
+      <StyledDiv w='50%' col
         pad='0 0 0 60px'>
         <SpacerDiv h='25%' />
         <StyledDiv txMedium margin='0 0 8vh 0'>Log in to LittleJohn</StyledDiv>
         <LoginForm />
       </StyledDiv>
-    </Container>
+    </Container >
   )
 };
 

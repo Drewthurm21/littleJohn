@@ -22,5 +22,6 @@ class Watchlist(db.Model):
         return {
             'id': self.id,
             'owner_id': self.owner_id,
-            'name': self.name
+            'name': self.name,
+            'items': [item.ticker for item in self.watchlist_items]
         }

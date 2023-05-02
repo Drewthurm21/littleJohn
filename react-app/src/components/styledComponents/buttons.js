@@ -78,33 +78,44 @@ export const NavbarBtn = styled(NavLink)`
 
 
 export const PlusBtn = styled.div`
-  width: 30px;
-  height: 30px;
-  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+  transform: translateY(-10%);
   padding: 0;
   margin: 0;
+  cursor: pointer;
 
   &::before,
   &::after {
     content: "";
     position: absolute;
-    background-color: #3d3935;
-    transition: transform 0.25s ease-out;
+    transition: all 0.3s ease-in-out;
+    background-color: ${({ color }) => color || 'black'}
   }
 
   &::before {
     top: 0;
     left: 50%;
-    width: 4px;
+    width: 2px;
     height: 100%;
-    margin-left: -2px;
+    margin-left: -1px;
+    background-color: ${({ color }) => color || 'black'}
   }
-
+  
   &::after {
     top: 50%;
     left: 0;
     width: 100%;
-    height: 4px;
-    margin-top: -2px;
+    height: 2px;
+    margin-top: -1px;
+    background-color: ${({ color }) => color || 'black'}
+  } 
+
+   
+  &:hover::before,
+  :hover::after {
+    transition: all 0.3s ease-in-out;
+    rotate: 180deg;
+    background-color: ${({ colorHover }) => colorHover || 'black'}
   }
 `;
