@@ -130,16 +130,14 @@
     transform: rotate(-225deg);
 }
 
-ul {
-    list-style: none;
+#doughnuts-container {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
 }
 
-ul li {
-    position: relative;
-    background: #fff;
-    border-radius: 50%;
-    margin: 10px 0;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
-    z-index:5;
+#doughnuts-content {
+    position: absolute;
+    padding-right: 17px; 
+    box-sizing: content-box; 
 }

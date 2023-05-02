@@ -4,7 +4,7 @@ import { StyledDiv } from '../styledComponents/misc';
 import ChartContainer from './LineChart';
 import Sidebar from '../sidebar';
 import NewsSection from '../NewsSection'
-import { getWatchlistsThunk } from '../../store/watchlists';
+import PortfoliosSection from './PortfoliosSection';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -22,8 +22,10 @@ export default function HomePage() {
           </StyledDiv>
 
           {/* Portfolios */}
-          <StyledDiv h='30vh'>
-            PORTFOLIOS
+          <StyledDiv w='inherit' h='400px' margin='0 0 1vh 0'
+            id='portfolios-container'
+            customBorder='border-bottom: 1px solid var(--gray-400);' >
+            <PortfoliosSection />
           </StyledDiv>
 
           {/* NEWS */}

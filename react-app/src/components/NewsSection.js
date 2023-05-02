@@ -95,7 +95,7 @@ const NewsArticle = ({ article }) => {
       onClick={() => window.open(article.url, '_blank')}
       key={article.url}>
       <StyledDiv col w='70%'>
-        <StyledDiv pointer txSize='1.5vh' underline margin='0 0 2vh 0'>{article.source}</StyledDiv>
+        <StyledDiv pointer txSize='1.5vh' underline margin='0 0 10px 0'>{article.source}</StyledDiv>
         <StyledDiv pointer >{article.title}</StyledDiv>
       </StyledDiv>
       <StyledImg pointer w='13%' h='100%'

@@ -23,8 +23,8 @@ const updatePortfolio = (portfolio) => ({
   portfolio
 });
 
-export const getPortfoliosThunk = () => async (dispatch) => {
-  const response = await fetch('/api/portfolios/');
+export const getPortfoliosThunk = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}/portfolios`);
   const portfolios = await response.json();
   dispatch(getPortfolios(portfolios));
 };

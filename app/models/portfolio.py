@@ -22,5 +22,6 @@ class Portfolio(db.Model):
         return {
             'id': self.id,
             'owner_id': self.owner_id,
-            'balance': self.balance
+            'balance': self.balance,
+            'name': self.name,
         }
