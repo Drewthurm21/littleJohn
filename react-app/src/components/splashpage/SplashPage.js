@@ -1,20 +1,21 @@
 import { useHistory } from 'react-router-dom'
-import Slider from './components/Slider'
-import * as sc from './components/styledComponents'
-import { splashPageData } from './data/splashPageData'
-const {
-  containers: { Container, PageContainer, SplashContainer },
-  misc: { SpacerDiv, StyledDiv, StyledSpan, StyledImg },
-  buttons: { CustomBtn }
-} = sc
+import { useSelector } from 'react-redux'
+import { splashPageData } from './splashPageData'
+import { Container, SplashContainer } from '../styledComponents/containers'
+import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from '../styledComponents/misc'
+import { CustomBtn } from '../styledComponents/buttons'
+import Slider from './Slider'
+
 
 export default function SplashPage() {
   const history = useHistory()
-
+  const user = useSelector(state => state.session.user);
   const goToSignup = () => history.push('/signup')
 
+  if (user) history.push('/home')
+
   return (
-    <PageContainer>
+    <Container col>
       <Container bgColor='#000' >
         <Container inner col bgColor='#000' minH='65vh'>
           <StyledDiv w='80%'>
@@ -36,20 +37,19 @@ export default function SplashPage() {
           <StyledSpan selfBottom txSmall txColor='gray' >*Terms apply. Rates subject to change</StyledSpan>
         </Container>
       </Container>
-
       <SpacerDiv h='2em' bgImage='var(--splash-gradient)' />
-
       <Container col bgColor='#f0ebe6' minH='65vh'>
         <Slider />
       </Container>
 
-      {splashPageData.map((options) => splashSection(options, goToSignup))}
+      {splashPageData.map((options) => createSplashSection(options, goToSignup))}
 
-    </PageContainer >
+    </Container >
   )
 };
 
-function splashSection(options, cb) {
+
+function createSplashSection(options, cb) {
   const {
     heroText, mainText, subText, disclaimer,
     heroColor, textColor, bgColor,

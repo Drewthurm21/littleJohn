@@ -1,4 +1,4 @@
-import * as sc from './styledComponents'
+import * as sc from '../styledComponents'
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -29,14 +29,14 @@ export const SliderCard = ({ cardInfo }) => {
         <StyledDiv minH='50%' w='100%' margin='1vh 0px 0px 2vw'>
 
           {/* bottom left */}
-          <StyledDiv w='40%' direction='column' >
+          <StyledDiv w='40%' col  >
             {titleText && titleText.map((text, i) => (
               <StyledDiv txSize='2vw' key={i} >{text}</StyledDiv>
             ))}
           </StyledDiv>
 
           {/* bottom right */}
-          <StyledDiv w='48%' direction='column' justify='space-between'>
+          <StyledDiv w='48%' col spaceBetween>
             <StyledDiv>
               {infoText && infoText.map((text, i) => (
                 <StyledDiv txSize='1vw' key={i} >{text}</StyledDiv>
@@ -51,9 +51,9 @@ export const SliderCard = ({ cardInfo }) => {
             <CustomBtn margin='0 0 28px 0' txSmall rounded border='1px solid white'
               h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
           </StyledDiv>
-        </StyledDiv>
-      </Container>
-    </StyledDiv>
+        </StyledDiv >
+      </Container >
+    </StyledDiv >
   );
 };
 
@@ -62,6 +62,8 @@ export default function Slider() {
 
   useEffect(() => {
     setTimeout(() => setIndex((index + 1) % cards.length), 3500);
+
+    return () => clearTimeout();
   }, [index]);
 
   return (

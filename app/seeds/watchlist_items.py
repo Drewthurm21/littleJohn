@@ -8,7 +8,7 @@ def seed_watchlist_items():
         Watchlist_Item(watchlist_id=1, ticker='AMZN'),
         Watchlist_Item(watchlist_id=1, ticker='MSFT'),
         Watchlist_Item(watchlist_id=1, ticker='GOOG'),
-        Watchlist_Item(watchlist_id=1, ticker='FB'),
+        Watchlist_Item(watchlist_id=1, ticker='META'),
         Watchlist_Item(watchlist_id=1, ticker='NFLX'),
         Watchlist_Item(watchlist_id=1, ticker='UBER'),
         Watchlist_Item(watchlist_id=1, ticker='SQ'),
@@ -23,7 +23,8 @@ def seed_watchlist_items():
 
 def undo_watchlist_items():
     if environment == 'production':
-        db.session.execute(f'TRUNCATE {SCHEMA}.watchlist_items RESTART IDENTITY CASCADE;')
+        db.session.execute(
+            f'TRUNCATE {SCHEMA}.watchlist_items RESTART IDENTITY CASCADE;')
         db.session.commit()
     else:
         db.session.execute('DELETE from watchlist_items;')

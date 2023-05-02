@@ -40,11 +40,11 @@ const LoginForm = () => {
   };
 
   return (
-    <StyledDiv direction='column'>
+    <StyledDiv col  >
 
       <label style={{ color: 'black' }} htmlFor='email'>Email</label>
       {loginClicked && errors.email && <StyledDiv>{errors.email}</StyledDiv>}
-      <StyledDiv direction='row'>
+      <StyledDiv>
         <StyledInput rounded h='3vw' w='18vw' margin='8px 0 2vh 0'
           name='email' type='text' value={email}
           onChange={(e) => setEmail(e.target.value)} />
@@ -53,7 +53,7 @@ const LoginForm = () => {
 
       <label style={{ color: 'black' }} htmlFor='password'>Password</label>
       {loginClicked && errors.password && <StyledDiv>{errors.password}</StyledDiv>}
-      <StyledDiv direction='row'>
+      <StyledDiv>
         <StyledInput rounded h='3vw' w='18vw' margin='8px 0 0 0'
           name='password' type='password' value={password}
           onChange={(e) => setPassword(e.target.value)} />
@@ -63,7 +63,7 @@ const LoginForm = () => {
       <CustomBtn rounded margin='2vh 0' txColor='white' bgColor='black' onClick={onLogin}>Log In</CustomBtn>
       <CustomBtn rounded txColor='white' bgColor='black' onClick={demoLogin}>Log in as Demo User</CustomBtn>
 
-    </StyledDiv>
+    </StyledDiv >
   );
 };
 
