@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
 import { Chevron, ChevronContainer, StyledDiv } from '../styledComponents/misc';
-import PortfolioDoughnut from '../DoughnutChart';
+import { createHoldingsData, createLineItem, loadPrices } from '../../utilities';
 
 
 export default function PortfoliosSection() {
@@ -31,15 +31,71 @@ export default function PortfoliosSection() {
           </StyledDiv>
         </StyledDiv>
       </StyledDiv>
-      <StyledDiv noWrap>
+      <StyledDiv w='100%' noWrap spaceBetween>
         {portfolios && Object.values(portfolios).map(portfolio => (
-          <StyledDiv
+          <StyledDiv col w='32%' h='100%' spaceBetween
+            bgColor='var(--gray-200)' txSize='1.6vh'
+            margin='0 0 12px 0' pad='12px'
             key={`${portfolio.id} ${portfolio.name}`}>
             <StyledDiv>{portfolio.name}</StyledDiv>
-            <PortfolioDoughnut portfolio={portfolio} />
+            <PortfolioCard portfolio={portfolio} />
           </StyledDiv>
         ))}
       </StyledDiv>
     </>
   )
 };
+
+
+const PortfolioCard = ({ portfolio }) => {
+
+  const [portfolioHoldings, setPortfolioHoldings] = useState([])
+  const [portfolioValue, setPortfolioValue] = useState(0)
+
+  useEffect(() => {
+    if (portfolio) {
+      const holdings = createHoldingsData(portfolio)
+      setPortfolioHoldings(holdings)
+    }
+  }, [portfolio])
+
+  useEffect(() => {
+    let value = 0
+    if (portfolioHoldings.length) {
+      portfolioHoldings.forEach(holding => {
+        if (holding.stock === 'USD') value += holding.value
+        else value += holding.quantity * holding.value
+      })
+    }
+    setPortfolioValue(value)
+  }, [portfolioHoldings])
+
+  return (
+    <>
+      <StyledDiv h='300px' spaceBetween center>
+        <StyledDiv col w='85%'>
+          <StyledDiv col h='100%' >
+            {portfolioHoldings.map(holding => (
+              <StyledDiv key={holding.stock} margin='0 0 4px 0' spaceBetween>
+                <StyledDiv txSmall>
+                  {holding.stock}
+                </StyledDiv>
+                <StyledDiv txSmall>
+                  ${holding.stock === 'USD' ? holding.value : holding.quantity * holding.value}
+                </StyledDiv>
+              </StyledDiv>
+            ))}
+          </StyledDiv>
+        </StyledDiv>
+      </StyledDiv>
+      <StyledDiv txSize='1.6vh' spaceBetween>
+        <StyledDiv txSize='1.6vh'>
+          Est. Value:
+        </StyledDiv>
+        <StyledDiv txSize='1.6vh'>
+          ${portfolioValue}
+        </StyledDiv>
+      </StyledDiv>
+    </>
+  )
+}

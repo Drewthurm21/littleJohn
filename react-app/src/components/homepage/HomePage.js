@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
-import ChartContainer from './LineChart';
 import Sidebar from '../sidebar';
 import NewsSection from '../NewsSection'
 import PortfoliosSection from './PortfoliosSection';
+import ProfileOverview from './ProfileOverview';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -16,13 +16,13 @@ export default function HomePage() {
       <Container inner >
 
         {/* main area */}
-        <StyledDiv w='100%' col  >
-          <StyledDiv h='500px'>
-            <ChartContainer data={testData} />
+        <StyledDiv col  >
+          <StyledDiv h='600px'>
+            <ProfileOverview />
           </StyledDiv>
 
           {/* Portfolios */}
-          <StyledDiv w='inherit' h='400px' margin='0 0 1vh 0'
+          <StyledDiv w='inherit' margin='0 0 1vh 0'
             id='portfolios-container'
             customBorder='border-bottom: 1px solid var(--gray-400);' >
             <PortfoliosSection />

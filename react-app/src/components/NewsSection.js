@@ -8,7 +8,6 @@ const ljLogo = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/sr
 
 
 export default function NewsSection() {
-
   const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage_alt)
   const [newsArticles, setNewsArticles] = useState([])
   const [pageSize, setPageSize] = useState(5)
@@ -37,15 +36,9 @@ export default function NewsSection() {
 
   const changePageSize = (size) => {
     //if increasing the page size would put us out of bounds - only show remaining stories
-    if (startIndex + size > 50) {
-      setPageSize(50 - startIndex)
-      return
-    }
-
-    setPageSize(size)
+    if (startIndex + size > 50) setPageSize(50 - startIndex)
+    else setPageSize(size)
   }
-
-
 
   return (
     <>
@@ -54,9 +47,9 @@ export default function NewsSection() {
         <StyledDiv w='150px' col justify='space-evenly' align='center'>
           <StyledDiv underline txSize='1.2vh' margin='0 0 10px 0'>Page controls</StyledDiv>
           <StyledDiv spaceBetween w='100%' margin='0 0 8px 0'>
-            <NewsButton onClick={() => changePageSize(5)}>5</NewsButton>
-            <NewsButton onClick={() => changePageSize(10)}>10</NewsButton>
-            <NewsButton onClick={() => changePageSize(25)}>25</NewsButton>
+            <NewsButton disabled={pageSize === 5} onClick={() => changePageSize(5)}>5</NewsButton>
+            <NewsButton disabled={pageSize === 10} onClick={() => changePageSize(10)}>10</NewsButton>
+            <NewsButton disabled={pageSize === 25} onClick={() => changePageSize(25)}>25</NewsButton>
           </StyledDiv>
           <StyledDiv w='100%' justify='space-evenly'
           >
@@ -124,7 +117,7 @@ const NewsButton = styled.span`
 
   ${({ disabled }) => disabled && `
     background-color: var(--gray-400);
-    color: var(--gray-400);
+    color: white;
     cursor: mouse;
   `}
 `

@@ -29,7 +29,7 @@ export const getSparklineData = async (ticker, apiKey) => {
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
-    return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
+    return { error: 'max api calls =[' }
   }
 
   let _data = Object.values(parsedData[dataKey]).reverse()
@@ -50,10 +50,35 @@ export const getGeneralNews = async (apiKey) => {
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
-    return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
+    return { error: 'max api calls =[' }
   }
 
   const { feed } = parsedData
-
   return feed
+}
+
+export const getCompanyNews = async (ticker, apiKey) => {
+  const [queryType, dataKey] = avQueryFunctions['news']
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const { feed } = parsedData
+  return feed
+}
+
+export const getCompanyQuote = async (ticker, apiKey) => {
+  const [queryType, dataKey] = avQueryFunctions["quote"]
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const { [dataKey]: quote } = parsedData
+  return quote
 }
