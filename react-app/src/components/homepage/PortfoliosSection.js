@@ -18,7 +18,7 @@ export default function PortfoliosSection() {
     <>
       <StyledDiv w='100%' h='3vh' margin='12px 0 12px 0' align='center' spaceBetween>
         <StyledDiv margin='1vh 0' txSize='2vh'>Portfolios</StyledDiv>
-        <StyledDiv w='40%'  >
+        <StyledDiv w='10%'  >
           <StyledDiv w='15%'>
             <ChevronContainer color='black' h='20px'>
               <Chevron left color='black' />
@@ -31,11 +31,11 @@ export default function PortfoliosSection() {
           </StyledDiv>
         </StyledDiv>
       </StyledDiv>
-      <StyledDiv w='100%' noWrap spaceBetween>
+      <StyledDiv w='100%' noWrap spaceBetween margin='2vh'>
         {portfolios && Object.values(portfolios).map(portfolio => (
-          <StyledDiv col w='32%' h='100%' spaceBetween
+          <StyledDiv col w='32%' h='100%' spaceBetween border='var(--custom-nav-border)'
             bgColor='var(--gray-200)' txSize='1.6vh'
-            margin='0 0 12px 0' pad='12px'
+            pad='24px' radius='8px'
             key={`${portfolio.id} ${portfolio.name}`}>
             <StyledDiv>{portfolio.name}</StyledDiv>
             <PortfolioCard portfolio={portfolio} />
@@ -73,19 +73,18 @@ const PortfolioCard = ({ portfolio }) => {
   return (
     <>
       <StyledDiv h='300px' spaceBetween center>
-        <StyledDiv col w='85%'>
-          <StyledDiv col h='100%' >
-            {portfolioHoldings.map(holding => (
-              <StyledDiv key={holding.stock} margin='0 0 4px 0' spaceBetween>
-                <StyledDiv txSmall>
-                  {holding.stock}
-                </StyledDiv>
-                <StyledDiv txSmall>
-                  ${holding.stock === 'USD' ? holding.value : holding.quantity * holding.value}
-                </StyledDiv>
+        <StyledDiv col w='85%' h='100%' justify='space-evenly'>
+          {portfolioHoldings.map(holding => (
+            <StyledDiv key={holding.stock} margin='0 0 4px 0'
+              spaceBetween border='var(--custom-border-2)'>
+              <StyledDiv txSmall>
+                {holding.stock}
               </StyledDiv>
-            ))}
-          </StyledDiv>
+              <StyledDiv txSmall>
+                ${holding.stock === 'USD' ? holding.value : holding.quantity * holding.value}
+              </StyledDiv>
+            </StyledDiv>
+          ))}
         </StyledDiv>
       </StyledDiv>
       <StyledDiv txSize='1.6vh' spaceBetween>

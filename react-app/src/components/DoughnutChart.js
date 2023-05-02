@@ -14,7 +14,7 @@ export default function PortfolioDoughnut({ portfolio, allHoldings = null, small
 
   return (
     <PieChart
-      id="pie"
+      id="pie-chart"
       type="doughnut"
       palette="Soft Pastel"
       dataSource={chartHoldings}
@@ -24,9 +24,8 @@ export default function PortfolioDoughnut({ portfolio, allHoldings = null, small
       </Series>
       <Legend
         horizontalAlignment="right"
-        verticalAlignment="top"
+        verticalAlignment="middle"
       />
-      <Size width={small ? 280 : 650} height={small ? 300 : 600} />
       <Tooltip enabled={true} customizeTooltip={customizeChartTooltip}>
         <Format type="thousands" />
       </Tooltip>

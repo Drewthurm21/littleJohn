@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import Sidebar from '../sidebar';
@@ -7,13 +6,10 @@ import PortfoliosSection from './PortfoliosSection';
 import ProfileOverview from './ProfileOverview';
 
 export default function HomePage() {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
-
 
   return (
     <Container margin='5vh' spaceBetween align='flex-start'>
-      <Container inner >
+      <Container pad='0 2% 0 5%' >
 
         {/* main area */}
         <StyledDiv col  >
@@ -34,16 +30,9 @@ export default function HomePage() {
       </Container>
 
       {/* sidebar */}
-      <StyledDiv h='100%' position='sticky' align='flex-start'>
+      <StyledDiv h='100%' align='flex-start'>
         <Sidebar />
       </StyledDiv>
     </Container >
   )
 };
-
-const testData = {
-  title: 'Buying power',
-  labelsX: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-  labelsY: [0, 5],
-  dataPoints: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0]
-}

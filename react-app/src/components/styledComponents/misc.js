@@ -12,6 +12,7 @@ export const StyledDiv = styled.div`
   ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
   ${({ center }) => center && ({ justifyContent: 'center', alignItems: 'center' })};
   ${({ noWrap }) => noWrap && ({ flexWrap: 'nowrap' })};
+  
   /* Positioning */
   position: ${({ position }) => position || ''};
   top: ${({ top }) => top || ''};
