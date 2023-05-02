@@ -89,8 +89,8 @@ export const PlusBtn = styled.div`
   &::after {
     content: "";
     position: absolute;
-    background-color: #3d3935;
-    transition: transform 0.25s ease-out;
+    transition: all 0.3s ease-in-out;
+    background-color: ${({ color }) => color || 'black'}
   }
 
   &::before {
@@ -99,7 +99,7 @@ export const PlusBtn = styled.div`
     width: 2px;
     height: 100%;
     margin-left: -1px;
-    background-color: var(--money-green)
+    background-color: ${({ color }) => color || 'black'}
   }
   
   &::after {
@@ -108,6 +108,14 @@ export const PlusBtn = styled.div`
     width: 100%;
     height: 2px;
     margin-top: -1px;
-    background-color: var(--money-green)
+    background-color: ${({ color }) => color || 'black'}
+  } 
+
+   
+  &:hover::before,
+  :hover::after {
+    transition: all 0.3s ease-in-out;
+    rotate: 180deg;
+    background-color: ${({ colorHover }) => colorHover || 'black'}
   }
 `;

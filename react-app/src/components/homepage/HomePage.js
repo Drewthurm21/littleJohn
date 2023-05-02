@@ -31,7 +31,7 @@ export default function HomePage() {
       </Container>
 
       {/* sidebar */}
-      <StyledDiv h='50vh' position='sticky' align='flex-start'>
+      <StyledDiv h='100%' position='sticky' align='flex-start'>
         <Sidebar />
       </StyledDiv>
     </Container >

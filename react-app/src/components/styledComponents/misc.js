@@ -10,6 +10,7 @@ export const StyledDiv = styled.div`
   ${({ col }) => col && ({ flexDirection: 'column' })};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
   ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
+  ${({ center }) => center && ({ justifyContent: 'center', alignItems: 'center' })};
 
   /* Positioning */
   position: ${({ position }) => position || ''};
@@ -17,6 +18,7 @@ export const StyledDiv = styled.div`
   left: ${({ left }) => left || ''};
   right: ${({ right }) => right || ''};
   bottom: ${({ bottom }) => bottom || ''};
+  ${({ z }) => z && ({ zIndex: z })}
   
   /* Size & Space */
   width: ${({ w }) => w || ''};
@@ -64,11 +66,18 @@ export const StyledDiv = styled.div`
   ${({ pointer }) => pointer && ({ cursor: 'pointer' })};
 
   &:hover {
+    color: ${({ txColorHover }) => txColorHover || ''};
     background-color: ${({ bgColorHover }) => bgColorHover || ''};
     box-shadow: ${({ shadowHover }) => shadowHover || ''};
     transform: ${({ transformHover }) => transformHover || ''};
-    transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
+    transition: ${({ transitionHover }) => transitionHover || 'all 0.4s ease-in-out'};
   }
+
+  ${({ translate }) => translate && `
+    position: absolute;
+    transform: translate(${translate});
+  `};
+  
 `;
 
 export const StyledSpan = styled.span`
@@ -227,10 +236,12 @@ export const StyledInput = styled.input`
 
   }
 
-  &::placeholder,
+  ::placeholder,
   ::-webkit-input-placeholder,
   ::-moz-placeholder {
     color: ${({ placeholderColor }) => placeholderColor || 'black'};
+    opacity: ${({ placeholderOpacity }) => placeholderOpacity || '1'};
+    font-size: ${({ phSize }) => phSize || '0.5em'};
   }
 
   :valid {

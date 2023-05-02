@@ -15,7 +15,7 @@ export default function MissingPage() {
       <StyledDiv h='500px' w='45vw'>
         <StyledDiv position='absolute' right='47%' txXLarge className="text-center ">404</StyledDiv>
         <StyledDiv position='absolute' top='15%' right='40%' txSize='18px' className="text-center ">The page you're looking for is not available.</StyledDiv>
-        <ImageDiv h='100%' w='100%' bgImage={animationSrc} class="four_zero_four_bg">
+        <ImageDiv w='100%' bgImage={animationSrc} class="four_zero_four_bg">
         </ImageDiv>
       </StyledDiv>
 

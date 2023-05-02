@@ -42,14 +42,8 @@ export const createWatchlistThunk = (watchlist) => async (dispatch) => {
   dispatch(addWatchlist(newWatchlist));
 };
 
-export const addWatchlistItemThunk = (listId, watchlistItem) => async (dispatch) => {
-  const response = await fetch(`/api/watchlists/${listId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(watchlistItem)
-  });
+export const addWatchlistItemThunk = (listId, ticker) => async (dispatch) => {
+  const response = await fetch(`/api/watchlists/${listId}/${ticker}`);
   const updatedWatchlist = await response.json();
   dispatch(updateWatchlist(updatedWatchlist));
 };
