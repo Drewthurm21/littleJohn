@@ -4,7 +4,7 @@ import { deleteWatchlistThunk, updateWatchlistThunk } from '../../store/watchlis
 import { StyledDiv, StyledSpan, StyledInput, ChevronContainer, Chevron } from '../styledComponents/misc';
 import WatchlistItem from './WatchlistItem';
 
-export default function Watchlist({ watchlist }) {
+export default function Watchlist({ watchlist, addEvent }) {
   const menuRef = useRef()
   const dispatch = useDispatch()
   const [refresh, setRefresh] = useState(false)
@@ -26,7 +26,8 @@ export default function Watchlist({ watchlist }) {
         }
       }
     };
-    document.addEventListener('mousedown', handler);
+
+    if (addEvent) document.addEventListener('mousedown', handler);
 
     return () => {
       document.removeEventListener('mousedown', handler);

@@ -38,6 +38,8 @@ export const createWatchlistThunk = (watchlist) => async (dispatch) => {
     },
     body: JSON.stringify(watchlist)
   });
+
+
   const newWatchlist = await response.json();
   dispatch(addWatchlist(newWatchlist));
 };
@@ -52,8 +54,8 @@ export const deleteWatchlistThunk = (watchlistId) => async (dispatch) => {
   const response = await fetch(`/api/watchlists/${watchlistId}`, {
     method: 'DELETE'
   });
-  const deletedWatchlist = await response.json();
-  dispatch(deleteWatchlist(deletedWatchlist.id));
+
+  if (response.ok) dispatch(deleteWatchlist(watchlistId));
 };
 
 export const deleteWatchlistItemThunk = (listId, ticker) => async (dispatch) => {
@@ -68,9 +70,7 @@ export const deleteWatchlistItemThunk = (listId, ticker) => async (dispatch) => 
 export const updateWatchlistThunk = (watchlist) => async (dispatch) => {
   const response = await fetch(`/api/watchlists/${watchlist.id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(watchlist)
   });
   const updatedWatchlist = await response.json();

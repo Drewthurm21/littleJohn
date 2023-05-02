@@ -36,7 +36,7 @@ def delete_watchlist(watchlist_id):
     watchlist = Watchlist.query.get(watchlist_id)
     db.session.delete(watchlist)
     db.session.commit()
-    return {'message': 'watchlist deleted'}
+    return {'message': 'deleted'}
 
 
 @watchlist_routes.route('/<int:watchlist_id>/<string:ticker>')

@@ -17,15 +17,19 @@ export default function Sidebar() {
 
   useEffect(() => {
     dispatch(getWatchlistsThunk(user.id))
-    setRefreshLists(!refreshLists)
+
+    document.addEventListener('click', (e) => {
+      console.log(e.target)
+    })
   }, [dispatch, user.id])
 
-  const handleCreateWatchlist = () => {
-    console.log('in the watchlist create handler')
+  const handleCreateWatchlist = (e) => {
+    e.stopPropagation()
+    console.log('clicked')
+    if (newListName.length === 0 || watchlists[newListName]) return
     dispatch(createWatchlistThunk({ name: newListName, owner_id: user.id }))
     setNewListName('')
     setShowCreateList(false)
-    setRefreshLists(!refreshLists)
   }
 
   return (
@@ -54,19 +58,18 @@ export default function Sidebar() {
               placeholder='Enter name here...'
               phSize='10px'
               onChange={(e) => setNewListName(e.target.value)}
-              onBlur={() => setShowCreateList(false)}
               onKeyPress={(e) => e.key === 'Enter' ? handleCreateWatchlist() : null}
             />
             <StyledDiv margin='0 5px 8px 0'
               txColorHover='var(--money-green)'
-            >Confirm</StyledDiv>
+              onClick={handleCreateWatchlist} >Confirm</StyledDiv>
           </StyledDiv>
         }
       </StyledDiv>
       <StyledDiv col  >
         {
-          Object.values(watchlists)?.map(list => (
-            <Watchlist key={list.id} watchlist={list} />
+          Object.values(watchlists)?.map((list, i) => (
+            <Watchlist key={list.id} watchlist={list} addEvent={i === 0} />
           ))
         }
       </StyledDiv >
