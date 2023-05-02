@@ -7,14 +7,18 @@ export const StyledDiv = styled.div`
   flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || ''};
   align-items: ${({ align }) => align || ''};
+  ${({ col }) => col && ({ flexDirection: 'column' })};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
-  
+  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
+  ${({ center }) => center && ({ justifyContent: 'center', alignItems: 'center' })};
+
   /* Positioning */
   position: ${({ position }) => position || ''};
   top: ${({ top }) => top || ''};
   left: ${({ left }) => left || ''};
   right: ${({ right }) => right || ''};
   bottom: ${({ bottom }) => bottom || ''};
+  ${({ z }) => z && ({ zIndex: z })}
   
   /* Size & Space */
   width: ${({ w }) => w || ''};
@@ -51,20 +55,29 @@ export const StyledDiv = styled.div`
   box-shadow: ${({ shadow }) => shadow || 'none'};
   ${({ txWhite }) => txWhite && ({ color: 'white' })};
   ${({ txBlack }) => txBlack && ({ color: 'black' })};
+  ${({ customBorder }) => customBorder && `${customBorder}`};
   
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
-  transition: ${({ transition }) => transition || 'none'};
+  transition: ${({ transition }) => transition || 'all 0.4s ease-in-out'};
   background-image: ${({ bgImage }) => bgImage || 'none'};
-  cursor: ${({ cursor }) => cursor || 'default'};
   content: ${({ content }) => content || 'none'};
+  cursor: ${({ cursor }) => cursor || 'default'};
+  ${({ pointer }) => pointer && ({ cursor: 'pointer' })};
 
   &:hover {
+    color: ${({ txColorHover }) => txColorHover || ''};
     background-color: ${({ bgColorHover }) => bgColorHover || ''};
     box-shadow: ${({ shadowHover }) => shadowHover || ''};
     transform: ${({ transformHover }) => transformHover || ''};
-    transition: ${({ transitionHover }) => transitionHover || 'all 0.3s ease-in-out'};
+    transition: ${({ transitionHover }) => transitionHover || 'all 0.4s ease-in-out'};
   }
+
+  ${({ translate }) => translate && `
+    position: absolute;
+    transform: translate(${translate});
+  `};
+  
 `;
 
 export const StyledSpan = styled.span`
@@ -131,7 +144,7 @@ export const ImageDiv = styled.div`
 
 export const GlassBox = styled.div`
   content: '';
-  height: ${({ h }) => h || '60px'};
+  height: ${({ h }) => h || '30px'};
   width: ${({ w }) => w || '30px'};
   position: ${({ position }) => position || 'relative'};
   top: ${({ top }) => top || '0'};
@@ -164,6 +177,7 @@ export const StyledImg = styled.img`
   object-fit: cover;
   cursor: ${({ cursor }) => cursor || 'default'};
   border-radius: ${({ radius }) => radius || '0'};
+  border: ${({ border }) => border || 'none'};
 
   @media only screen and (max-width: 768px) {
     width: 50%;
@@ -222,10 +236,12 @@ export const StyledInput = styled.input`
 
   }
 
-  &::placeholder,
+  ::placeholder,
   ::-webkit-input-placeholder,
   ::-moz-placeholder {
     color: ${({ placeholderColor }) => placeholderColor || 'black'};
+    opacity: ${({ placeholderOpacity }) => placeholderOpacity || '1'};
+    font-size: ${({ phSize }) => phSize || '0.5em'};
   }
 
   :valid {
@@ -234,9 +250,44 @@ export const StyledInput = styled.input`
 
 `;
 
-
 export const Checkmark = styled.span`
     margin: 8px;
     color: green;
     font-size: 24px;
+`;
+
+export const Chevron = styled.span`
+  display: inline-block;
+  width: ${({ size }) => size || '13px'};
+  height:${({ size }) => size || '13px'};
+
+  ${({ color }) => color && `
+  border-top: 2px solid ${color}; 
+  border-right: 2px solid ${color};
+  `};
+
+  ${({ up }) => up && `transform: rotate(-45deg);`};
+  ${({ down }) => down && `transform: rotate(135deg);`};
+  ${({ left }) => left && `transform: rotate(-135deg);`};
+  ${({ right }) => right && `transform: rotate(45deg);`};
+
+  transition: all 0.3s ease-in-out;
+`;
+
+export const ChevronContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ w }) => w || '100%'};
+  height: ${({ h }) => h || '100%'};
+  margin: ${({ margin }) => margin || '0px'};
+  padding: ${({ pad }) => pad || '0px'};
+  background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  border: ${({ border }) => border || 'none'};
+  cursor: ${({ cursor }) => cursor || 'pointer'};
+
+  &:hover ${Chevron} {
+    border-top: 2px solid ${({ hoverColor }) => hoverColor || '#000'};
+    border-right: 2px solid ${({ hoverColor }) => hoverColor || '#000'};
+  }
 `;

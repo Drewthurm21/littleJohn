@@ -33,7 +33,7 @@ const SignUpForm = () => {
     return (<>
       <label key={i} style={{ color: 'black' }} htmlFor='email'>{label}</label>
       {signupClicked && errors[name] && <StyledDiv>{errors[name]}</StyledDiv>}
-      <StyledDiv key={i} direction='row'>
+      <StyledDiv key={i} col>
         <StyledInput h='3vw' w='18vw' margin='8px 0 2vh 0'
           name='email' type={type} value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -59,37 +59,39 @@ const SignUpForm = () => {
   };
 
   return (
-    <StyledDiv direction='column'>
-      {[
-        {
-          label: 'Username', type: 'text', name: 'username',
-          value: username, checkVal: errors.username, onChange: setUsername
-        },
-        {
-          label: 'Email', type: 'text', name: 'email',
-          value: email, checkVal: errors.email, onChange: setEmail
-        },
-        {
-          label: 'Password', type: 'password', name: 'password',
-          value: password, checkVal: errors.password, onChange: setPassword
-        },
-        {
-          label: 'Repeat Password', type: 'password', name: 'repeatPassword',
-          value: repeatPassword, checkVal: errors.repeatPassword, onChange: setRepeatPassword
-        },
-      ].map((input, i) => createInput(input, i))}
+    <StyledDiv col  >
+      {
+        [
+          {
+            label: 'Username', type: 'text', name: 'username',
+            value: username, checkVal: errors.username, onChange: setUsername
+          },
+          {
+            label: 'Email', type: 'text', name: 'email',
+            value: email, checkVal: errors.email, onChange: setEmail
+          },
+          {
+            label: 'Password', type: 'password', name: 'password',
+            value: password, checkVal: errors.password, onChange: setPassword
+          },
+          {
+            label: 'Repeat Password', type: 'password', name: 'repeatPassword',
+            value: repeatPassword, checkVal: errors.repeatPassword, onChange: setRepeatPassword
+          },
+        ].map((input, i) => createInput(input, i))
+      }
 
-      <CustomBtn rounded margin='0 0 2vh 0'
+      < CustomBtn rounded margin='0 0 2vh 0'
         txColor='white' bgColor='black'
         onClick={onSignUp}
-      >Sign Up</CustomBtn>
+      > Sign Up</CustomBtn >
 
       <CustomBtn rounded
         txColor='white' bgColor='black'
         onClick={demoLogin}
       >Log in as Demo User</CustomBtn>
 
-    </StyledDiv>
+    </StyledDiv >
   );
 };
 

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const AppGridContainer = styled.div`
   display: grid;
@@ -23,12 +23,12 @@ export const AppInnerContainer = styled.div`
   grid-area: main;
 `;
 
-
 export const Container = styled.div`
   display: flex;
   flex-direction: ${({ direction }) => direction || 'row'};
   justify-content: ${({ justify }) => justify || 'center'};
   align-items: ${({ align }) => align || 'center'};
+  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })};
 
   height: ${({ h }) => h || '100%'};
   width: ${({ w }) => w || '100%'};
