@@ -1,15 +1,18 @@
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { splashPageData } from './splashPageData'
+import { Container, SplashContainer } from '../styledComponents/containers'
+import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from '../styledComponents/misc'
+import { CustomBtn } from '../styledComponents/buttons'
 import Slider from './Slider'
-import { splashPageData } from '../data/splashPageData'
-import { Container, SplashContainer } from './styledComponents/containers'
-import { SpacerDiv, StyledDiv, StyledSpan, StyledImg } from './styledComponents/misc'
-import { CustomBtn } from './styledComponents/buttons'
 
 
 export default function SplashPage() {
   const history = useHistory()
-
+  const user = useSelector(state => state.session.user);
   const goToSignup = () => history.push('/signup')
+
+  if (user) history.push('/home')
 
   return (
     <Container col>

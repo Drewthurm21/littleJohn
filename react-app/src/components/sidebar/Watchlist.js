@@ -4,7 +4,7 @@ import { deleteWatchlistThunk, updateWatchlistThunk } from '../../store/watchlis
 import { StyledDiv, StyledSpan, StyledInput, ChevronContainer, Chevron } from '../styledComponents/misc';
 import WatchlistItem from './WatchlistItem';
 
-export default function Watchlist({ watchlist, addEvent }) {
+export default function Watchlist({ watchlist }) {
   const menuRef = useRef()
   const dispatch = useDispatch()
   const [refresh, setRefresh] = useState(false)
@@ -17,6 +17,7 @@ export default function Watchlist({ watchlist, addEvent }) {
   useEffect(() => {
     //close menu if click is outside
     const handler = (e) => {
+      e.stopPropagation()
       if (!menuRef.current.contains(e.target)) {
         closeMenus()
         // if changed dispatch update & remove listener
@@ -27,7 +28,7 @@ export default function Watchlist({ watchlist, addEvent }) {
       }
     };
 
-    if (addEvent) document.addEventListener('mousedown', handler);
+    document.addEventListener('mousedown', handler);
 
     return () => {
       document.removeEventListener('mousedown', handler);

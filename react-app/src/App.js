@@ -5,7 +5,7 @@ import { authenticate } from './store/session';
 import { AppInnerContainer, AppGridContainer } from './components/styledComponents/containers';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import SplashPage from './components/SplashPage';
+import SplashPage from './components/splashpage';
 import SignupPage from './components/auth/SignupPage';
 import LoginPage from './components/auth/LoginPage';
 import MissingPage from './components/MissingPage';

@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import ChartContainer from './LineChart';
-import Sidebar from '../sidebar/Sidebar';
+import Sidebar from '../sidebar';
 import NewsSection from '../NewsSection'
+import { getWatchlistsThunk } from '../../store/watchlists';
 
 export default function HomePage() {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import * as sc from './styledComponents'
+import * as sc from '../styledComponents'
 import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
