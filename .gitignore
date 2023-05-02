@@ -1,5 +1,5 @@
 #db
-*dev.db
+*dev.*
 /node_modules
 .env
 __pycache__/
