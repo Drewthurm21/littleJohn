@@ -15,6 +15,9 @@ export default function Watchlist({ watchlist }) {
   const [watchlistName, setWatchlistName] = useState(watchlist.name)
 
   useEffect(() => {
+    const updateWatchlistName = () => {
+      dispatch(updateWatchlistThunk({ id: watchlist.id, name: watchlistName }))
+    };
     //close menu if click is outside
     const handler = (e) => {
       e.stopPropagation()
@@ -33,16 +36,12 @@ export default function Watchlist({ watchlist }) {
     return () => {
       document.removeEventListener('mousedown', handler);
     }
-  }, [watchlistName]);
+  }, [dispatch, watchlistName, watchlist]);
 
   const closeMenus = () => {
     setShowEditMenu(false)
     setEditList(false)
     setConfirmDelete(false)
-  };
-
-  const updateWatchlistName = () => {
-    dispatch(updateWatchlistThunk({ id: watchlist.id, name: watchlistName }))
   };
 
   const beginListEdits = () => {

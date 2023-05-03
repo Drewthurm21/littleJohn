@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
 import { consolidatePortfolioHoldings, loadPrices } from '../../utilities';
-import { getCompanyQuote } from '../../api/alphaVantage';
 import { StyledDiv } from '../styledComponents/misc';
 import { createLineItem } from '../../utilities.js'
 import DoughnutChart from '../DoughnutChart';

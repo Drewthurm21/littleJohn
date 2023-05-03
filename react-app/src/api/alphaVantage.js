@@ -13,17 +13,17 @@ const avQueryFunctions = {
   news: ['NEWS_SENTIMENT', 'feed']
 }
 
-const today = new Date()
-const pastDates = {
-  oneMonth: new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()),
-  threeMonths: new Date(today.getFullYear(), today.getMonth() - 3, today.getDate()),
-  sixMonths: new Date(today.getFullYear(), today.getMonth() - 6, today.getDate()),
-  oneYear: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
-  twoYears: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
-  fiveYears: new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()),
-}
+// const today = new Date()
+// const pastDates = {
+//   oneMonth: new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()),
+//   threeMonths: new Date(today.getFullYear(), today.getMonth() - 3, today.getDate()),
+//   sixMonths: new Date(today.getFullYear(), today.getMonth() - 6, today.getDate()),
+//   oneYear: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+//   twoYears: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
+//   fiveYears: new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()),
+// }
 
-export const getSparklineData = async (ticker, apiKey) => {
+export const getWatchlistItemData = async (ticker, apiKey) => {
   const [queryType, dataKey] = avQueryFunctions["daily"]
   const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&output=compact&interval=1min&symbol=${ticker}`)
   const parsedData = await res.json()
@@ -59,31 +59,55 @@ export const getGeneralNews = async (apiKey) => {
 
 export const getCompanyNews = async (ticker, apiKey) => {
   const { news } = avQueryFunctions
-  const res = await fetch(`${baseUrl}function=${news[0]}&tickers=${ticker}&apikey=${apiKey}`)
+  const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}&tickers=${ticker}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
     return { error: 'max api calls =[' }
   }
-
-  console.log('getCompanyNews -> parsedData', parsedData)
 
   const { feed } = parsedData
   return feed
 }
 
 export const getCompanyQuote = async (ticker, apiKey) => {
-  const [queryType, dataKey] = avQueryFunctions["quote"]
+  const [queryType, dataKey] = avQueryFunctions.quote
   const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
   const parsedData = await res.json()
-
-  console.log('getCompanyQuote -> parsedData', parsedData)
 
   if (parsedData["Error Message"] || !parsedData) {
     return { error: 'max api calls =[' }
   }
 
   const { [dataKey]: quote } = parsedData
-  console.log('getCompanyQuote -> quote', quote)
   return quote
+}
+
+export const getCompanyOverview = async (ticker, apiKey) => {
+  const res = await fetch(`${baseUrl}function=OVERVIEW&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  return parsedData
+}
+
+export const getHistoricalData = async (ticker, apiKey) => {
+  const [queryType, dataKey] = avQueryFunctions.intraday
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const _data = Object.values(parsedData[dataKey]).reverse()
+  const data = _data.reduce((acc, curr) => {
+    acc.push(curr["4. close"])
+    return acc
+  }, [])
+
+  return data
 }

@@ -12,7 +12,7 @@ export default function PortfoliosSection() {
 
   useEffect(() => {
     dispatch(getPortfoliosThunk(user.id))
-  }, [user])
+  }, [dispatch, user])
 
   return (
     <>

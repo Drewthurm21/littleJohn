@@ -8,7 +8,6 @@ import Watchlist from './Watchlist'
 
 export default function Sidebar() {
   const dispatch = useDispatch()
-  const [refreshLists, setRefreshLists] = useState(false)
   const [showCreateList, setShowCreateList] = useState(false)
   const [newListName, setNewListName] = useState('')
 

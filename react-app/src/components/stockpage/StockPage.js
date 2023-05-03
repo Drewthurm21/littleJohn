@@ -3,19 +3,20 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
-import { getCompanyQuote, getCompanyNews } from "../../api/alphaVantage";
+import { getCompanyQuote, getCompanyOverview, getHistoricalData } from "../../api/alphaVantage";
 import NewsSection from "../NewsSection"
 
 
 export default function StockPage() {
   const { ticker } = useParams()
-
   const [companyQuote, setCompanyQuote] = useState(null)
-  const [companyNews, setCompanyNews] = useState(null)
+  const [companyProfile, setCompanyProfile] = useState(null)
+  const [historicalPriceData, setHistoricalPriceData] = useState(null)
   const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
 
 
   useEffect(() => {
+    console.log('getting quote')
     const getQuote = async () => {
       const res = await getCompanyQuote(ticker, apiKey)
       setCompanyQuote(res)
@@ -23,9 +24,32 @@ export default function StockPage() {
     getQuote()
   }, [ticker, apiKey])
 
+  useEffect(() => {
+    console.log('getting profile')
+    const getProfile = async () => {
+      const res = await getCompanyOverview(ticker, apiKey)
+      setCompanyProfile(res)
+    }
+    getProfile()
+  }, [ticker, apiKey])
+
+  useEffect(() => {
+    console.log('getting historical data')
+    const getHistoricalPriceData = async () => {
+      const res = await getHistoricalData(ticker, apiKey)
+      setHistoricalPriceData(res)
+    }
+    getHistoricalPriceData()
+  }, [ticker, apiKey])
+
+  const printer = () => {
+    console.log('companyQuote', companyQuote)
+    console.log('companyProfile', companyProfile)
+    console.log('historicalPriceData', historicalPriceData)
+  }
 
   return (
-    <Container margin='5vh' spaceBetween align='flex-start'>
+    <Container margin='5vh' spaceBetween align='flex-start' onClick={printer}>
       <Container pad='0 2% 0 5%' >
 
         {/* main area */}
@@ -37,6 +61,8 @@ export default function StockPage() {
           {/* about */}
           <StyledDiv h='350px' w='inherit' margin='0 0 1vh 0' border='1px dashed green'>
             About section
+
+
           </StyledDiv>
 
           {/* news */}

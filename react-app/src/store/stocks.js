@@ -1,4 +1,4 @@
-import { getSparklineData } from "../api/alphaVantage";
+import { getWatchlistItemData } from "../api/alphaVantage";
 const SET_SPARKLINE_INFO = 'stocks/SET_SPARKLINE_INFO';
 
 const setSparklineInfo = (sparklineInfo) => ({
@@ -8,7 +8,7 @@ const setSparklineInfo = (sparklineInfo) => ({
 
 
 export const getSparklineInfo = (ticker, apiKey) => async (dispatch) => {
-  const data = await getSparklineData(ticker, apiKey);
+  const data = await getWatchlistItemData(ticker, apiKey);
 
   if (data) {
     dispatch(setSparklineInfo({ ticker, data }));

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createHoldingsData, customizeChartTooltip } from '../utilities.js';
-import PieChart, { Legend, Series, Tooltip, Format, Label, Size } from 'devextreme-react/pie-chart';
+import PieChart, { Legend, Series, Tooltip, Format, Label } from 'devextreme-react/pie-chart';
 
 
 export default function PortfolioDoughnut({ portfolio, allHoldings = null, small = true }) {
