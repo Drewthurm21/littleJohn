@@ -58,9 +58,8 @@ const PortfolioCard = ({ portfolio }) => {
   useEffect(() => {
     //prevent recalulation on every render
     if (portfolioValue > 0) return
-
+    let value = 0
     if (portfolioHoldings.length) {
-      let value = 0
       portfolioHoldings.forEach(holding => {
         if (holding.stock === 'USD') value += holding.value
         else {

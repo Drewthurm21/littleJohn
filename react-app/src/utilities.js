@@ -10,7 +10,7 @@ export function customizeChartTooltip(arg) {
 
 export function createHoldingsData(portfolio) {
   const holdings = {
-    USD: { stock: 'USD', quantity: portfolio.balance, value: portfolio.balance },
+    USD: { stock: 'USD', quantity: portfolio.balance, value: portfolio.balance, lastPrice: 1 },
   };
 
   for (let trade of Object.values(portfolio.trades)) {
@@ -59,7 +59,6 @@ export function consolidatePortfolioHoldings(portfolios) {
       }
       return acc
     }, {})
-  console.log('allHoldings', allHoldings)
   return Object.values(allHoldings)
 };
 
@@ -82,16 +81,13 @@ export function createLineItem(label, value) {
 
 export const getPrice = async (ticker, apiKey) => {
   let quote = await getCompanyQuote(ticker, apiKey)
-  console.log(quote)
   return quote
 }
 
-export const loadPrices = async (holdings, apiKey, setter) => {
+export const loadPrices = async (holdings, apiKey) => {
   // create array of promises that will return price info when resolved
-  let allPrices = holdings.map(holding => getPrice(holding.ticker, apiKey))
-  let priceData = await Promise.all(allPrices)
-
-  console.log('inside loadPrices', priceData)
+  let allPrices = holdings.map(({ ticker }) => getPrice(ticker, apiKey))
+  let priceData = await Promise.allSettled(allPrices)
 
   return priceData
 };
