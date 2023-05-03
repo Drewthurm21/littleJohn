@@ -1,4 +1,4 @@
-import { getCompanyQuote } from './api/alphaVantage';
+import { fetchCompanyQuote } from './api/alphaVantage';
 import { StyledDiv, StyledSpan } from './components/styledComponents/misc';
 
 /* CHART UTILITIES */
@@ -65,22 +65,22 @@ export function consolidatePortfolioHoldings(portfolios) {
 export function createLineItem(label, value) {
   if (label === 'break') {
     return <StyledDiv content=' ' h='1vh' margin='0 0 4vh 0'
-      customBorder='border-bottom: 1px solid var(--gray-400)' />
+      bottomBorder />
   }
 
   const color = value >= 0 ? 'var(--erie-black)' : 'var(--red-500)'
   return (
     <StyledDiv w='85%' margin='0 0 1vh 0' spaceBetween>
-      <StyledDiv txSize='1.3vh'>{label}:</StyledDiv>
-      <StyledDiv txSize='1.3vh'>$
-        <StyledSpan txSize='1.3vh' txColor={color}>{value}</StyledSpan>
+      <StyledDiv txMedium>{label}:</StyledDiv>
+      <StyledDiv txMedium>$
+        <StyledSpan txMedium txColor={color}>{value}</StyledSpan>
       </StyledDiv>
     </StyledDiv>
   )
 };
 
 export const getPrice = async (ticker, apiKey) => {
-  let quote = await getCompanyQuote(ticker, apiKey)
+  let quote = await fetchCompanyQuote(ticker, apiKey)
   return quote
 }
 

@@ -1,45 +1,39 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
-import { getCompanyQuote, getCompanyOverview, getHistoricalData } from "../../api/alphaVantage";
+import { getCompanyQuoteThunk } from "../../store/stocks";
+import { fetchCompanyOverview } from "../../api/alphaVantage";
 import NewsSection from "../NewsSection"
 
 
 export default function StockPage() {
+  const dispatch = useDispatch()
   const { ticker } = useParams()
-  const [companyQuote, setCompanyQuote] = useState(null)
+
+  const companyQuote = useSelector(state => state.stocks.quotes[ticker] || null)
+  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
+
   const [companyProfile, setCompanyProfile] = useState(null)
   const [historicalPriceData, setHistoricalPriceData] = useState(null)
-  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
 
 
   useEffect(() => {
-    console.log('getting quote')
-    const getQuote = async () => {
-      const res = await getCompanyQuote(ticker, apiKey)
-      setCompanyQuote(res)
-    }
-    getQuote()
+    if (companyQuote) return
+    dispatch(getCompanyQuoteThunk(ticker, apiKey))
   }, [ticker, apiKey])
 
   useEffect(() => {
-    console.log('getting profile')
     const getProfile = async () => {
-      const res = await getCompanyOverview(ticker, apiKey)
+      const res = await fetchCompanyOverview(ticker, apiKey)
       setCompanyProfile(res)
     }
     getProfile()
   }, [ticker, apiKey])
 
   useEffect(() => {
-    console.log('getting historical data')
-    const getHistoricalPriceData = async () => {
-      const res = await getHistoricalData(ticker, apiKey)
-      setHistoricalPriceData(res)
-    }
-    getHistoricalPriceData()
+    //get historical data
   }, [ticker, apiKey])
 
   const printer = () => {
@@ -49,7 +43,7 @@ export default function StockPage() {
   }
 
   return (
-    <Container margin='5vh' spaceBetween align='flex-start' onClick={printer}>
+    <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' onClick={printer}>
       <Container pad='0 2% 0 5%' >
 
         {/* main area */}
@@ -59,8 +53,11 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* about */}
-          <StyledDiv h='350px' w='inherit' margin='0 0 1vh 0' border='1px dashed green'>
-            About section
+          <StyledDiv col h='350px' w='inherit'
+            margin='2vh 0 2vh 0' pad='12px'
+            bgColor='var(--gray-50)'>
+            <StyledDiv txMedium w='100%' h='4vh' bottomBorder >About</StyledDiv>
+
 
 
           </StyledDiv>

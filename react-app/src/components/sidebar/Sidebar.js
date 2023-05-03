@@ -32,9 +32,8 @@ export default function Sidebar() {
       margin='0 2vw 0 0' pad='4px'
       border='1px solid var(--gray-400)'
     >
-      <StyledDiv direction='column' spaceBetween
+      <StyledDiv col spaceBetween bottomBorder
         txSize='18px' txWeight='bold' margin='1vh 0' minH='3vh'
-        customBorder='border-bottom: 1px solid var(--gray-400);'
       >
         <StyledDiv w='100%' spaceBetween>
 

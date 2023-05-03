@@ -23,7 +23,7 @@ const avQueryFunctions = {
 //   fiveYears: new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()),
 // }
 
-export const getWatchlistItemData = async (ticker, apiKey) => {
+export const fetchWatchlistItemData = async (ticker, apiKey) => {
   const [queryType, dataKey] = avQueryFunctions["daily"]
   const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&output=compact&interval=1min&symbol=${ticker}`)
   const parsedData = await res.json()
@@ -44,7 +44,7 @@ export const getWatchlistItemData = async (ticker, apiKey) => {
   return { tickerData, currentPrice, movement }
 };
 
-export const getGeneralNews = async (apiKey) => {
+export const fetchGeneralNews = async (apiKey) => {
   const { news } = avQueryFunctions
   const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}`)
   const parsedData = await res.json()
@@ -57,7 +57,7 @@ export const getGeneralNews = async (apiKey) => {
   return feed
 }
 
-export const getCompanyNews = async (ticker, apiKey) => {
+export const fetchCompanyNews = async (ticker, apiKey) => {
   const { news } = avQueryFunctions
   const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}&tickers=${ticker}`)
   const parsedData = await res.json()
@@ -70,7 +70,7 @@ export const getCompanyNews = async (ticker, apiKey) => {
   return feed
 }
 
-export const getCompanyQuote = async (ticker, apiKey) => {
+export const fetchCompanyQuote = async (ticker, apiKey) => {
   const [queryType, dataKey] = avQueryFunctions.quote
   const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
   const parsedData = await res.json()
@@ -83,7 +83,7 @@ export const getCompanyQuote = async (ticker, apiKey) => {
   return quote
 }
 
-export const getCompanyOverview = async (ticker, apiKey) => {
+export const fetchCompanyOverview = async (ticker, apiKey) => {
   const res = await fetch(`${baseUrl}function=OVERVIEW&apikey=${apiKey}&symbol=${ticker}`)
   const parsedData = await res.json()
 
@@ -94,9 +94,9 @@ export const getCompanyOverview = async (ticker, apiKey) => {
   return parsedData
 }
 
-export const getHistoricalData = async (ticker, apiKey) => {
+export const fetchHistoricalData = async (ticker, apiKey) => {
   const [queryType, dataKey] = avQueryFunctions.intraday
-  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&outputsize=full&interval=1min&symbol=${ticker}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
