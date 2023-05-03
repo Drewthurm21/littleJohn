@@ -8,7 +8,7 @@ const ljLogo = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/sr
 
 
 export default function NewsSection({ ticker }) {
-  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage_alt)
+  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const [newsArticles, setNewsArticles] = useState([])
   const [pageSize, setPageSize] = useState(5)
   const [startIndex, setStartIndex] = useState(0)
@@ -47,7 +47,7 @@ export default function NewsSection({ ticker }) {
   return (
     <>
       <StyledDiv spaceBetween margin='0 0 3vh 0'>
-        <StyledDiv txSize='2vh' h='100%' pad='30px 0 0 0'>Market News</StyledDiv>
+        <StyledDiv txSize='2vh' h='100%' pad='30px 0 0 0'>{ticker === 'general' ? 'Market' : ticker} News</StyledDiv>
         <StyledDiv w='150px' col justify='space-evenly' align='center'>
           <StyledDiv underline txSize='1.2vh'>Page controls</StyledDiv>
           <StyledDiv spaceBetween w='100%' margin='1vh 0'>

@@ -59,7 +59,7 @@ export const getGeneralNews = async (apiKey) => {
 
 export const getCompanyNews = async (ticker, apiKey) => {
   const { news } = avQueryFunctions
-  const res = await fetch(`${baseUrl}function=${news[0]}&symbol=${ticker}&apikey=${apiKey}`)
+  const res = await fetch(`${baseUrl}function=${news[0]}&tickers=${ticker}&apikey=${apiKey}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
