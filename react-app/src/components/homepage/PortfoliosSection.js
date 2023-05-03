@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
 import { Chevron, ChevronContainer, StyledDiv } from '../styledComponents/misc';
-import { createHoldingsData, createLineItem, loadPrices } from '../../utilities';
+import { createHoldingsData, usdFormatter } from '../../utilities';
 
 
 export default function PortfoliosSection() {
@@ -48,27 +48,28 @@ export default function PortfoliosSection() {
 
 
 const PortfolioCard = ({ portfolio }) => {
-
   const [portfolioHoldings, setPortfolioHoldings] = useState([])
   const [portfolioValue, setPortfolioValue] = useState(0)
 
   useEffect(() => {
-    if (portfolio) {
-      const holdings = createHoldingsData(portfolio)
-      setPortfolioHoldings(holdings)
-    }
+    setPortfolioHoldings(createHoldingsData(portfolio))
   }, [portfolio])
 
   useEffect(() => {
-    let value = 0
+    //prevent recalulation on every render
+    if (portfolioValue > 0) return
+
     if (portfolioHoldings.length) {
+      let value = 0
       portfolioHoldings.forEach(holding => {
         if (holding.stock === 'USD') value += holding.value
-        else value += holding.quantity * holding.value
+        else {
+          value += (holding.quantity * holding.lastPrice)
+        }
       })
+      setPortfolioValue(value)
     }
-    setPortfolioValue(value)
-  }, [portfolioHoldings])
+  }, [portfolio.name, portfolioValue])
 
   return (
     <>
@@ -81,7 +82,9 @@ const PortfolioCard = ({ portfolio }) => {
                 {holding.stock}
               </StyledDiv>
               <StyledDiv txSmall>
-                ${holding.stock === 'USD' ? holding.value : holding.quantity * holding.value}
+                {holding.stock === 'USD' ?
+                  usdFormatter.format(holding.value) :
+                  usdFormatter.format((holding.quantity * holding.lastPrice))}
               </StyledDiv>
             </StyledDiv>
           ))}
@@ -92,7 +95,7 @@ const PortfolioCard = ({ portfolio }) => {
           Est. Value:
         </StyledDiv>
         <StyledDiv txSize='1.6vh'>
-          ${portfolioValue}
+          {usdFormatter.format(portfolioValue)}
         </StyledDiv>
       </StyledDiv>
     </>

@@ -16,13 +16,16 @@ export function createHoldingsData(portfolio) {
   for (let trade of Object.values(portfolio.trades)) {
     const { ticker, quantity, price, trade_type } = trade;
 
-    if (holdings[ticker]) {
+    if (ticker in holdings) {
+      let item = holdings[ticker];
       if (trade_type === 'buy') {
-        holdings[ticker].quantity += quantity;
-        holdings[ticker].value += quantity * price;
+        item.quantity += quantity;
+        item.value += quantity * price;
+        item.lastPrice = price;
       } else {
-        holdings[ticker].quantity -= quantity;
-        holdings[ticker].value -= quantity * price;
+        item.quantity -= quantity;
+        item.value -= quantity * price;
+        item.lastPrice = price;
       }
       continue;
     }
@@ -31,6 +34,7 @@ export function createHoldingsData(portfolio) {
       stock: ticker,
       quantity: quantity,
       value: quantity * price,
+      lastPrice: price,
     }
   }
   return Object.values(holdings);
@@ -87,5 +91,13 @@ export const loadPrices = async (holdings, apiKey, setter) => {
   let allPrices = holdings.map(holding => getPrice(holding.ticker, apiKey))
   let priceData = await Promise.all(allPrices)
 
-  console.log(priceData)
+  console.log('inside loadPrices', priceData)
+
+  return priceData
 };
+
+// Create our number formatter.
+export const usdFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
