@@ -1,17 +1,14 @@
-const finnhub = require('finnhub');
 
-const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-api_key.apiKey = "c2pcsqiad3i8659ioib0"
-const finnhubClient = new finnhub.DefaultApi()
 
-export const getTickerData = (ticker) => {
-  return finnhubClient.quote(ticker, (error, data, response) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log(response)
-      console.log(data)
-      return data;
-    }
-  });
+
+export const fetchCompanyProfile = async (ticker, apiKey) => {
+  console.log('inside fetchCompanyOverview', ticker, apiKey)
+  let response = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${apiKey}`, { json: true })
+  console.log('response', response)
+
+  if (response.ok) {
+    let profileData = await response.json()
+    console.log('res okay - profileData', profileData)
+    return (profileData)
+  }
 }

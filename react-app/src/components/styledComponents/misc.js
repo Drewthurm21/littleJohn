@@ -9,7 +9,8 @@ export const StyledDiv = styled.div`
   align-items: ${({ align }) => align || ''};
   ${({ col }) => col && ({ flexDirection: 'column' })};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
-  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
+  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })};
+  ${({ spaceEvenly }) => spaceEvenly && ({ justifyContent: 'space-evenly' })};
   ${({ center }) => center && ({ justifyContent: 'center', alignItems: 'center' })};
   ${({ noWrap }) => noWrap && ({ flexWrap: 'nowrap' })};
   
