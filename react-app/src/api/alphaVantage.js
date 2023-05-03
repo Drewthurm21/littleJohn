@@ -58,13 +58,15 @@ export const getGeneralNews = async (apiKey) => {
 }
 
 export const getCompanyNews = async (ticker, apiKey) => {
-  const [queryType, _] = avQueryFunctions['news']
-  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const { news } = avQueryFunctions
+  const res = await fetch(`${baseUrl}function=${news[0]}&symbol=${ticker}&apikey=${apiKey}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
     return { error: 'max api calls =[' }
   }
+
+  console.log('getCompanyNews -> parsedData', parsedData)
 
   const { feed } = parsedData
   return feed

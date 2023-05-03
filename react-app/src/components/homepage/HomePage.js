@@ -25,7 +25,7 @@ export default function HomePage() {
           </StyledDiv>
 
           {/* NEWS */}
-          <NewsSection />
+          <NewsSection ticker={'general'} />
         </StyledDiv>
       </Container>
 

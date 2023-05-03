@@ -40,7 +40,8 @@ export default function ProfileOverview() {
 
     if (profileHoldings.length) {
       //get current prices and calculate profile value
-      getStockPrices()
+      // getStockPrices()
+      console.log('this is profileHoldings', profileHoldings)
     }
   }, [profileHoldings.length])
 
