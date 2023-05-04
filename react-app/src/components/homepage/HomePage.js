@@ -19,13 +19,12 @@ export default function HomePage() {
 
           {/* Portfolios */}
           <StyledDiv w='inherit' margin='0 0 1vh 0'
-            id='portfolios-container'
-            customBorder='border-bottom: 1px solid var(--gray-400);' >
+            id='portfolios-container' bottomBorder >
             <PortfoliosSection />
           </StyledDiv>
 
           {/* NEWS */}
-          <NewsSection />
+          <NewsSection ticker={'general'} />
         </StyledDiv>
       </Container>
 

@@ -2,24 +2,28 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Chevron, ChevronContainer, StyledDiv, StyledImg } from './styledComponents/misc'
-import { getGeneralNews } from '../api/alphaVantage'
+import { fetchGeneralNews, fetchCompanyNews } from '../api/alphaVantage'
 
 const ljLogo = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/src/assets/ljLogo.png?raw=true'
 
 
-export default function NewsSection() {
-  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage_alt)
+export default function NewsSection({ ticker }) {
+  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const [newsArticles, setNewsArticles] = useState([])
   const [pageSize, setPageSize] = useState(5)
   const [startIndex, setStartIndex] = useState(0)
   const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
-    getGeneralNews(apiKey)
-      .then(data => {
-        setNewsArticles(data)
-      })
-  }, [refresh])
+    if (!apiKey) return
+    if (ticker === 'general') {
+      return fetchGeneralNews(apiKey)
+        .then(data => setNewsArticles(data))
+    }
+
+    fetchCompanyNews(ticker, apiKey)
+      .then(data => setNewsArticles(data))
+  }, [refresh, apiKey])
 
   const changePage = (direction) => {
     //if we're going out of bounds - go back to start and refresh
@@ -42,11 +46,11 @@ export default function NewsSection() {
 
   return (
     <>
-      <StyledDiv spaceBetween>
-        <StyledDiv txSize='2vh' margin='0 0 3vh 0'>Market News</StyledDiv>
+      <StyledDiv spaceBetween margin='0 0 3vh 0' pad='12px'>
+        <StyledDiv txLarge h='100%' pad='30px 0 0 0'>{ticker === 'general' ? 'Market' : ticker} News</StyledDiv>
         <StyledDiv w='150px' col justify='space-evenly' align='center'>
-          <StyledDiv underline txSize='1.2vh' margin='0 0 10px 0'>Page controls</StyledDiv>
-          <StyledDiv spaceBetween w='100%' margin='0 0 8px 0'>
+          <StyledDiv underline txSize='1.2vh'>Page controls</StyledDiv>
+          <StyledDiv spaceBetween w='100%' margin='1vh 0'>
             <NewsButton disabled={pageSize === 5} onClick={() => changePageSize(5)}>5</NewsButton>
             <NewsButton disabled={pageSize === 10} onClick={() => changePageSize(10)}>10</NewsButton>
             <NewsButton disabled={pageSize === 25} onClick={() => changePageSize(25)}>25</NewsButton>
@@ -82,8 +86,7 @@ export default function NewsSection() {
 const NewsArticle = ({ article }) => {
   return (
     <StyledDiv w='100%' h='10vh'
-      pad='1vh' margin='0 0 1vh 0' spaceBetween
-      customBorder='border-bottom: 1px solid var(--gray-400);'
+      pad='1.5vh' spaceBetween bottomBorder
       bgColorHover='var(--gray-100);' pointer
       onClick={() => window.open(article.url, '_blank')}
       key={article.url}>

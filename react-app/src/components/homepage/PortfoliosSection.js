@@ -12,7 +12,7 @@ export default function PortfoliosSection() {
 
   useEffect(() => {
     dispatch(getPortfoliosThunk(user.id))
-  }, [user])
+  }, [dispatch, user])
 
   return (
     <>
@@ -56,19 +56,16 @@ const PortfolioCard = ({ portfolio }) => {
   }, [portfolio])
 
   useEffect(() => {
-    //prevent recalulation on every render
-    if (portfolioValue > 0) return
+    if (portfolioHoldings.length < 1) return
     let value = 0
-    if (portfolioHoldings.length) {
-      portfolioHoldings.forEach(holding => {
-        if (holding.stock === 'USD') value += holding.value
-        else {
-          value += (holding.quantity * holding.lastPrice)
-        }
-      })
-      setPortfolioValue(value)
-    }
-  }, [portfolio.name, portfolioValue])
+    portfolioHoldings.forEach(holding => {
+      if (holding.stock === 'USD') value += holding.value
+      else {
+        value += (holding.quantity * holding.lastPrice)
+      }
+    })
+    setPortfolioValue(value)
+  }, [portfolioHoldings])
 
   return (
     <>

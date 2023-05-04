@@ -15,6 +15,9 @@ export default function Watchlist({ watchlist }) {
   const [watchlistName, setWatchlistName] = useState(watchlist.name)
 
   useEffect(() => {
+    const updateWatchlistName = () => {
+      dispatch(updateWatchlistThunk({ id: watchlist.id, name: watchlistName }))
+    };
     //close menu if click is outside
     const handler = (e) => {
       e.stopPropagation()
@@ -33,16 +36,12 @@ export default function Watchlist({ watchlist }) {
     return () => {
       document.removeEventListener('mousedown', handler);
     }
-  }, [watchlistName]);
+  }, [dispatch, watchlistName, watchlist]);
 
   const closeMenus = () => {
     setShowEditMenu(false)
     setEditList(false)
     setConfirmDelete(false)
-  };
-
-  const updateWatchlistName = () => {
-    dispatch(updateWatchlistThunk({ id: watchlist.id, name: watchlistName }))
   };
 
   const beginListEdits = () => {
@@ -62,8 +61,8 @@ export default function Watchlist({ watchlist }) {
     <StyledDiv col key={watchlist.name} ref={menuRef}>
       <StyledDiv align='center'>
         <StyledDiv h='3.5vh' w='100%' pad='3px' margin='0 0 1vh 0'
-          spaceBetween align='center' bgColorHover='var(--gray-200)'
-          customBorder='border-bottom: 1px solid var(--gray-900);'>
+          spaceBetween bottomBorder align='center'
+          bgColorHover='var(--gray-200)'>
           {editList ? (
             <StyledInput w='70%' type='text' value={watchlistName}
               onChange={e => setWatchlistName(e.target.value)} />

@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
 import { consolidatePortfolioHoldings, loadPrices } from '../../utilities';
-import { getCompanyQuote } from '../../api/alphaVantage';
-import { StyledDiv } from '../styledComponents/misc';
-import { createLineItem } from '../../utilities.js'
+import { StyledDiv, StyledSpan } from '../styledComponents/misc';
 import DoughnutChart from '../DoughnutChart';
 
 export default function ProfileOverview() {
@@ -40,7 +38,8 @@ export default function ProfileOverview() {
 
     if (profileHoldings.length) {
       //get current prices and calculate profile value
-      getStockPrices()
+      // getStockPrices()
+      console.log('this is profileHoldings', profileHoldings)
     }
   }, [profileHoldings.length])
 
@@ -70,5 +69,21 @@ export default function ProfileOverview() {
 
     </StyledDiv>
   )
+};
 
+function createLineItem(label, value) {
+  if (label === 'break') {
+    return <StyledDiv content=' ' h='1vh' margin='0 0 4vh 0'
+      bottomBorder />
+  }
+
+  const color = value >= 0 ? 'var(--erie-black)' : 'var(--red-500)'
+  return (
+    <StyledDiv w='85%' margin='0 0 1vh 0' spaceBetween>
+      <StyledDiv txMedium>{label}:</StyledDiv>
+      <StyledDiv txMedium>$
+        <StyledSpan txMedium txColor={color}>{value}</StyledSpan>
+      </StyledDiv>
+    </StyledDiv>
+  )
 };

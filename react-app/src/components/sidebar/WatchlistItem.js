@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { deleteWatchlistItemThunk } from '../../store/watchlists';
-import { getSparklineInfo } from '../../store/stocks';
+import { getSparklineInfoThunk } from '../../store/stocks';
 import { StyledDiv } from '../styledComponents/misc';
 import Sparkline, { Tooltip, Size } from 'devextreme-react/sparkline';
 
@@ -25,8 +25,8 @@ export default function WatchlistItem({ listId, ticker, editList }) {
 
   useEffect(() => {
     if (data && data[ticker]) return
-    dispatch(getSparklineInfo(ticker, apiKey))
-  }, [])
+    dispatch(getSparklineInfoThunk(ticker, apiKey))
+  }, [dispatch, ticker, apiKey,])
 
   useEffect(() => {
     if (editList) setShowEditMenu(true)
@@ -43,8 +43,7 @@ export default function WatchlistItem({ listId, ticker, editList }) {
 
   return data && (
     <StyledDiv w='100%' margin='0 0 8px 0'
-      spaceBetween customBorder='border-bottom: 1px solid var(--gray-400);'
-    >
+      spaceBetween bottomBorder>
       <StyledDiv w='50px'
         onClick={goToStockPage}>{ticker}</StyledDiv>
 

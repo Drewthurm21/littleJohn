@@ -1,9 +1,14 @@
 /* TODO Add site wide styles */
 :root {
+    --txSmall: .8vw;
+    --txMedium: 1.2vw;
+    --txLarge: 1.5vw;
+    --txXLarge: 2vw;
     --custom-shadow: 4px 8px 32px 5px rgba( 0, 0, 0, 0.37 );
     --custom-shadow-2: 0px 4px 4px rgba( 0, 0, 0, 0.25 );
     --custom-nav-border: 4px solid rgba( 220,220,220 0.35 );
     --custom-border-2: 2px solid rgba( 220,220,220 0.35 );
+    --bottom-border: 'border-bottom: 1px solid var(--gray-400);';
     --eerie-black: #0b0b0b;
     --logo-green:#00cf98;
     --bright-green: #c3f53c;
@@ -77,12 +82,14 @@
 .slider {
     height: 700px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
   
 .card {
     position: absolute;
     top: 0;
-    right: 10%;
+    right: 12%;
     bottom: 0;
     left: 0;
     margin: auto;
@@ -101,13 +108,13 @@
 }
 
 .card--left {
-    transform: translateX(-125%) scale(0.8);
+    transform: translateX(-125%) scale(0.7);
     transition: 500ms;
     opacity: 0.3;
 }
 
 .card--right {
-    transform: translateX(125%) scale(0.8);
+    transform: translateX(125%) scale(0.7);
     transition: 500ms;
     opacity: 0.3;
 }
@@ -135,5 +142,10 @@
 
 #pie-chart {
     width: 100%;
-    height: 100%;
+    height: 90%;
+}
+
+#line-chart {
+    width: 100%;
+    height: 90%;
 }
