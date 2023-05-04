@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import { CustomBtn } from '../styledComponents/buttons'
-import { StyledDiv, StyledInput, StyledSpan, Checkmark } from '../styledComponents/misc'
+import { StyledDiv, StyledInput, Checkmark } from '../styledComponents/misc'
 import { loginFormValidator } from './FormValidators';
 
 

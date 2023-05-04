@@ -10,7 +10,8 @@ import SignupPage from './components/auth/SignupPage';
 import LoginPage from './components/auth/LoginPage';
 import MissingPage from './components/MissingPage';
 import HomePage from './components/homepage/HomePage';
-import '@progress/kendo-theme-default/dist/all.css';
+import StockPage from './components/stockpage/StockPage';
+
 import './index.css';
 
 
@@ -47,6 +48,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/portfolios' exact={true} >
               <h1> portfolios </h1>
+            </ProtectedRoute>
+            <ProtectedRoute path='/stocks/:ticker' exact={true} >
+              <StockPage />
             </ProtectedRoute>
             <ProtectedRoute path='/trades' exact={true} >
               <h1> trades </h1>

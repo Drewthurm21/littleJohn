@@ -13,23 +13,23 @@ const avQueryFunctions = {
   news: ['NEWS_SENTIMENT', 'feed']
 }
 
-const today = new Date()
-const pastDates = {
-  oneMonth: new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()),
-  threeMonths: new Date(today.getFullYear(), today.getMonth() - 3, today.getDate()),
-  sixMonths: new Date(today.getFullYear(), today.getMonth() - 6, today.getDate()),
-  oneYear: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
-  twoYears: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
-  fiveYears: new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()),
-}
+// const today = new Date()
+// const pastDates = {
+//   oneMonth: new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()),
+//   threeMonths: new Date(today.getFullYear(), today.getMonth() - 3, today.getDate()),
+//   sixMonths: new Date(today.getFullYear(), today.getMonth() - 6, today.getDate()),
+//   oneYear: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+//   twoYears: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
+//   fiveYears: new Date(today.getFullYear() - 5, today.getMonth(), today.getDate()),
+// }
 
-export const getSparklineData = async (ticker, apiKey) => {
+export const fetchWatchlistItemData = async (ticker, apiKey) => {
   const [queryType, dataKey] = avQueryFunctions["daily"]
   const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&output=compact&interval=1min&symbol=${ticker}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
-    return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
+    return { error: 'max api calls =[' }
   }
 
   let _data = Object.values(parsedData[dataKey]).reverse()
@@ -44,16 +44,73 @@ export const getSparklineData = async (ticker, apiKey) => {
   return { tickerData, currentPrice, movement }
 };
 
-export const getGeneralNews = async (apiKey) => {
+export const fetchGeneralNews = async (apiKey) => {
   const { news } = avQueryFunctions
   const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}`)
   const parsedData = await res.json()
 
   if (parsedData["Error Message"] || !parsedData) {
-    return { error: 'max api calls =[', tickerData: [0], currentPrice: 0, movement: 0 }
+    return { error: 'max api calls =[' }
   }
 
   const { feed } = parsedData
-
   return feed
+}
+
+export const fetchCompanyNews = async (ticker, apiKey) => {
+  const { news } = avQueryFunctions
+  const res = await fetch(`${baseUrl}function=${news[0]}&apikey=${apiKey}&tickers=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const { feed } = parsedData
+  return feed
+}
+
+export const fetchCompanyQuote = async (ticker, apiKey) => {
+  const [queryType, dataKey] = avQueryFunctions.quote
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const { [dataKey]: quote } = parsedData
+  return quote
+}
+
+export const fetchCompanyOverview = async (ticker, apiKey) => {
+  const res = await fetch(`${baseUrl}function=OVERVIEW&apikey=${apiKey}&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  return parsedData
+}
+
+export const fetchHistoricalData = async (ticker, apiKey) => {
+  const [queryType, dataKey] = avQueryFunctions.intraday
+  const res = await fetch(`${baseUrl}function=${queryType}&apikey=${apiKey}&outputsize=full&interval=1min&symbol=${ticker}`)
+  const parsedData = await res.json()
+
+  if (parsedData["Error Message"] || !parsedData) {
+    return { error: 'max api calls =[' }
+  }
+
+  const _data = Object.values(parsedData[dataKey]).reverse()
+  const timestamps = Object.keys(parsedData[dataKey]).reverse()
+
+  const data = _data.reduce((acc, curr, i) => {
+    acc.push({ price: curr["4. close"], date: timestamps[i] })
+    return acc
+  }, [])
+
+  console.log('parsedData', parsedData)
+  return data
 }

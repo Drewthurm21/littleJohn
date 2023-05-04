@@ -37,14 +37,14 @@ export const Container = styled.div`
   min-height: ${({ minH }) => minH || ''};
   min-width: ${({ minW }) => minW || ''};
 
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
+  margin: ${({ margin }) => margin || ''};
+  padding: ${({ pad }) => pad || ''};
   
   background-color: ${({ bgColor }) => bgColor || 'transparent'};
   border: ${({ border }) => border || 'none'};
 
-  overflow-y: ${({ overflowY }) => overflowY || 'hidden'};
-  overflow-x: ${({ overflowX }) => overflowX || 'hidden'};
+  ${({ overflowY }) => overflowY && `overflow-y: ${overflowY}`};
+  ${({ overflowX }) => overflowX && `overflow-x: ${overflowX}`};
 
 
   ${({ inner }) => inner && `
@@ -71,10 +71,10 @@ export const NavContainer = styled.nav`
   position: sticky;
   top: 0;
   background: #fff;
-  box-shadow: 4px 8px 32px 5px rgba( 0, 0, 0, 0.37 );
+  box-shadow: var(--custom-shadow);
   backdrop-filter: blur( 8px );
   -webkit-backdrop-filter: blur( 5px );
-  border-bottom: 4px solid rgba( 220,220,220 0.35 );
+  border-bottom: var(--custom-nav-border);
   grid-area: nav;
   z-index: 10;
   `;

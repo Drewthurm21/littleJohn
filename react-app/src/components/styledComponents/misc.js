@@ -9,9 +9,11 @@ export const StyledDiv = styled.div`
   align-items: ${({ align }) => align || ''};
   ${({ col }) => col && ({ flexDirection: 'column' })};
   ${({ gridArea }) => `grid-area: ${gridArea};` || ''};
-  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })}
+  ${({ spaceBetween }) => spaceBetween && ({ justifyContent: 'space-between' })};
+  ${({ spaceEvenly }) => spaceEvenly && ({ justifyContent: 'space-evenly' })};
   ${({ center }) => center && ({ justifyContent: 'center', alignItems: 'center' })};
-
+  ${({ noWrap }) => noWrap && ({ flexWrap: 'nowrap' })};
+  
   /* Positioning */
   position: ${({ position }) => position || ''};
   top: ${({ top }) => top || ''};
@@ -42,10 +44,10 @@ export const StyledDiv = styled.div`
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
   ${({ underline }) => underline && ({ textDecoration: 'underline' })};
   ${({ bold }) => bold && ({ fontWeight: 'bold' })};
-  ${({ txSmall }) => txSmall && ({ fontSize: '.8vw' })};
-  ${({ txMedium }) => txMedium && ({ fontSize: '1.2vw' })};
-  ${({ txLarge }) => txLarge && ({ fontSize: '3vw' })};
-  ${({ txXLarge }) => txXLarge && ({ fontSize: '5vw' })};
+  ${({ txSmall }) => txSmall && ({ fontSize: 'var(--txSmall)' })};
+  ${({ txMedium }) => txMedium && ({ fontSize: 'var(--txMedium)' })};
+  ${({ txLarge }) => txLarge && ({ fontSize: 'var(--txLarge)' })};
+  ${({ txXLarge }) => txXLarge && ({ fontSize: 'var(--txXLarge)' })};
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || '#000'};
@@ -56,7 +58,9 @@ export const StyledDiv = styled.div`
   ${({ txWhite }) => txWhite && ({ color: 'white' })};
   ${({ txBlack }) => txBlack && ({ color: 'black' })};
   ${({ customBorder }) => customBorder && `${customBorder}`};
-  
+  ${({ bottomBorder }) => bottomBorder && `
+    border-bottom: 1px solid var(--gray-400);
+  `};
   /* Misc */
   overflow: ${({ overflow }) => overflow || 'hidden'};
   transition: ${({ transition }) => transition || 'all 0.4s ease-in-out'};
@@ -87,10 +91,10 @@ export const StyledSpan = styled.span`
   font-family: ${({ txFont }) => txFont || 'inherit'};
   text-decoration: ${({ txDeco }) => txDeco || 'none'};
   ${({ underline }) => underline && ({ textDecoration: 'underline' })};
-  ${({ txSmall }) => txSmall && ({ fontSize: '0.8em' })};
-  ${({ txMedium }) => txMedium && ({ fontSize: '1.2em' })};
-  ${({ txLarge }) => txLarge && ({ fontSize: '1.6em' })};
-  ${({ txXLarge }) => txXLarge && ({ fontSize: '2em' })};
+  ${({ txSmall }) => txSmall && ({ fontSize: 'var(--txSmall)' })};
+  ${({ txMedium }) => txMedium && ({ fontSize: 'var(--txMedium)' })};
+  ${({ txLarge }) => txLarge && ({ fontSize: 'var(--txLarge)' })};
+  ${({ txXLarge }) => txXLarge && ({ fontSize: 'var(--txXLarge)' })};
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};

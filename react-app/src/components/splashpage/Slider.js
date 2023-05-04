@@ -17,7 +17,7 @@ export const SliderCard = ({ cardInfo }) => {
   const goToSignup = () => history.push('/signup')
 
   return (
-    <StyledDiv onClick={goToSignup} h='600px' w='45vw' cursor='pointer'>
+    <StyledDiv onClick={goToSignup} h='600px' w='43vw' cursor='pointer'>
       <Container rounded col bgColor='white'>
 
         {/* card top */}
@@ -49,7 +49,7 @@ export const SliderCard = ({ cardInfo }) => {
               {disclaimer}
             </StyledDiv>
             <CustomBtn margin='0 0 28px 0' txSmall rounded border='1px solid white'
-              h='45px' minW='240px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
+              h='45px' bgColor='var(--bright-green)'>{btnText}</CustomBtn>
           </StyledDiv>
         </StyledDiv >
       </Container >
@@ -61,7 +61,7 @@ export default function Slider() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => setIndex((index + 1) % cards.length), 3500);
+    setTimeout(() => setIndex((index + 1) % cards.length), 4000);
 
     return () => clearTimeout();
   }, [index]);
@@ -100,7 +100,7 @@ const cards = [
       'companies you love. Certain limitations', 'apply.'],
     disclaimer: ['Certain limitations apply'],
     imgSrc: blocksImgSrc,
-    btnText: 'Sign up now to claim your free stock'
+    btnText: 'Sign up now!'
   },
   {
     id: "2",
@@ -108,7 +108,7 @@ const cards = [
     infoText: ['Robinhood Wallet is your self-custody home', 'for crypto, NFTs, web3, and dapps.'],
     disclaimer: ['NCW Disclosures'],
     imgSrc: phoneImgSrc,
-    btnText: 'Learn more about Cash Management'
+    btnText: 'Cash Management'
   },
   {
     id: "3",
