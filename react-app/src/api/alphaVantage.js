@@ -104,10 +104,13 @@ export const fetchHistoricalData = async (ticker, apiKey) => {
   }
 
   const _data = Object.values(parsedData[dataKey]).reverse()
-  const data = _data.reduce((acc, curr) => {
-    acc.push(curr["4. close"])
+  const timestamps = Object.keys(parsedData[dataKey]).reverse()
+
+  const data = _data.reduce((acc, curr, i) => {
+    acc.push({ price: curr["4. close"], date: timestamps[i] })
     return acc
   }, [])
 
+  console.log('parsedData', parsedData)
   return data
 }

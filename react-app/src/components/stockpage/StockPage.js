@@ -5,9 +5,10 @@ import { ImageDiv, StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
 import { getCompanyQuoteThunk } from "../../store/stocks";
 import { fetchCompanyProfile } from "../../api/finnhub";
-import { fetchCompanyOverview } from "../../api/alphaVantage";
+import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
+import LineChart from "../Linechart";
 
 
 export default function StockPage() {
@@ -37,7 +38,11 @@ export default function StockPage() {
   }, [ticker, alphaVantageKey])
 
   useEffect(() => {
-    //get historical data
+    const getHistoricalPriceData = async () => {
+      const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
+      setHistoricalPriceData(historicalData)
+    }
+    getHistoricalPriceData()
   }, [ticker, alphaVantageKey])
 
   const printer = () => {
@@ -52,10 +57,12 @@ export default function StockPage() {
       <Container pad='0 2% 0 5%' >
 
         {/* chart area */}
+
         <StyledDiv col >
-          <StyledDiv h='600px' border='1px dotted black'>
-            chart goes here
-          </StyledDiv>
+          {historicalPriceData &&
+            <StyledDiv h='600px' w='100%' border='1px dotted black'>
+              <LineChart ticker={ticker} priceHistory={historicalPriceData.splice(historicalPriceData.length - 500)} />
+            </StyledDiv>}
 
           {/* about section */}
           <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-50)'>
@@ -75,8 +82,8 @@ export default function StockPage() {
               </StyledDiv>
               <StyledDiv col spaceEvenly margin='0 1vw'>
                 <StyledDiv txMedium>Markets</StyledDiv>
-                <StyledDiv>{companyProfile?.exchange.split("-")[0] || companyProfile?.exchange}</StyledDiv>
-                <StyledDiv>{companyProfile?.exchange.split("-")[1] || ""}</StyledDiv>
+                <StyledDiv>{companyProfile?.exchange}</StyledDiv>
+                <StyledDiv>{""}</StyledDiv>
               </StyledDiv>
             </StyledDiv>
 
