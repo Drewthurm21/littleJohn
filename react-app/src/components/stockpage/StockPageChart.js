@@ -4,11 +4,14 @@ import { useParams } from 'react-router-dom';
 import { createChart } from 'lightweight-charts';
 import { StyledDiv } from '../styledComponents/misc';
 import { fetchHistoricalData } from "../../api/alphaVantage";
+import FlipNumbers from 'react-flip-numbers';
+import { usdFormatter } from '../../utilities';
 
 export default function LineChartContainer(props) {
   const { ticker } = useParams()
 
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
+  const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
   const [historicalPriceData, setHistoricalPriceData] = useState([])
   const [currentPrice, setCurrentPrice] = useState(0)
 
@@ -26,17 +29,45 @@ export default function LineChartContainer(props) {
         //data comes newest -> oldest so reverse it
       )).splice(0, 720).reverse()
 
+      //set current price and historical price data
+      setCurrentPrice(data[data.length - 1].value)
       setHistoricalPriceData(data)
     }
 
     getHistoricalPriceData()
   }, [ticker, alphaVantageKey])
 
+
+  //connect websocket to finnhub for live price updates
+  useEffect(() => {
+    const ws = new WebSocket(`wss://ws.finnhub.io?token=${finnhubKey}`)
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ 'type': 'subscribe', 'symbol': ticker }))
+    }
+
+    //check time of last msg to prevent spamming finnhub
+    let lastMsgTime = 0
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data)
+      //update if type is trade and time since last msg is > 1s
+      if (msg.type === "trade" && msg.data[0].s === ticker && Date.now() - lastMsgTime > 1000) {
+        let t = Date.now()
+        lastMsgTime = t
+        setHistoricalPriceData(prev => [...prev, { time: t, value: msg.data[0].p }])
+        setCurrentPrice(msg.data[0].p)
+      }
+    }
+
+    return () => ws.close()
+  }, [ticker, finnhubKey])
+
+
   return (
     <StyledDiv w='100%'>
-      <StyledDiv col position='absolute' top='10vh' z='100' txXLarge>
-        <StyledDiv>{props.company}</StyledDiv>
-        <StyledDiv>${currentPrice}</StyledDiv>
+      <StyledDiv col position='absolute' top='10vh' z='100'>
+        <StyledDiv txLarge>{props.company}</StyledDiv>
+        <FlipNumbers height={25} width={20} color='#000'
+          play numbers={`${usdFormatter.format(currentPrice)}`} />
 
       </StyledDiv>
       <ChartComponent chartData={historicalPriceData} {...props}></ChartComponent>
