@@ -18,10 +18,8 @@ export default function StockPage() {
   const companyQuote = useSelector(state => state.stocks.quotes[ticker] || null)
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
-  const [refreshCount, setRefreshCount] = useState(0)
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
-  const [historicalPriceData, setHistoricalPriceData] = useState(null)
 
   useEffect(() => {
     const getCompanyInfo = async () => {
@@ -34,25 +32,6 @@ export default function StockPage() {
   }, [ticker, alphaVantageKey, finnhubKey])
 
   useEffect(() => {
-    const getHistoricalPriceData = async () => {
-      const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
-
-      //manipulate data for lightwieght chart
-      const timestamps = Object.keys(historicalData)
-      const data = Object.values(historicalData).map((val, idx) => (
-
-        //get unix timestamp and close price
-        { time: new Date(timestamps[idx]).getTime(), value: Number(val["4. close"]) }
-
-        //only keep last ~12 hours of data
-      )).splice(0, 720).reverse()
-      setHistoricalPriceData(data)
-    }
-    getHistoricalPriceData()
-    setRefreshCount(refreshCount + 1)
-  }, [ticker, alphaVantageKey])
-
-  useEffect(() => {
     dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
   }, [ticker, alphaVantageKey])
 
@@ -61,20 +40,16 @@ export default function StockPage() {
     console.log('companyQuote', companyQuote)
     console.log('companyProfile', companyProfile)
     console.log('companyOverview', companyOverview)
-    console.log('historicalPriceData', historicalPriceData)
   }
 
   return (
     <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' onClick={printer}>
       <Container pad='0 2% 0 5%' >
-
-        {/* chart area */}
-
         <StyledDiv col >
-          {historicalPriceData &&
-            <StyledDiv h='600px' w='100%'>
-              <LineChartContainer ticker={ticker} priceHistory={historicalPriceData} company={companyProfile?.name} />
-            </StyledDiv>}
+          {/* chart area */}
+          <StyledDiv h='600px' w='100%'>
+            <LineChartContainer company={companyProfile?.name} />
+          </StyledDiv>
 
           {/* about section */}
           <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-50)'>

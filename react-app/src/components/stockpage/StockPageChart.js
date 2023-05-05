@@ -1,8 +1,50 @@
+import { useEffect, useState, useRef } from 'react';
+import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
 import { createChart } from 'lightweight-charts';
-import { useEffect, useRef } from 'react';
 import { StyledDiv } from '../styledComponents/misc';
+import { fetchHistoricalData } from "../../api/alphaVantage";
 
-const ChartComponent = ({ ticker, priceHistory, company }) => {
+export default function LineChartContainer(props) {
+  const { ticker } = useParams()
+
+  const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
+  const [historicalPriceData, setHistoricalPriceData] = useState([])
+  const [currentPrice, setCurrentPrice] = useState(0)
+
+  //fetch historical price data for initial chart data
+  useEffect(() => {
+    const getHistoricalPriceData = async () => {
+      const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
+      //manipulate data for lightwieght chart
+      const timestamps = Object.keys(historicalData)
+      const data = Object.values(historicalData).map((val, idx) => (
+        //return unix timestamp and close price
+        { time: new Date(timestamps[idx]).getTime(), value: Number(val["4. close"]) }
+
+        //only keep last ~12 hours of 1min interval data
+        //data comes newest -> oldest so reverse it
+      )).splice(0, 720).reverse()
+
+      setHistoricalPriceData(data)
+    }
+
+    getHistoricalPriceData()
+  }, [ticker, alphaVantageKey])
+
+  return (
+    <StyledDiv w='100%'>
+      <StyledDiv col position='absolute' top='10vh' z='100' txXLarge>
+        <StyledDiv>{props.company}</StyledDiv>
+        <StyledDiv>${currentPrice}</StyledDiv>
+
+      </StyledDiv>
+      <ChartComponent chartData={historicalPriceData} {...props}></ChartComponent>
+    </StyledDiv>
+  );
+}
+
+const ChartComponent = ({ ticker, chartData, company }) => {
   const chartContainerRef = useRef();
 
   useEffect(
@@ -38,34 +80,30 @@ const ChartComponent = ({ ticker, priceHistory, company }) => {
       const timeScale = chart.timeScale();
       timeScale.fitContent();
       timeScale.timeVisible = true;
-      const newSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
-      newSeries.setData(priceHistory);
+      const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
+      priceLineSeries.setData(chartData);
 
       // Create and style the tooltip
       const toolTip = document.createElement('div');
       toolTip.className = 'floating-tooltip';
-      const toolTipWidth = 96;
-      const toolTipHeight = 80;
-      const toolTipMargin = 15;
       chartContainerRef.current.appendChild(toolTip);
 
       // update tooltip
       chart.subscribeCrosshairMove(param => {
-        if (
-          param.point === undefined ||
-          !param.time ||
-          param.point.x < 0 ||
+        // hide tooltip if pointer is not on chart
+        if (param.point === undefined || !param.time || param.point.x < 0 ||
           param.point.x > chartContainerRef.clientWidth ||
-          param.point.y < 0 ||
-          param.point.y > chartContainerRef.clientHeight
-        ) {
-          toolTip.style.display = 'none';
-        } else {
-          // time will be in the same format that we supplied to setData.
-          // thus it will be YYYY-MM-DD
-          const dateStr = new Date(param.time).toLocaleString();
+          param.point.y < 0 || param.point.y > chartContainerRef.clientHeight
+        ) { toolTip.style.display = 'none'; }
+
+        else {
           toolTip.style.display = 'block';
-          const data = param.seriesData.get(newSeries);
+
+          //time comes in as ephoch time, convert to human readable
+          const dateStr = new Date(param.time).toLocaleString();
+
+          //get price data for current point and setup tooltip
+          const data = param.seriesData.get(priceLineSeries);
           const price = data.value !== undefined ? data.value : data.close;
           toolTip.innerHTML = `
             <div style="color: ${'var(--money-green)'}">${company}</div>
@@ -73,29 +111,21 @@ const ChartComponent = ({ ticker, priceHistory, company }) => {
             <div>${dateStr}</div>
             `;
 
+          // recalculate and set tooltip position
           const y = param.point.y;
-          let left = param.point.x + toolTipMargin;
-          if (left > chartContainerRef.clientWidth - toolTipWidth) {
-            left = param.point.x - toolTipMargin - toolTipWidth;
-          }
-
-          let top = y + toolTipMargin;
-          if (top > chartContainerRef.clientHeight - toolTipHeight) {
-            top = y - toolTipHeight - toolTipMargin;
-          }
-          toolTip.style.left = left + 65 + 'px';
-          toolTip.style.top = top + 125 + 'px';
+          let x = param.point.x;
+          toolTip.style.left = x + 65 + 'px';
+          toolTip.style.top = y + 125 + 'px';
         }
       });
 
       window.addEventListener('resize', handleResize);
-
       return () => {
         window.removeEventListener('resize', handleResize);
         chart.remove();
       };
     },
-    [priceHistory, ticker, chartContainerRef]
+    [chartData, ticker, chartContainerRef]
   );
 
   return (
@@ -103,9 +133,3 @@ const ChartComponent = ({ ticker, priceHistory, company }) => {
   );
 };
 
-export default function LineChartContainer(props) {
-
-  return (
-    <ChartComponent {...props}></ChartComponent>
-  );
-}
