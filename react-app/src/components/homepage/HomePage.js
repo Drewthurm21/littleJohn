@@ -24,7 +24,7 @@ export default function HomePage() {
           </StyledDiv>
 
           {/* NEWS */}
-          <NewsSection ticker={'general'} />
+          <NewsSection ticker='general' companyName='Market' />
         </StyledDiv>
       </Container>
 

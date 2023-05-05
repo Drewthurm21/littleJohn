@@ -8,8 +8,7 @@ import { fetchCompanyProfile } from "../../api/finnhub";
 import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
-import LineChart from "../DevExtremeLinechart";
-import LineChartContainer from "../LinechartTwo";
+import LineChartContainer from "./StockPageChart";
 
 
 export default function StockPage() {
@@ -38,11 +37,15 @@ export default function StockPage() {
     const getHistoricalPriceData = async () => {
       const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
 
-      const timestamps = Object.keys(historicalData) || []
+      //manipulate data for lightwieght chart
+      const timestamps = Object.keys(historicalData)
       const data = Object.values(historicalData).map((val, idx) => (
-        { time: timestamps[idx], value: Number(val["4. close"]) }
-      )).reverse().splice(timestamps.length - 90) || []
 
+        //get unix timestamp and close price
+        { time: new Date(timestamps[idx]).getTime(), value: Number(val["4. close"]) }
+
+        //only keep last ~12 hours of data
+      )).splice(0, 720).reverse()
       setHistoricalPriceData(data)
     }
     getHistoricalPriceData()
@@ -69,8 +72,8 @@ export default function StockPage() {
 
         <StyledDiv col >
           {historicalPriceData &&
-            <StyledDiv h='600px' w='100%' border='1px dotted black'>
-              <LineChartContainer ticker={ticker} priceHistory={historicalPriceData} company={companyProfile.name} />
+            <StyledDiv h='600px' w='100%'>
+              <LineChartContainer ticker={ticker} priceHistory={historicalPriceData} company={companyProfile?.name} />
             </StyledDiv>}
 
           {/* about section */}
@@ -97,7 +100,7 @@ export default function StockPage() {
             </StyledDiv>
 
             {/* about section - financial overview */}
-            {companyQuote && companyProfile && companyOverview &&
+            {companyQuote && companyOverview &&
               <StyledDiv col w='inherit' bgColor='var(--gray-50)'>
                 <StyledDiv txMedium h='2vh' margin='1vh 0' bottomBorder >Key Statistics</StyledDiv>
                 <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
@@ -149,7 +152,8 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* news */}
-          <NewsSection ticker={ticker} />
+          {companyProfile &&
+            <NewsSection ticker={ticker} company={companyProfile?.name} />}
         </StyledDiv>
       </Container>
 
