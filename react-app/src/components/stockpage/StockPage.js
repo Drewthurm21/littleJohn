@@ -8,7 +8,8 @@ import { fetchCompanyProfile } from "../../api/finnhub";
 import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
-import LineChart from "../Linechart";
+import LineChart from "../DevExtremeLinechart";
+import LineChartContainer from "../LinechartTwo";
 
 
 export default function StockPage() {
@@ -18,14 +19,10 @@ export default function StockPage() {
   const companyQuote = useSelector(state => state.stocks.quotes[ticker] || null)
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
+  const [refreshCount, setRefreshCount] = useState(0)
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
   const [historicalPriceData, setHistoricalPriceData] = useState(null)
-
-
-  useEffect(() => {
-    dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
-  }, [ticker, alphaVantageKey])
 
   useEffect(() => {
     const getCompanyInfo = async () => {
@@ -35,15 +32,27 @@ export default function StockPage() {
       setCompanyOverview(overview)
     }
     getCompanyInfo()
-  }, [ticker, alphaVantageKey])
+  }, [ticker, alphaVantageKey, finnhubKey])
 
   useEffect(() => {
     const getHistoricalPriceData = async () => {
       const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
-      setHistoricalPriceData(historicalData)
+
+      const timestamps = Object.keys(historicalData) || []
+      const data = Object.values(historicalData).map((val, idx) => (
+        { time: timestamps[idx], value: Number(val["4. close"]) }
+      )).reverse().splice(timestamps.length - 90) || []
+
+      setHistoricalPriceData(data)
     }
     getHistoricalPriceData()
+    setRefreshCount(refreshCount + 1)
   }, [ticker, alphaVantageKey])
+
+  useEffect(() => {
+    dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
+  }, [ticker, alphaVantageKey])
+
 
   const printer = () => {
     console.log('companyQuote', companyQuote)
@@ -61,7 +70,7 @@ export default function StockPage() {
         <StyledDiv col >
           {historicalPriceData &&
             <StyledDiv h='600px' w='100%' border='1px dotted black'>
-              <LineChart ticker={ticker} priceHistory={historicalPriceData.splice(historicalPriceData.length - 500)} />
+              <LineChartContainer ticker={ticker} priceHistory={historicalPriceData} company={companyProfile.name} />
             </StyledDiv>}
 
           {/* about section */}
