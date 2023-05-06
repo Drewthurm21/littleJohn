@@ -24,13 +24,13 @@ export default function HomePage() {
           </StyledDiv>
 
           {/* NEWS */}
-          <NewsSection ticker={'general'} />
+          <NewsSection ticker='general' companyName='Market' />
         </StyledDiv>
       </Container>
 
       {/* sidebar */}
       <StyledDiv h='100%' align='flex-start'>
-        <Sidebar />
+        <Sidebar watchlists={true} tradeView={false} />
       </StyledDiv>
     </Container >
   )

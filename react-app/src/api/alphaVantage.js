@@ -13,6 +13,7 @@ const avQueryFunctions = {
   news: ['NEWS_SENTIMENT', 'feed']
 }
 
+
 // const today = new Date()
 // const pastDates = {
 //   oneMonth: new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()),
@@ -103,14 +104,8 @@ export const fetchHistoricalData = async (ticker, apiKey) => {
     return { error: 'max api calls =[' }
   }
 
-  const _data = Object.values(parsedData[dataKey]).reverse()
-  const timestamps = Object.keys(parsedData[dataKey]).reverse()
-
-  const data = _data.reduce((acc, curr, i) => {
-    acc.push({ price: curr["4. close"], date: timestamps[i] })
-    return acc
-  }, [])
-
-  console.log('parsedData', parsedData)
-  return data
+  return parsedData[dataKey]
 }
+
+/*
+1. open :  "166.6800" 2. high :  "166.6800" 3. low :  "166.6300" 4. close :  "166.6600" 5. volume :  "1263"*/

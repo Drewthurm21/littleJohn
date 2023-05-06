@@ -17,7 +17,7 @@ export default function LineChart({ ticker, priceHistory }) {
 
   return (
     <Chart id="line-chart" dataSource={priceHistory} title={`${ticker} Price History`}>
-      <CommonSeriesSettings argumentField="date" valueField="price" type="line">
+      <CommonSeriesSettings argumentField="time" valueField="value" type="line">
         <Point visible={false} />
       </CommonSeriesSettings>
       <Series color="var(--money-green)" />
