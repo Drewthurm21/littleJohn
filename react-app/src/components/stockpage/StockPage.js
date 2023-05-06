@@ -8,7 +8,8 @@ import { fetchCompanyProfile } from "../../api/finnhub";
 import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
-import LineChart from "../Linechart";
+import LineChartContainer from "./StockPageChart";
+import Sidebar from "../sidebar";
 
 
 export default function StockPage() {
@@ -20,12 +21,6 @@ export default function StockPage() {
   const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
-  const [historicalPriceData, setHistoricalPriceData] = useState(null)
-
-
-  useEffect(() => {
-    dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
-  }, [ticker, alphaVantageKey])
 
   useEffect(() => {
     const getCompanyInfo = async () => {
@@ -35,34 +30,27 @@ export default function StockPage() {
       setCompanyOverview(overview)
     }
     getCompanyInfo()
-  }, [ticker, alphaVantageKey])
+  }, [ticker, alphaVantageKey, finnhubKey])
 
   useEffect(() => {
-    const getHistoricalPriceData = async () => {
-      const historicalData = await fetchHistoricalData(ticker, alphaVantageKey)
-      setHistoricalPriceData(historicalData)
-    }
-    getHistoricalPriceData()
+    dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
   }, [ticker, alphaVantageKey])
+
 
   const printer = () => {
     console.log('companyQuote', companyQuote)
     console.log('companyProfile', companyProfile)
     console.log('companyOverview', companyOverview)
-    console.log('historicalPriceData', historicalPriceData)
   }
 
   return (
     <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' onClick={printer}>
       <Container pad='0 2% 0 5%' >
-
-        {/* chart area */}
-
         <StyledDiv col >
-          {historicalPriceData &&
-            <StyledDiv h='600px' w='100%' border='1px dotted black'>
-              <LineChart ticker={ticker} priceHistory={historicalPriceData.splice(historicalPriceData.length - 500)} />
-            </StyledDiv>}
+          {/* chart area */}
+          <StyledDiv h='600px' w='100%'>
+            <LineChartContainer company={companyProfile?.name} />
+          </StyledDiv>
 
           {/* about section */}
           <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-50)'>
@@ -88,7 +76,7 @@ export default function StockPage() {
             </StyledDiv>
 
             {/* about section - financial overview */}
-            {companyQuote && companyProfile && companyOverview &&
+            {companyQuote && companyOverview &&
               <StyledDiv col w='inherit' bgColor='var(--gray-50)'>
                 <StyledDiv txMedium h='2vh' margin='1vh 0' bottomBorder >Key Statistics</StyledDiv>
                 <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
@@ -140,14 +128,13 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* news */}
-          <NewsSection ticker={ticker} />
+          {companyProfile &&
+            <NewsSection ticker={ticker} company={companyProfile?.name} />}
         </StyledDiv>
       </Container>
 
       {/* sidebar */}
-      <StyledDiv w='20vw' h='100%' align='flex-start' border='1px solid red'>
-        sidebar
-      </StyledDiv>
+      <Sidebar watchlists={true} tradeView={true} />
     </Container >
   )
 };

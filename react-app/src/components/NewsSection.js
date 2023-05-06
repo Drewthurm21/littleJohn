@@ -7,7 +7,7 @@ import { fetchGeneralNews, fetchCompanyNews } from '../api/alphaVantage'
 const ljLogo = 'https://github.com/Drewthurm21/littleJohn/blob/main/react-app/src/assets/ljLogo.png?raw=true'
 
 
-export default function NewsSection({ ticker }) {
+export default function NewsSection({ ticker, companyName }) {
   const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const [newsArticles, setNewsArticles] = useState([])
   const [pageSize, setPageSize] = useState(5)
@@ -46,8 +46,8 @@ export default function NewsSection({ ticker }) {
 
   return (
     <>
-      <StyledDiv spaceBetween margin='0 0 3vh 0' pad='12px'>
-        <StyledDiv txLarge h='100%' pad='30px 0 0 0'>{ticker === 'general' ? 'Market' : ticker} News</StyledDiv>
+      <StyledDiv spaceBetween margin='0 0 3vh 0'>
+        <StyledDiv txSize='2vh' h='100%' pad='30px 0 0 0'>{ticker === 'general' ? 'Market' : companyName} News</StyledDiv>
         <StyledDiv w='150px' col justify='space-evenly' align='center'>
           <StyledDiv underline txSize='1.2vh'>Page controls</StyledDiv>
           <StyledDiv spaceBetween w='100%' margin='1vh 0'>
@@ -86,7 +86,8 @@ export default function NewsSection({ ticker }) {
 const NewsArticle = ({ article }) => {
   return (
     <StyledDiv w='100%' h='10vh'
-      pad='1.5vh' spaceBetween bottomBorder
+      pad='1.5vh' spaceBetween
+      customBorder='border-bottom: 1px solid var(--gray-400);'
       bgColorHover='var(--gray-100);' pointer
       onClick={() => window.open(article.url, '_blank')}
       key={article.url}>
