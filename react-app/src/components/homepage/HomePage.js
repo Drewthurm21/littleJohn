@@ -30,7 +30,7 @@ export default function HomePage() {
 
       {/* sidebar */}
       <StyledDiv h='100%' align='flex-start'>
-        <Sidebar />
+        <Sidebar watchlists={true} tradeView={false} />
       </StyledDiv>
     </Container >
   )

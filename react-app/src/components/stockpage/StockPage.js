@@ -9,6 +9,7 @@ import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantag
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
 import LineChartContainer from "./StockPageChart";
+import Sidebar from "../sidebar";
 
 
 export default function StockPage() {
@@ -133,9 +134,7 @@ export default function StockPage() {
       </Container>
 
       {/* sidebar */}
-      <StyledDiv w='20vw' h='100%' align='flex-start' border='1px solid red'>
-        sidebar
-      </StyledDiv>
+      <Sidebar watchlists={true} tradeView={true} />
     </Container >
   )
 };

@@ -49,6 +49,7 @@ export default function LineChartContainer(props) {
     let lastMsgTime = 0
     ws.onmessage = (e) => {
       const msg = JSON.parse(e.data)
+      console.log(msg)
       //update if type is trade and time since last msg is > 1s
       if (msg.type === "trade" && msg.data[0].s === ticker && Date.now() - lastMsgTime > 1000) {
         let t = Date.now()
@@ -58,6 +59,7 @@ export default function LineChartContainer(props) {
       }
     }
 
+    //unsubscribe from ticker on unmount
     return () => ws.close()
   }, [ticker, finnhubKey])
 
@@ -68,7 +70,6 @@ export default function LineChartContainer(props) {
         <StyledDiv txLarge>{props.company}</StyledDiv>
         <FlipNumbers height={25} width={20} color='#000'
           play numbers={`${usdFormatter.format(currentPrice)}`} />
-
       </StyledDiv>
       <ChartComponent chartData={historicalPriceData} {...props}></ChartComponent>
     </StyledDiv>
@@ -78,12 +79,14 @@ export default function LineChartContainer(props) {
 const ChartComponent = ({ ticker, chartData, company }) => {
   const chartContainerRef = useRef();
 
+  //resize chart on window resize
   useEffect(
     () => {
       const handleResize = () => {
         chart.applyOptions({ width: chartContainerRef.current.clientWidth });
       };
 
+      //create and setup chart
       const chart = createChart(chartContainerRef.current, {
         priceScale: {
           position: 'right',
@@ -108,10 +111,12 @@ const ChartComponent = ({ ticker, chartData, company }) => {
         },
       });
 
+
+      // Create the main series & timescale, set the data
       const timeScale = chart.timeScale();
+      const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
       timeScale.fitContent();
       timeScale.timeVisible = true;
-      const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
       priceLineSeries.setData(chartData);
 
       // Create and style the tooltip
@@ -151,6 +156,7 @@ const ChartComponent = ({ ticker, chartData, company }) => {
       });
 
       window.addEventListener('resize', handleResize);
+
       return () => {
         window.removeEventListener('resize', handleResize);
         chart.remove();
