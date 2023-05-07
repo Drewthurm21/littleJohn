@@ -11,7 +11,7 @@ export default function LineChartContainer(props) {
   const { ticker } = useParams()
 
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
-  const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
+  const finnhubKey = useSelector(state => state.session.apiKeys.finnhub_webhook)
   const [historicalPriceData, setHistoricalPriceData] = useState([])
   const [currentPrice, setCurrentPrice] = useState(0)
 
@@ -67,7 +67,7 @@ export default function LineChartContainer(props) {
   return (
     <StyledDiv w='100%'>
       <StyledDiv col position='absolute' top='10vh' z='100'>
-        <StyledDiv txLarge>{props.company}</StyledDiv>
+        <StyledDiv txLarge>{props.companyName || ticker}</StyledDiv>
         <FlipNumbers height={25} width={20} color='#000'
           play numbers={`${usdFormatter.format(currentPrice)}`} />
       </StyledDiv>

@@ -36,7 +36,6 @@ export default function StockPage() {
     dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
   }, [ticker, alphaVantageKey])
 
-
   const printer = () => {
     console.log('companyQuote', companyQuote)
     console.log('companyProfile', companyProfile)
@@ -49,7 +48,7 @@ export default function StockPage() {
         <StyledDiv col >
           {/* chart area */}
           <StyledDiv h='600px' w='100%'>
-            <LineChartContainer company={companyProfile?.name} />
+            <LineChartContainer companyName={companyProfile?.name} />
           </StyledDiv>
 
           {/* about section */}
@@ -128,8 +127,7 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* news */}
-          {companyProfile &&
-            <NewsSection ticker={ticker} company={companyProfile?.name} />}
+          <NewsSection ticker={ticker} companyName={companyProfile?.name} />
         </StyledDiv>
       </Container>
 
