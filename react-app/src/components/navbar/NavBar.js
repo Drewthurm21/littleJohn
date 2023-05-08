@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from './auth/LogoutButton';
-import * as sc from './styledComponents/'
+import LogoutButton from '../auth/LogoutButton';
+import * as sc from '../styledComponents'
 const {
   containers: { NavContainer, NavBtnContainer },
   misc: { ImageDiv, GlassBox },

@@ -44,6 +44,8 @@ export default function NewsSection({ ticker, companyName }) {
     else setPageSize(size)
   }
 
+  console.log(companyName)
+
   return (
     <>
       <StyledDiv spaceBetween margin='0 0 3vh 0'>

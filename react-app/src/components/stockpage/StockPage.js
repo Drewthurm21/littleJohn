@@ -5,7 +5,7 @@ import { ImageDiv, StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
 import { getCompanyQuoteThunk } from "../../store/stocks";
 import { fetchCompanyProfile } from "../../api/finnhub";
-import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
+import { fetchCompanyOverview } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
 import LineChartContainer from "./StockPageChart";
@@ -22,6 +22,7 @@ export default function StockPage() {
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
 
+
   useEffect(() => {
     const getCompanyInfo = async () => {
       const profile = await fetchCompanyProfile(ticker, finnhubKey)
@@ -36,14 +37,8 @@ export default function StockPage() {
     dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
   }, [ticker, alphaVantageKey])
 
-  const printer = () => {
-    console.log('companyQuote', companyQuote)
-    console.log('companyProfile', companyProfile)
-    console.log('companyOverview', companyOverview)
-  }
-
   return (
-    <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' onClick={printer}>
+    <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' >
       <Container pad='0 2% 0 5%' >
         <StyledDiv col >
           {/* chart area */}
@@ -132,7 +127,7 @@ export default function StockPage() {
       </Container>
 
       {/* sidebar */}
-      <Sidebar watchlists={true} tradeView={true} />
+      <Sidebar tradeView={true} companyQuote={companyQuote} />
     </Container >
   )
 };
