@@ -58,7 +58,7 @@ export default function Watchlist({ watchlist }) {
 
 
   return (
-    <StyledDiv col key={watchlist.name} ref={menuRef}>
+    <StyledDiv col key={watchlist.name} ref={menuRef} w='100%'>
       <StyledDiv align='center'>
         <StyledDiv h='3.5vh' w='100%' pad='3px' margin='0 0 1vh 0'
           spaceBetween bottomBorder align='center'
@@ -100,7 +100,7 @@ export default function Watchlist({ watchlist }) {
         </StyledDiv>
 
         <StyledDiv id='ex-container'>
-          <StyledDiv id='watchlist' className={expanded ? 'expanded' : ''}>
+          <StyledDiv id='ex-content' className={expanded ? 'expanded' : ''}>
             {watchlist.items.map((ticker, i) => (
               <WatchlistItem key={i + ticker} ticker={ticker} listId={watchlist.id} editList={editList} />
             ))}

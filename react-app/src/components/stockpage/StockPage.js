@@ -5,7 +5,7 @@ import { ImageDiv, StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
 import { getCompanyQuoteThunk } from "../../store/stocks";
 import { fetchCompanyProfile } from "../../api/finnhub";
-import { fetchCompanyOverview, fetchHistoricalData } from "../../api/alphaVantage";
+import { fetchCompanyOverview } from "../../api/alphaVantage";
 import { usdFormatter, abbreviateNumber } from "../../utilities";
 import NewsSection from "../NewsSection"
 import LineChartContainer from "./StockPageChart";
@@ -22,6 +22,7 @@ export default function StockPage() {
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
 
+
   useEffect(() => {
     const getCompanyInfo = async () => {
       const profile = await fetchCompanyProfile(ticker, finnhubKey)
@@ -36,24 +37,17 @@ export default function StockPage() {
     dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
   }, [ticker, alphaVantageKey])
 
-
-  const printer = () => {
-    console.log('companyQuote', companyQuote)
-    console.log('companyProfile', companyProfile)
-    console.log('companyOverview', companyOverview)
-  }
-
   return (
-    <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' onClick={printer}>
+    <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' >
       <Container pad='0 2% 0 5%' >
         <StyledDiv col >
           {/* chart area */}
           <StyledDiv h='600px' w='100%'>
-            <LineChartContainer company={companyProfile?.name} />
+            <LineChartContainer companyName={companyProfile?.name} />
           </StyledDiv>
 
           {/* about section */}
-          <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-50)'>
+          <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-100)'>
             <StyledDiv txMedium h='4vh' margin='1vh 0' bottomBorder >About</StyledDiv>
             <StyledDiv>{companyOverview?.Description}</StyledDiv>
             <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
@@ -77,7 +71,7 @@ export default function StockPage() {
 
             {/* about section - financial overview */}
             {companyQuote && companyOverview &&
-              <StyledDiv col w='inherit' bgColor='var(--gray-50)'>
+              <StyledDiv col w='inherit'>
                 <StyledDiv txMedium h='2vh' margin='1vh 0' bottomBorder >Key Statistics</StyledDiv>
                 <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
                   <StyledDiv col w='18%'>
@@ -128,13 +122,12 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* news */}
-          {companyProfile &&
-            <NewsSection ticker={ticker} company={companyProfile?.name} />}
+          <NewsSection ticker={ticker} companyName={companyProfile?.name} />
         </StyledDiv>
       </Container>
 
       {/* sidebar */}
-      <Sidebar watchlists={true} tradeView={true} />
+      <Sidebar tradeView={true} companyQuote={companyQuote} />
     </Container >
   )
 };

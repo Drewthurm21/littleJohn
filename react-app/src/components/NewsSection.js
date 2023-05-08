@@ -23,7 +23,7 @@ export default function NewsSection({ ticker, companyName }) {
 
     fetchCompanyNews(ticker, apiKey)
       .then(data => setNewsArticles(data))
-  }, [refresh, apiKey])
+  }, [refresh, apiKey, companyName])
 
   const changePage = (direction) => {
     //if we're going out of bounds - go back to start and refresh
@@ -43,6 +43,8 @@ export default function NewsSection({ ticker, companyName }) {
     if (startIndex + size > 50) setPageSize(50 - startIndex)
     else setPageSize(size)
   }
+
+  console.log(companyName)
 
   return (
     <>

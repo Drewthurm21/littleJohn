@@ -48,7 +48,8 @@ def add_watchlist_item(watchlist_id, ticker):
     )
     db.session.add(watchlist_item)
     db.session.commit()
-    return watchlist_item.to_dict()
+    watchlist = Watchlist.query.get(watchlist_id)
+    return watchlist.to_dict()
 
 
 # delete watchlist item

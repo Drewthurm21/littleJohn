@@ -11,6 +11,7 @@ export const CustomBtn = styled.button`
   ${({ txMedium }) => txMedium && ({ fontSize: 'var(--txMedium)' })}
   ${({ txLarge }) => txLarge && ({ fontSize: 'var(--txLarge)' })}
   ${({ txXLarge }) => txXLarge && ({ fontSize: 'var(--txXLarge)' })}
+  ${({ bold }) => bold && ({ fontWeight: 'bold' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};
@@ -34,6 +35,13 @@ export const CustomBtn = styled.button`
   transition: ${({ transition }) => transition || ''};
   cursor: ${({ cursor }) => cursor || 'pointer'};
   content: ${({ content }) => content || 'none'};
+  
+  ${({ disabled }) => disabled && `
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--gray-50);
+    color: var(--eerie-black);
+  `}
 
   &:hover {
     background-color: ${({ bgColorHover }) => bgColorHover || ''};

@@ -67,7 +67,7 @@ export default function LineChartContainer(props) {
   return (
     <StyledDiv w='100%'>
       <StyledDiv col position='absolute' top='10vh' z='100'>
-        <StyledDiv txLarge>{props.company}</StyledDiv>
+        <StyledDiv txLarge>{props.companyName || ticker}</StyledDiv>
         <FlipNumbers height={25} width={20} color='#000'
           play numbers={`${usdFormatter.format(currentPrice)}`} />
       </StyledDiv>
@@ -80,90 +80,89 @@ const ChartComponent = ({ ticker, chartData, company }) => {
   const chartContainerRef = useRef();
 
   //resize chart on window resize
-  useEffect(
-    () => {
-      const handleResize = () => {
-        chart.applyOptions({ width: chartContainerRef.current.clientWidth });
-      };
+  useEffect(() => {
+    const handleResize = () => {
+      chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+    };
 
-      //create and setup chart
-      const chart = createChart(chartContainerRef.current, {
-        priceScale: {
-          position: 'right',
-          autoScale: true,
-          invertScale: false,
-          alignLabels: true,
+    //create and setup chart
+    const chart = createChart(chartContainerRef.current, {
+      priceScale: {
+        position: 'right',
+        autoScale: true,
+        invertScale: false,
+        alignLabels: true,
+      },
+      timeScale: { visible: false },
+      crosshair: {
+        vertLine: {
+          color: 'black',
+          width: 0.5,
+          style: 1,
+          visible: true,
         },
-        timeScale: { visible: false },
-        crosshair: {
-          vertLine: {
-            color: 'black',
-            width: 0.5,
-            style: 1,
-            visible: true,
-          },
-          horzLine: { visible: false },
-          mode: 1,
-        },
-        grid: {
-          horzLines: { color: '#fff' },
-          vertLines: { color: '#fff' },
-        },
-      });
+        horzLine: { visible: false },
+        mode: 1,
+      },
+      grid: {
+        horzLines: { color: '#fff' },
+        vertLines: { color: '#fff' },
+      },
+    });
+
+    // Create the main series & set data
+    const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
+    priceLineSeries.setData(chartData);
 
 
-      // Create the main series & timescale, set the data
-      const timeScale = chart.timeScale();
-      const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
-      timeScale.fitContent();
-      timeScale.timeVisible = true;
-      priceLineSeries.setData(chartData);
+    // Create and style the tooltip
+    const toolTip = document.createElement('div');
+    toolTip.className = 'floating-tooltip';
+    chartContainerRef.current.appendChild(toolTip);
 
-      // Create and style the tooltip
-      const toolTip = document.createElement('div');
-      toolTip.className = 'floating-tooltip';
-      chartContainerRef.current.appendChild(toolTip);
+    // update tooltip
+    chart.subscribeCrosshairMove(param => {
+      // hide tooltip if pointer is not on chart
+      if (param.point === undefined || !param.time || param.point.x < 0 ||
+        param.point.x > chartContainerRef.clientWidth ||
+        param.point.y < 0 || param.point.y > chartContainerRef.clientHeight
+      ) { toolTip.style.display = 'none'; }
 
-      // update tooltip
-      chart.subscribeCrosshairMove(param => {
-        // hide tooltip if pointer is not on chart
-        if (param.point === undefined || !param.time || param.point.x < 0 ||
-          param.point.x > chartContainerRef.clientWidth ||
-          param.point.y < 0 || param.point.y > chartContainerRef.clientHeight
-        ) { toolTip.style.display = 'none'; }
+      else {
+        toolTip.style.display = 'block';
 
-        else {
-          toolTip.style.display = 'block';
+        //time comes in as ephoch time, convert to human readable
+        const dateStr = new Date(param.time).toLocaleString();
 
-          //time comes in as ephoch time, convert to human readable
-          const dateStr = new Date(param.time).toLocaleString();
-
-          //get price data for current point and setup tooltip
-          const data = param.seriesData.get(priceLineSeries);
-          const price = data.value !== undefined ? data.value : data.close;
-          toolTip.innerHTML = `
+        //get price data for current point and setup tooltip
+        const data = param.seriesData.get(priceLineSeries);
+        const price = data.value !== undefined ? data.value : data.close;
+        toolTip.innerHTML = `
             <div style="color: ${'var(--money-green)'}">${company}</div>
             <div style="font-size: 24px; margin: 4px 0px;">${Math.round(100 * price) / 100}</div>
             <div>${dateStr}</div>
             `;
 
-          // recalculate and set tooltip position
-          const y = param.point.y;
-          let x = param.point.x;
-          toolTip.style.left = x + 65 + 'px';
-          toolTip.style.top = y + 125 + 'px';
-        }
-      });
+        // recalculate and set tooltip position
+        const y = param.point.y;
+        let x = param.point.x;
+        toolTip.style.left = x + 65 + 'px';
+        toolTip.style.top = y + 125 + 'px';
+      }
+    });
 
-      window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        chart.remove();
-      };
-    },
-    [chartData, ticker, chartContainerRef]
-  );
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      chart.remove();
+
+      //remove old tooltip elements to prevent artifacting
+      const toolTipElements = document.body.getElementsByClassName('floating-tooltip')
+      for (const element of toolTipElements) element.remove()
+    };
+  }, [chartData, ticker, chartContainerRef]);
 
   return (
     <StyledDiv w='100%' h='100%' ref={chartContainerRef} />
