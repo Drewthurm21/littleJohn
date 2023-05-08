@@ -47,7 +47,7 @@ export default function StockPage() {
           </StyledDiv>
 
           {/* about section */}
-          <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-50)'>
+          <StyledDiv col w='inherit' margin='2vh 0 2vh 0' pad='12px' bgColor='var(--gray-100)'>
             <StyledDiv txMedium h='4vh' margin='1vh 0' bottomBorder >About</StyledDiv>
             <StyledDiv>{companyOverview?.Description}</StyledDiv>
             <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
@@ -71,7 +71,7 @@ export default function StockPage() {
 
             {/* about section - financial overview */}
             {companyQuote && companyOverview &&
-              <StyledDiv col w='inherit' bgColor='var(--gray-50)'>
+              <StyledDiv col w='inherit'>
                 <StyledDiv txMedium h='2vh' margin='1vh 0' bottomBorder >Key Statistics</StyledDiv>
                 <StyledDiv margin='2vh 0' pad='0 5%' spaceBetween>
                   <StyledDiv col w='18%'>

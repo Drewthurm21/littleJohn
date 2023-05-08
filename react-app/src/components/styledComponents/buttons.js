@@ -11,6 +11,7 @@ export const CustomBtn = styled.button`
   ${({ txMedium }) => txMedium && ({ fontSize: 'var(--txMedium)' })}
   ${({ txLarge }) => txLarge && ({ fontSize: 'var(--txLarge)' })}
   ${({ txXLarge }) => txXLarge && ({ fontSize: 'var(--txXLarge)' })}
+  ${({ bold }) => bold && ({ fontWeight: 'bold' })}
 
   /* Colors & Border */
   color: ${({ txColor }) => txColor || 'black'};

@@ -110,12 +110,10 @@ const ChartComponent = ({ ticker, chartData, company }) => {
       },
     });
 
-    // Create the main series & timescale, set the data
-    const timeScale = chart.timeScale();
+    // Create the main series & set data
     const priceLineSeries = chart.addAreaSeries({ lineColor: '#00c805', lineWidth: 1 });
-    timeScale.fitContent();
-    timeScale.timeVisible = true;
     priceLineSeries.setData(chartData);
+
 
     // Create and style the tooltip
     const toolTip = document.createElement('div');

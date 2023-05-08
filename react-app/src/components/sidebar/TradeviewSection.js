@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { CustomBtn } from "../styledComponents/buttons";
+import { CustomBtn, PlusBtn } from "../styledComponents/buttons";
+import { addWatchlistItemThunk } from '../../store/watchlists'
 import { StyledDiv, StyledInput, ChevronContainer, Chevron } from "../styledComponents/misc";
 
 
@@ -14,7 +15,10 @@ export default function TradeviewSection({ companyQuote }) {
   const [orderType, setOrderType] = useState('buy')
   const [selectedPortfolio, setSelectedPortfolio] = useState(0)
   const [confirmOrder, setConfirmOrder] = useState(false)
+  const [selectWatchlists, setSelectWatchlists] = useState(false)
+
   const portfolios = useSelector(state => state.portfolios)
+  const watchlists = useSelector(state => state.watchlists)
 
   useEffect(() => {
   }, [dispatch, ticker, companyQuote, portfolios, orderType, tradeVolume, selectedPortfolio])
@@ -101,7 +105,7 @@ export default function TradeviewSection({ companyQuote }) {
           <StyledDiv col spaceBetween margin='1vh 0' pad='8px' w='100%'>
             <StyledDiv spaceBetween>
               <StyledDiv h='30px' bold align='center'>Cash Balance:</StyledDiv>
-              <StyledDiv h='30px' align='center'>${portfolios[selectedPortfolio]?.balance}</StyledDiv>
+              <StyledDiv h='30px' align='center'>${portfolios[selectedPortfolio]?.balance || Number(0).toFixed(2)}</StyledDiv>
             </StyledDiv>
             <StyledDiv spaceBetween bottomBorder>
               <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
@@ -109,7 +113,7 @@ export default function TradeviewSection({ companyQuote }) {
             </StyledDiv>
             <StyledDiv spaceBetween pad='12px 0 0 0'>
               <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
-              <StyledDiv h='30px' align='center'>{selectedPortfolio > 1 ?
+              <StyledDiv h='30px' align='center'>{selectedPortfolio > 0 ?
                 `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
                 'No portfolio selected'}
               </StyledDiv>
@@ -136,6 +140,28 @@ export default function TradeviewSection({ companyQuote }) {
           }
         </StyledDiv>
       </StyledDiv>
+      <StyledDiv w='100%' spaceEvenly >
+        <CustomBtn rounded w='40%'
+          txColor='white' bgColor='black'
+          bgColorHover='var(--money-green)' txColorHover='black'
+          onClick={() => setSelectWatchlists(!selectWatchlists)}>Add to watchlist</CustomBtn>
+        {watchlists && selectWatchlists &&
+          <StyledDiv col w='100%'>
+            {Object.values(watchlists).map(list => {
+              if (!list || list.items.includes(ticker)) return null
+              else return (
+                <StyledDiv key={list.name + list.id} spaceBetween h='30px' pad='8px 0'>
+                  <StyledDiv>{list.name}</StyledDiv>
+                  <StyledDiv h='20px' w='20px'>
+                    <PlusBtn onClick={() => dispatch(addWatchlistItemThunk(list.id, ticker))} />
+                  </StyledDiv>
+                </StyledDiv>
+              )
+            })}
+          </StyledDiv>
+        }
+      </StyledDiv>
+
     </>
   )
 };
