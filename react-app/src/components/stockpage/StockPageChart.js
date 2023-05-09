@@ -49,7 +49,7 @@ export default function LineChartContainer(props) {
     let lastMsgTime = 0
     ws.onmessage = (e) => {
       const msg = JSON.parse(e.data)
-      console.log(msg)
+
       //update if type is trade and time since last msg is > 1s
       if (msg.type === "trade" && msg.data[0].s === ticker && Date.now() - lastMsgTime > 1000) {
         let t = Date.now()

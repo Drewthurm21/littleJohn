@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CustomBtn, PlusBtn } from "../styledComponents/buttons";
-import { addWatchlistItemThunk } from '../../store/watchlists'
+import { addWatchlistItemThunk } from '../../store/watchlists';
+import { enactPortfolioTrade } from "../../store/portfolios";
 import { StyledDiv, StyledInput, ChevronContainer, Chevron } from "../styledComponents/misc";
 
 
@@ -60,7 +61,16 @@ export default function TradeviewSection({ companyQuote }) {
   }
 
   const handleTrade = () => {
+    const newTrade = {
+      portfolio_id: +selectedPortfolio,
+      ticker: ticker,
+      quantity: +tradeVolume,
+      price: +companyQuote['05. price'],
+      trade_type: orderType,
+      timestamp: `${Date.now()}`,
+    }
 
+    dispatch(enactPortfolioTrade(newTrade))
     setConfirmOrder(true)
   }
 
@@ -102,23 +112,24 @@ export default function TradeviewSection({ companyQuote }) {
               onChange={(e) => setTradeVolume(e.target.value)} />
           </StyledDiv>
 
-          <StyledDiv col spaceBetween margin='1vh 0' pad='8px' w='100%'>
-            <StyledDiv spaceBetween>
-              <StyledDiv h='30px' bold align='center'>Cash Balance:</StyledDiv>
-              <StyledDiv h='30px' align='center'>${portfolios[selectedPortfolio]?.balance || Number(0).toFixed(2)}</StyledDiv>
-            </StyledDiv>
-            <StyledDiv spaceBetween bottomBorder>
-              <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
-              <StyledDiv h='30px' align='center'>${(tradeVolume * +companyQuote['05. price']).toFixed(2)}</StyledDiv>
-            </StyledDiv>
-            <StyledDiv spaceBetween pad='12px 0 0 0'>
-              <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
-              <StyledDiv h='30px' align='center'>{selectedPortfolio > 0 ?
-                `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
-                'No portfolio selected'}
+          {selectedPortfolio > 0 &&
+            <StyledDiv col spaceBetween margin='1vh 0' pad='8px' w='100%'>
+              <StyledDiv spaceBetween>
+                <StyledDiv h='30px' bold align='center'>Cash Balance:</StyledDiv>
+                <StyledDiv h='30px' align='center'>${portfolios[selectedPortfolio]?.balance || Number(0).toFixed(2)}</StyledDiv>
               </StyledDiv>
-            </StyledDiv>
-          </StyledDiv>
+              <StyledDiv spaceBetween bottomBorder>
+                <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
+                <StyledDiv h='30px' align='center'>${(tradeVolume * +companyQuote['05. price']).toFixed(2)}</StyledDiv>
+              </StyledDiv>
+              <StyledDiv spaceBetween pad='12px 0 0 0'>
+                <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
+                <StyledDiv h='30px' align='center'>{orderType === 'buy' ?
+                  `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
+                  `$${(portfolios[selectedPortfolio]?.balance + (tradeVolume * +companyQuote['05. price'])).toFixed(2)}`}
+                </StyledDiv>
+              </StyledDiv>
+            </StyledDiv>}
 
 
           {!confirmOrder &&

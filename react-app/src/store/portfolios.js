@@ -23,6 +23,18 @@ const updatePortfolio = (portfolio) => ({
   portfolio
 });
 
+export const enactPortfolioTrade = (trade) => async (dispatch) => {
+  const response = await fetch(`/api/trades/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(trade)
+  });
+
+  const updatedPortfolio = await response.json();
+  dispatch(updatePortfolio(updatedPortfolio));
+};
+
+
 export const getPortfoliosThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}/portfolios`);
   const portfolios = await response.json();
@@ -30,7 +42,7 @@ export const getPortfoliosThunk = (userId) => async (dispatch) => {
 };
 
 export const addPortfolioThunk = (portfolio) => async (dispatch) => {
-  const response = await fetch('/api/portfolios/', {
+  const response = await fetch(`/api/portfolios/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(portfolio)
