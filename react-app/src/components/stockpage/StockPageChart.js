@@ -146,15 +146,16 @@ const ChartComponent = ({ ticker, chartData, company }) => {
         // recalculate and set tooltip position
         const y = param.point.y;
         let x = param.point.x;
-        toolTip.style.left = x + 65 + 'px';
+        toolTip.style.left = x + 75 + 'px';
         toolTip.style.top = y + 125 + 'px';
       }
     });
 
+
     window.addEventListener('resize', handleResize);
 
-
     return () => {
+      //remove event listener and chart on unmount
       window.removeEventListener('resize', handleResize);
       chart.remove();
 

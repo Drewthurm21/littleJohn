@@ -140,7 +140,7 @@ export default function TradeviewSection({ companyQuote }) {
           }
         </StyledDiv>
       </StyledDiv>
-      <StyledDiv w='100%' spaceEvenly >
+      <StyledDiv w='100%' margin='1vh 0' spaceEvenly >
         <CustomBtn rounded w='40%'
           txColor='white' bgColor='black'
           bgColorHover='var(--money-green)' txColorHover='black'

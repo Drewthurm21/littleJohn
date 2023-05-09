@@ -72,21 +72,31 @@ export default function Watchlist({ watchlist }) {
           }
           <StyledDiv w='30%' h='100%' spaceBetween>
             <StyledDiv w='40%' justify='center' align='center'
-              radius='5px' cursor='pointer'
+              radius='3px' cursor='pointer'
               bgColorHover='var(--gray-400)'
               onClick={() => setShowEditMenu(!showEditMenu)}>
               <StyledDiv bold>...</StyledDiv>
             </StyledDiv>
             {showEditMenu && (
-              <StyledDiv w='110px' z='2' pad='8px' id='ex-container'
-                position='absolute' translate='-40px, 35px'
-                bgColor='var(--gray-200)' radius='18px'>
-                <StyledDiv col center spaceBetween>
-                  <StyledDiv pointer margin='8px' onClick={beginListEdits}>Edit List</StyledDiv>
-                  <StyledDiv pointer margin='8px' onClick={() => setConfirmDelete(!confirmDelete)}>Delete List</StyledDiv>
-                  {confirmDelete && <StyledDiv pointer margin='8px' onClick={handleDeleteList}>Confirm?</StyledDiv>}
+              <>
+                <StyledDiv w='110px' z='2'
+                  position='absolute' translate='-40px, -75px'
+                  bgColor='white' radius='3px' border='1px solid var(--gray-400)'
+                  shadow='var(--custom-shadow-2)'>
+                  <StyledDiv col spaceEvenly>
+                    <StyledDiv w='110px' h='30px' center pointer
+                      bgColorHover='var(--gray-200)'
+                      onClick={beginListEdits}>Edit List</StyledDiv>
+                    <StyledDiv w='110px' h='30px' center pointer
+                      bgColorHover='var(--gray-200)'
+                      onClick={() => setConfirmDelete(!confirmDelete)}>Delete List</StyledDiv>
+                    {confirmDelete &&
+                      <StyledDiv w='110px' h='30px' center pointer
+                        bgColorHover='var(--gray-200)'
+                        onClick={handleDeleteList}>Confirm?</StyledDiv>}
+                  </StyledDiv>
                 </StyledDiv>
-              </StyledDiv>
+              </>
             )}
 
             <StyledDiv w='20px'

@@ -27,13 +27,15 @@ export default function Navbar() {
         <NavLink to='/' exact={true} activeClassName='active'>
           <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
         </NavLink>
-        <NavBtnContainer>
-          {[['/home', 'Home'],
-          ['/portfolios', 'Portfolios'],
-          ['/trades', 'Trades']].map(([url, label], i) => (
-            <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
-          ))}
-        </NavBtnContainer>
+        {currentUser &&
+          <NavBtnContainer>
+            {[['/home', 'Home'],
+            ['/portfolios', 'Portfolios'],
+            ['/trades', 'Trades']].map(([url, label], i) => (
+              <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
+            ))}
+          </NavBtnContainer>
+        }
         <div style={{ display: 'flex', flexDirection: 'row', width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
           {userLinks}
         </div>
