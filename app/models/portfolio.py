@@ -29,6 +29,11 @@ class Portfolio(db.Model):
             else:
                 holdings[trade.ticker] = trade.quantity
 
+        # delete empty holdings
+        for ticker in list(holdings):
+            if holdings[ticker] == 0:
+                del holdings[ticker]
+
         holdings['USD'] = self.balance
         return holdings
 

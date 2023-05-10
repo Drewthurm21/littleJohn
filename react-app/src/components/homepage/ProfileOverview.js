@@ -1,21 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
-import { consolidatePortfolioHoldings, loadPrices } from '../../utilities';
+import { abbreviateNumber, consolidatePortfolioHoldings, loadPrices, usdFormatter } from '../../utilities';
 import { StyledDiv, StyledSpan } from '../styledComponents/misc';
 import DoughnutChart from '../DoughnutChart';
 
 export default function ProfileOverview() {
   const dispatch = useDispatch()
 
-  const [refresh, setRefresh] = useState(false)
   const [profileHoldings, setProfileHoldings] = useState([])
   const [currentPrices, setCurrentPrices] = useState([])
-  const [holdingsValue, setHoldingsValue] = useState(0)
-  const [totalValue, setTotalValue] = useState(0)
-  const [capitalInvested, setTotalCost] = useState(0)
-  const [cashBalance, setCashBalance] = useState(0)
-  const [netPerformance, setNetPerformance] = useState(0)
+  const [proflieStats, setProflieStats] = useState({})
 
   const user = useSelector(state => state.session.user)
   const portfolios = useSelector(state => state.portfolios)
@@ -33,31 +28,72 @@ export default function ProfileOverview() {
     const getStockPrices = async () => {
       const tickers = profileHoldings.map(holding => holding.stock)
       let res = await loadPrices(tickers, apiKey)
+      setCurrentPrices(res)
       console.log('this is res in the useEffect', res)
     }
 
     if (profileHoldings.length) {
       //get current prices and calculate profile value
-      // getStockPrices()
+      getStockPrices()
       console.log('this is profileHoldings', profileHoldings)
     }
   }, [profileHoldings.length])
 
+  useEffect(() => {
+    const profileTotals = {
+      cashBalance: 0,
+      capitalInvested: 0,
+      stockValue: 0,
+      totalPerformance: 0,
+    }
+
+    if (currentPrices && profileHoldings) {
+      profileHoldings.forEach(holding => {
+        if (holding.stock === 'USD') {
+          profileTotals.cashBalance += holding.quantity
+          profileTotals.capitalInvested += holding.quantity
+          return
+        }
+
+        let currentPrice = currentPrices[holding.stock]
+        const value = currentPrice * holding.quantity
+        profileTotals.capitalInvested += holding.cost
+        profileTotals.stockValue += value
+        profileTotals.totalPerformance += value - holding.cost
+      })
+    }
+
+    setProflieStats(profileTotals)
+  }, [currentPrices.length, profileHoldings.length])
+
+
+
+
+  const printer = () => {
+    console.log('this is profileHoldings from printer', profileHoldings)
+    console.log('this is currentPrices from printer', currentPrices)
+  }
+
   return (
-    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)'>
+    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)' onClick={printer}>
       {/* insights */}
       <StyledDiv w='40%' h='75%' center>
         <StyledDiv col h='100%'>
-          <StyledDiv txSize='2.2vw' margin='2vh 0 3vh 0'>Profile Value: ${totalValue} </StyledDiv>
+          <StyledDiv txSize='2.2vw' margin='2vh 0 3vh 0'>Account Value: {usdFormatter.format(proflieStats?.stockValue + proflieStats?.cashBalance)} </StyledDiv>
           {[
-            ['Est. Holdings Value', holdingsValue],
-            ['Cash Balance', cashBalance],
+            ['Est. Holdings Value', proflieStats?.stockValue],
+            ['Cash Balance', proflieStats?.cashBalance],
             ['break', null],
-            ['Capital Invested', capitalInvested],
+            ['Capital Invested', proflieStats?.capitalInvested],
             ['break', null],
           ]
             .map(([label, value]) => createLineItem(label, value))}
-          <StyledDiv txSize='1.6vw' margin='3vh 0 0 0'>Net total: ${netPerformance} </StyledDiv>
+          <StyledDiv w='85%' margin='0 0 1vh 0' spaceBetween>
+            <StyledDiv txLarge>Net total:</StyledDiv>
+
+            <StyledSpan txLarge txColor='black'>{usdFormatter.format(proflieStats?.totalPerformance)}</StyledSpan>
+
+          </StyledDiv>
         </StyledDiv>
       </StyledDiv>
 
@@ -77,13 +113,10 @@ function createLineItem(label, value) {
       bottomBorder />
   }
 
-  const color = value >= 0 ? 'var(--erie-black)' : 'var(--red-500)'
   return (
     <StyledDiv w='85%' margin='0 0 1vh 0' spaceBetween>
       <StyledDiv txMedium>{label}:</StyledDiv>
-      <StyledDiv txMedium>$
-        <StyledSpan txMedium txColor={color}>{value}</StyledSpan>
-      </StyledDiv>
+      <StyledSpan txMedium >{usdFormatter.format(value)}</StyledSpan>
     </StyledDiv>
   )
 };
