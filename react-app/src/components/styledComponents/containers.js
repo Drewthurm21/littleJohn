@@ -60,12 +60,11 @@ export const Container = styled.div`
   
 `;
 
-
 export const NavContainer = styled.nav`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 10% 0 10%;
+  padding: 0 2% 0 5%;
   justify-content: space-between;
   position: sticky;
   top: 0;
@@ -76,7 +75,7 @@ export const NavContainer = styled.nav`
   border-bottom: var(--custom-nav-border);
   grid-area: nav;
   z-index: 10;
-  `;
+`;
 
 export const NavBtnContainer = styled(Container)`
   overflow: hidden;
@@ -84,7 +83,6 @@ export const NavBtnContainer = styled(Container)`
   max-width: 1000px;
   width: 33%;
 `;
-
 
 export const GridContainer = styled.div`
   display: grid;

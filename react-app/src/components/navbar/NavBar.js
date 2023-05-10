@@ -25,9 +25,7 @@ export default function Navbar() {
   return (
     <>
       <NavContainer>
-        <NavLink to='/' exact={true} activeClassName='active'>
-          <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
-        </NavLink>
+        <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
 
         {currentUser &&
           <Searchbar />

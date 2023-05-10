@@ -6,37 +6,54 @@ import { StyledDiv } from '../styledComponents/misc';
 
 const AsyncSearch = () => {
   const history = useHistory()
-  const apiKey = useSelector(state => state.session.apiKeys.finnhub)
+  const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const [searchTerm, setSearchTerm] = useState(null)
   const [selectedValue, setSelectedValue] = useState(null)
 
-  const handleInputChange = value => {
+  let timeoutId = null;
+  const handleInputChange = (value) => {
     setSearchTerm(value)
   };
 
-  const handleChange = value => {
-    let symbol = value['displaySymbol']
-    history.push(`/stocks/${symbol}`)
+  const handleChange = (value) => {
+    history.push(`/stocks/${value.symbol}`)
   };
 
-  const loadOptions = () => {
-    return fetch(`https://finnhub.io/api/v1/search?q=${searchTerm}&token=${apiKey}`)
-      .then(res => res.json())
-      .then(data => console.log(data))
+
+  const loadOptions = async () => {
+    let res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${apiKey}`)
+    let options = await res.json()
+    let optionsArr = options.bestMatches.map(option => {
+      return { symbol: option['1. symbol'], name: option['2. name'] }
+    })
+    console.log('this is optionsArr', optionsArr)
+    return optionsArr
   }
 
   return (
-    <StyledDiv h='100%' w='200px'>
-      <AsyncSelect
-        cacheOptions
-        value={selectedValue}
-        getOptionLabel={e => `${e.symbol}: ${e.description}`}
-        getOptionValue={e => e.symbol}
-        loadOptions={loadOptions}
-        onInputChange={handleInputChange}
-        onChange={handleChange}
-      />
-    </StyledDiv>
+
+    <AsyncSelect
+      cacheOptions
+      placeholder='Search Stocks...'
+      value={selectedValue}
+      getOptionLabel={e => `${e.symbol}: ${e.name}`}
+      getOptionValue={e => e.symbol}
+      loadOptions={loadOptions}
+      onInputChange={handleInputChange}
+      onChange={handleChange}
+      styles={{
+        control: (baseStyles, state) => ({
+          ...baseStyles,
+          width: '30vw',
+        }),
+        option: (baseStyles, state) => ({
+          ...baseStyles,
+          color: 'black',
+          backgroundColor: state.isFocused ? 'var(--gray-200)' : 'white',
+        }),
+      }}
+    />
+
   );
 }
 

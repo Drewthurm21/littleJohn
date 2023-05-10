@@ -43,16 +43,16 @@ export default function WatchlistItem({ listId, ticker, editList }) {
 
   return data && (
     <StyledDiv w='100%' margin='0 0 8px 0'
-      spaceBetween bottomBorder>
-      <StyledDiv w='50px'
-        onClick={goToStockPage}>{ticker}</StyledDiv>
+      onClick={goToStockPage} spaceBetween bottomBorder>
+      <StyledDiv w='23%' cursor='pointer' bold
+      >{ticker}</StyledDiv>
 
       <Sparkline
         dataSource={data[ticker]?.tickerData}
         lineColor={data[ticker]?.movement > 0 ? 'var(--money-green)' : 'var(--red-500)'}
         {...sparkSettings}
       >
-        <Size width={120} height={30} />
+        <Size width={125} height={30} />
         <Tooltip format="currency" />
       </Sparkline>
 
