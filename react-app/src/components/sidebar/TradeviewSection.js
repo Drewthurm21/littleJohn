@@ -17,6 +17,7 @@ export default function TradeviewSection({ companyQuote }) {
   const [selectedPortfolio, setSelectedPortfolio] = useState(0)
   const [confirmOrder, setConfirmOrder] = useState(false)
   const [selectWatchlists, setSelectWatchlists] = useState(false)
+  const [transactionCompleted, setTransactionCompleted] = useState(false)
 
   const portfolios = useSelector(state => state.portfolios)
   const watchlists = useSelector(state => state.watchlists)
@@ -69,11 +70,20 @@ export default function TradeviewSection({ companyQuote }) {
       trade_type: orderType,
       timestamp: `${Date.now()}`,
     }
-
     dispatch(enactPortfolioTrade(newTrade))
-    setConfirmOrder(true)
+    setTransactionCompleted(true)
+    setConfirmOrder(false)
+    setTimeout(() => closeMenus(), 2000)
   }
 
+  const closeMenus = () => {
+    setSelectedPortfolio(0)
+    setTradeVolume(0)
+    setOrderType('buy')
+    setConfirmOrder(false)
+    setTransactionCompleted(false)
+    setSelectWatchlists(false)
+  }
 
   return (companyQuote &&
     <>
@@ -87,7 +97,6 @@ export default function TradeviewSection({ companyQuote }) {
           </ChevronContainer>
         </StyledDiv>
       </StyledDiv>
-
       <StyledDiv id='ex-container' >
         <StyledDiv id='ex-content' className={expanded ? 'expanded' : ''} justify='center' >
           <StyledDiv spaceBetween margin='1vh 0' bottomBorder pad='8px' w='100%'>
@@ -111,32 +120,34 @@ export default function TradeviewSection({ companyQuote }) {
               min='0' max={determineMaxVolume()}
               onChange={(e) => setTradeVolume(e.target.value)} />
           </StyledDiv>
-
           {selectedPortfolio > 0 &&
-            <StyledDiv col spaceBetween margin='1vh 0' pad='8px' w='100%'>
-              <StyledDiv spaceBetween>
-                <StyledDiv h='30px' bold align='center'>Cash Balance:</StyledDiv>
-                <StyledDiv h='30px' align='center'>${portfolios[selectedPortfolio]?.balance || Number(0).toFixed(2)}</StyledDiv>
-              </StyledDiv>
-              <StyledDiv spaceBetween bottomBorder>
-                <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
-                <StyledDiv h='30px' align='center'>${(tradeVolume * +companyQuote['05. price']).toFixed(2)}</StyledDiv>
-              </StyledDiv>
-              <StyledDiv spaceBetween pad='12px 0 0 0'>
-                <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
-                <StyledDiv h='30px' align='center'>{orderType === 'buy' ?
-                  `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
-                  `$${(portfolios[selectedPortfolio]?.balance + (tradeVolume * +companyQuote['05. price'])).toFixed(2)}`}
+            <>
+              <StyledDiv col spaceBetween margin='1vh 0' pad='8px' w='100%'>
+                <StyledDiv spaceBetween>
+                  <StyledDiv h='30px' bold align='center'>Cash Balance:</StyledDiv>
+                  <StyledDiv h='30px' align='center'>${(portfolios[selectedPortfolio]?.balance || Number(0)).toFixed(2)}</StyledDiv>
+                </StyledDiv>
+                <StyledDiv spaceBetween bottomBorder>
+                  <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
+                  <StyledDiv h='30px' align='center'>${(tradeVolume * +companyQuote['05. price']).toFixed(2)}</StyledDiv>
+                </StyledDiv>
+                <StyledDiv spaceBetween pad='12px 0 0 0'>
+                  <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
+                  <StyledDiv h='30px' align='center'>{orderType === 'buy' ?
+                    `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
+                    `$${(portfolios[selectedPortfolio]?.balance + (tradeVolume * +companyQuote['05. price'])).toFixed(2)}`}
+                  </StyledDiv>
                 </StyledDiv>
               </StyledDiv>
-            </StyledDiv>}
-
-
-          {!confirmOrder &&
-            <CustomBtn rounded txColor='white' bgColor='black'
-              disabled={!selectedPortfolio || !tradeVolume}
-              onClick={handleOrderStart}>Finish Transaction</CustomBtn>
+              {!confirmOrder && !transactionCompleted &&
+                <CustomBtn rounded txColor='white' bgColor='black'
+                  disabled={!selectedPortfolio || !tradeVolume}
+                  onClick={handleOrderStart}>Finish Transaction</CustomBtn>
+              }
+            </>
           }
+
+
           {confirmOrder &&
             <StyledDiv w='100%' spaceEvenly >
               <CustomBtn rounded w='40%' minW='20px'
@@ -149,6 +160,16 @@ export default function TradeviewSection({ companyQuote }) {
                 onClick={() => setConfirmOrder(!confirmOrder)}>Cancel</CustomBtn>
             </StyledDiv>
           }
+
+          {transactionCompleted &&
+            <StyledDiv w='100%' spaceEvenly >
+              <CustomBtn rounded w='100%' minW='20px' cursor='wait'
+                txColor='white' bgColor='var(--money-green)'
+                bgColorHover='var(--money-green)' txColorHover='black'
+              >Transaction Completed</CustomBtn>
+            </StyledDiv>
+          }
+
         </StyledDiv>
       </StyledDiv>
       <StyledDiv w='100%' margin='1vh 0' spaceEvenly >
