@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from './store/session';
 import { AppInnerContainer, AppGridContainer } from './components/styledComponents/containers';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import SplashPage from './components/splashpage';
 import SignupPage from './components/auth/SignupPage';

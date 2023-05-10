@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, Portfolio, Watchlist, Watchlist_Item, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -44,12 +44,14 @@ def login():
         login_user(user)
         alpha_vantage_key = os.environ.get('ALPHA_VANTAGE_API_KEY')
         alpha_vantage_alt = os.environ.get('ALPHA_VANTAGE_ALT_KEY')
-        finnhub_key = os.environ.get('FINNHUB_API_KEY')
+        finnhub_api_key = os.environ.get('FINNHUB_API_KEY')
+        finnhub_webhook_key = os.environ.get('FINNHUB_WEBHOOK_KEY')
 
         return {
             'user': user.to_dict(),
             'apiKeys': {
-                'finnhub': finnhub_key,
+                'finnhub': finnhub_api_key,
+                'finnhub_webhook': finnhub_webhook_key,
                 'alpha_vantage': alpha_vantage_key,
                 'alpha_vantage_alt': alpha_vantage_alt
             }
@@ -81,6 +83,19 @@ def sign_up():
             password=form.data['password']
         )
         db.session.add(user)
+        db.session.commit()
+
+        portfolio = Portfolio(
+            owner_id=user.id, name='My Portfolio', balance=10000)
+        db.session.add(portfolio)
+
+        watchlist = Watchlist(owner_id=user.id, name='My Watchlist')
+        db.session.add(watchlist)
+        db.session.commit()
+
+        watchlist_item = Watchlist_Item(
+            watchlist_id=watchlist.id, ticker='AAPL')
+        db.session.add(watchlist_item)
         db.session.commit()
         login_user(user)
         return user.to_dict()

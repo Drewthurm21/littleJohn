@@ -18,6 +18,25 @@ class Portfolio(db.Model):
     trades = db.relationship('Trade', back_populates='portfolio')
     owner = db.relationship('User', back_populates='portfolios')
 
+    def build_holdings(self):
+        holdings = {}
+        for trade in self.trades:
+            if trade.ticker in holdings:
+                if trade.trade_type == 'buy':
+                    holdings[trade.ticker] += trade.quantity
+                else:
+                    holdings[trade.ticker] -= trade.quantity
+            else:
+                holdings[trade.ticker] = trade.quantity
+
+        # delete empty holdings
+        for ticker in list(holdings):
+            if holdings[ticker] == 0:
+                del holdings[ticker]
+
+        holdings['USD'] = self.balance
+        return holdings
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -25,4 +44,5 @@ class Portfolio(db.Model):
             'balance': self.balance,
             'name': self.name,
             'trades': {trade.id: trade.to_dict() for trade in self.trades},
+            'holdings': self.build_holdings()
         }

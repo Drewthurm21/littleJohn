@@ -28,11 +28,11 @@ export default function WatchlistSection() {
 
   return (
     <>
-      <StyledDiv col spaceBetween bottomBorder bgColorHover='var(--gray-200)'
+      <StyledDiv col spaceBetween bottomBorder
         txSize='18px' txWeight='bold' margin='1vh 0' minH='3vh'>
         <StyledDiv w='100%' spaceBetween>
           <StyledDiv bold>Watchlists</StyledDiv>
-          <StyledDiv w='15px' h='15px' margin='5px 10px 0 0'>
+          <StyledDiv w='15px' h='15px' margin='5px 2% 0 0'>
             <PlusBtn colorHover='var(--money-green)'
               onClick={() => setShowCreateList(!showCreateList)} />
           </StyledDiv>

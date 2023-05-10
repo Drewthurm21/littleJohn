@@ -23,7 +23,7 @@ export default function NewsSection({ ticker, companyName }) {
 
     fetchCompanyNews(ticker, apiKey)
       .then(data => setNewsArticles(data))
-  }, [refresh, apiKey])
+  }, [refresh, apiKey, companyName])
 
   const changePage = (direction) => {
     //if we're going out of bounds - go back to start and refresh

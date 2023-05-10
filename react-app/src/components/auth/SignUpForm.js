@@ -31,7 +31,7 @@ const SignUpForm = () => {
   const createInput = (options, i) => {
     const { label, type, name, value, checkVal, onChange } = options;
     return (<>
-      <label key={i} style={{ color: 'black' }} htmlFor='email'>{label}</label>
+      <label key={`${name}-${i}`} style={{ color: 'black' }} htmlFor='email'>{label}</label>
       {signupClicked && errors[name] && <StyledDiv>{errors[name]}</StyledDiv>}
       <StyledDiv key={i} col>
         <StyledInput h='3vw' w='18vw' margin='8px 0 2vh 0'

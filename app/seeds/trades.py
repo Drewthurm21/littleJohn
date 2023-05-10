@@ -4,7 +4,7 @@ from random import randint
 
 fake = Faker()
 trade_tickers = ['AAPL', 'TSLA', 'AMZN', 'MSFT',
-                 'GOOG', 'FB', 'NFLX', 'UBER', 'SQ', 'LYFT']
+                 'GOOG', 'META', 'NFLX', 'UBER', 'SQ', 'LYFT']
 
 
 def generate_trades(n, ticker):
@@ -40,7 +40,8 @@ def seed_trades():
 
 def undo_trades():
     if environment == 'production':
-        db.session.execute(f'TRUNCATE {SCHEMA}.trades RESTART IDENTITY CASCADE;')
+        db.session.execute(
+            f'TRUNCATE {SCHEMA}.trades RESTART IDENTITY CASCADE;')
         db.session.commit()
     else:
         db.session.execute('DELETE from trades;')
