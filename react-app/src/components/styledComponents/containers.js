@@ -64,7 +64,6 @@ export const Container = styled.div`
 export const NavContainer = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
   padding: 0 10% 0 10%;
   justify-content: space-between;

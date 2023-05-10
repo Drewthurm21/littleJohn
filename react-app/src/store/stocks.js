@@ -1,7 +1,8 @@
 import { fetchWatchlistItemData, fetchCompanyQuote } from "../api/alphaVantage";
 
-const SET_SPARKLINE_INFO = 'stocks/SET_SPARKLINE_INFO';
+const SET_CURRENT_PRICE = 'stocks/SET_CURRENT_PRICE';
 const ADD_COMPANY_QUOTE = 'stocks/ADD_COMPANY_QUOTE';
+const SET_SPARKLINE_INFO = 'stocks/SET_SPARKLINE_INFO';
 
 const setSparklineInfo = (sparklineInfo) => ({
   type: SET_SPARKLINE_INFO,
@@ -11,6 +12,11 @@ const setSparklineInfo = (sparklineInfo) => ({
 const addCompanyQuote = (quote) => ({
   type: ADD_COMPANY_QUOTE,
   payload: quote
+});
+
+const setCurrentPrice = (info) => ({
+  type: SET_CURRENT_PRICE,
+  payload: info
 });
 
 export const getSparklineInfoThunk = (ticker, apiKey) => async (dispatch) => {
@@ -29,10 +35,14 @@ export const getCompanyQuoteThunk = (ticker, apiKey) => async (dispatch) => {
   }
 };
 
+export const updateCurrentPriceThunk = (ticker, price) => (dispatch) => {
+  dispatch(setCurrentPrice({ ticker, price }));
+};
 
 const initialState = {
+  currentPrices: {},
+  quotes: {},
   sparklineInfo: null,
-  quotes: {}
 };
 
 export default function stocksReducer(state = initialState, action) {
@@ -51,6 +61,14 @@ export default function stocksReducer(state = initialState, action) {
         quotes: {
           ...state.quotes,
           [action.payload['01. symbol']]: action.payload
+        }
+      }
+    case SET_CURRENT_PRICE:
+      return {
+        ...state,
+        currentPrices: {
+          ...state.currentPrices,
+          [action.payload.ticker]: action.payload.price
         }
       }
     default:

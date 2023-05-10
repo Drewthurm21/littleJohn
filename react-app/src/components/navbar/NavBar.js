@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import * as sc from '../styledComponents'
+import Searchbar from './Searchbar';
 const {
   containers: { NavContainer, NavBtnContainer },
-  misc: { ImageDiv, GlassBox },
+  misc: { ImageDiv, GlassBox, StyledDiv },
   buttons: { NavbarBtn }
 } = sc;
 
@@ -27,18 +28,22 @@ export default function Navbar() {
         <NavLink to='/' exact={true} activeClassName='active'>
           <ImageDiv h='40px' w='15em' bgImage={bannerImgSrc} />
         </NavLink>
+
         {currentUser &&
-          <NavBtnContainer>
-            {[['/home', 'Home'],
-            ['/portfolios', 'Portfolios'],
-            ['/trades', 'Trades']].map(([url, label], i) => (
-              <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
-            ))}
-          </NavBtnContainer>
+          <Searchbar />
         }
-        <div style={{ display: 'flex', flexDirection: 'row', width: '15em', height: '100%', justifyContent: 'center', paddingBottom: '3px' }}>
+
+        <StyledDiv h='100%' spaceBetween>
+          {currentUser &&
+            [['/home', 'Home'],
+            ['/portfolios', 'Portfolios'],
+            ['/trades', 'Trades']
+            ].map(([url, label], i) => (
+              <NavbarBtn key={i} to={url}>{label}</NavbarBtn>
+            ))
+          }
           {userLinks}
-        </div>
+        </StyledDiv>
       </NavContainer>
       <GlassBox position='fixed' w='100%' top={'4rem'} />
     </>

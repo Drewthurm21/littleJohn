@@ -2,7 +2,6 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Portfolio, User, db
 
-
 portfolio_routes = Blueprint('portfolios', __name__)
 
 
@@ -22,11 +21,7 @@ def create_portfolio():
 @portfolio_routes.route('/<int:portfolio_id>')
 @login_required
 def get_portfolio_info(portfolio_id):
-    user = User.query.get(current_user.id)
-    portfolio = Portfolio.query.get(portfolio_id)
-    if user.id != portfolio.user_id:
-        return {'errors': ['Users can only view their own portfolios.']}, 401
-    return portfolio.to_dict()
+    return Portfolio.query.get(portfolio_id).to_dict()
 
 
 @portfolio_routes.route('/<int:portfolio_id>', methods=['PUT'])

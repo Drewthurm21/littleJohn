@@ -1,19 +1,20 @@
 import { useEffect, useState, useRef } from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { createChart } from 'lightweight-charts';
 import { StyledDiv } from '../styledComponents/misc';
 import { fetchHistoricalData } from "../../api/alphaVantage";
-import FlipNumbers from 'react-flip-numbers';
+import { updateCurrentPriceThunk } from '../../store/stocks';
 import { usdFormatter } from '../../utilities';
+import FlipNumbers from 'react-flip-numbers';
 
 export default function LineChartContainer(props) {
   const { ticker } = useParams()
-
+  const dispatch = useDispatch()
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
+  const currentPrice = useSelector(state => state.stocks.currentPrices[ticker])
   const [historicalPriceData, setHistoricalPriceData] = useState([])
-  const [currentPrice, setCurrentPrice] = useState(0)
 
   //fetch historical price data for initial chart data
   useEffect(() => {
@@ -30,7 +31,6 @@ export default function LineChartContainer(props) {
       )).splice(0, 720).reverse()
 
       //set current price and historical price data
-      setCurrentPrice(data[data.length - 1].value)
       setHistoricalPriceData(data)
     }
 
@@ -55,7 +55,7 @@ export default function LineChartContainer(props) {
         let t = Date.now()
         lastMsgTime = t
         setHistoricalPriceData(prev => [...prev, { time: t, value: msg.data[0].p }])
-        setCurrentPrice(msg.data[0].p)
+        dispatch(updateCurrentPriceThunk(ticker, msg.data[0].p))
       }
     }
 
@@ -69,7 +69,7 @@ export default function LineChartContainer(props) {
       <StyledDiv col position='absolute' top='10vh' z='100'>
         <StyledDiv txLarge>{props.companyName || ticker}</StyledDiv>
         <FlipNumbers height={25} width={20} color='#000'
-          play numbers={`${usdFormatter.format(currentPrice)}`} />
+          play numbers={`${usdFormatter.format(currentPrice || 0)}`} />
       </StyledDiv>
       <ChartComponent chartData={historicalPriceData} {...props}></ChartComponent>
     </StyledDiv>

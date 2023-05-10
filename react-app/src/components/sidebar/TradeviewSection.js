@@ -21,6 +21,7 @@ export default function TradeviewSection({ companyQuote }) {
 
   const portfolios = useSelector(state => state.portfolios)
   const watchlists = useSelector(state => state.watchlists)
+  const currentPrice = useSelector(state => state.stocks.currentPrices[ticker])
 
   useEffect(() => {
   }, [dispatch, ticker, companyQuote, portfolios, orderType, tradeVolume, selectedPortfolio])
@@ -66,7 +67,7 @@ export default function TradeviewSection({ companyQuote }) {
       portfolio_id: +selectedPortfolio,
       ticker: ticker,
       quantity: +tradeVolume,
-      price: +companyQuote['05. price'],
+      price: currentPrice,
       trade_type: orderType,
       timestamp: `${Date.now()}`,
     }
@@ -81,6 +82,7 @@ export default function TradeviewSection({ companyQuote }) {
     setTradeVolume(0)
     setOrderType('buy')
     setConfirmOrder(false)
+    setExpanded(false)
     setTransactionCompleted(false)
     setSelectWatchlists(false)
   }
@@ -100,18 +102,18 @@ export default function TradeviewSection({ companyQuote }) {
       <StyledDiv id='ex-container' >
         <StyledDiv id='ex-content' className={expanded ? 'expanded' : ''} justify='center' >
           <StyledDiv spaceBetween margin='1vh 0' bottomBorder pad='8px' w='100%'>
-            <StyledDiv h='30px' bold align='center'>Portfolio:</StyledDiv>
-            <select w='30%' type='number' value={selectedPortfolio}
-              onChange={(e) => setSelectedPortfolio(e.target.value)}>
-              {portfolios && createPortfolioOptions()}
-            </select>
-          </StyledDiv>
-          <StyledDiv spaceBetween margin='1vh 0' bottomBorder pad='8px' w='100%'>
             <StyledDiv h='30px' bold align='center'>Order Type:</StyledDiv>
             <select w='30%' type='number'
               onChange={changeOrderType}>
               <option value='buy' >Buy</option>
               <option value='sell' >Sell</option>
+            </select>
+          </StyledDiv>
+          <StyledDiv spaceBetween margin='1vh 0' bottomBorder pad='8px' w='100%'>
+            <StyledDiv h='30px' bold align='center'>Portfolio:</StyledDiv>
+            <select w='30%' type='number' value={selectedPortfolio}
+              onChange={(e) => setSelectedPortfolio(e.target.value)}>
+              {portfolios && createPortfolioOptions()}
             </select>
           </StyledDiv>
           <StyledDiv spaceBetween margin='1vh 0' bottomBorder pad='8px' w='100%'>
@@ -129,13 +131,13 @@ export default function TradeviewSection({ companyQuote }) {
                 </StyledDiv>
                 <StyledDiv spaceBetween bottomBorder>
                   <StyledDiv h='30px' bold align='center'>Estimated Cost:</StyledDiv>
-                  <StyledDiv h='30px' align='center'>${(tradeVolume * +companyQuote['05. price']).toFixed(2)}</StyledDiv>
+                  <StyledDiv h='30px' align='center'>${(tradeVolume * currentPrice).toFixed(2)}</StyledDiv>
                 </StyledDiv>
                 <StyledDiv spaceBetween pad='12px 0 0 0'>
                   <StyledDiv h='30px' bold align='center'>Final:</StyledDiv>
                   <StyledDiv h='30px' align='center'>{orderType === 'buy' ?
-                    `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * +companyQuote['05. price'])).toFixed(2)}` :
-                    `$${(portfolios[selectedPortfolio]?.balance + (tradeVolume * +companyQuote['05. price'])).toFixed(2)}`}
+                    `$${(portfolios[selectedPortfolio]?.balance - (tradeVolume * currentPrice)).toFixed(2)}` :
+                    `$${(portfolios[selectedPortfolio]?.balance + (tradeVolume * currentPrice)).toFixed(2)}`}
                   </StyledDiv>
                 </StyledDiv>
               </StyledDiv>
