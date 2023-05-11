@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { ImageDiv, StyledDiv } from "../styledComponents/misc";
 import { Container } from "../styledComponents/containers";
 import { getCompanyQuoteThunk } from "../../store/stocks";
@@ -14,14 +14,17 @@ import Sidebar from "../sidebar";
 
 export default function StockPage() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { ticker } = useParams()
 
+  const currentUser = useSelector(state => state.session.user);
   const companyQuote = useSelector(state => state.stocks.quotes[ticker] || null)
   const alphaVantageKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const finnhubKey = useSelector(state => state.session.apiKeys.finnhub)
   const [companyProfile, setCompanyProfile] = useState(null)
   const [companyOverview, setCompanyOverview] = useState(null)
 
+  if (!currentUser) history.push('/');
 
   useEffect(() => {
     const getCompanyInfo = async () => {

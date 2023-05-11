@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function PortfolioPage() {
   const dispatch = useDispatch
-  const user = useSelector(state => state.session.user)
+  const currentUser = useSelector(state => state.session.user)
+
+  if (!currentUser) history.push('/');
 
   useEffect(() => {
     dispatch(getPortfoliosThunk(user.id))
-  }, [user])
+  }, [dispatch, currentUser])
 
   return (
     <div>
