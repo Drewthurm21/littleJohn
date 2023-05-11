@@ -69,7 +69,7 @@ export default function LineChartContainer(props) {
       <StyledDiv col position='absolute' top='10vh' z='100'>
         <StyledDiv txLarge>{props.companyName || ticker}</StyledDiv>
         <FlipNumbers height={25} width={20} color='#000'
-          play numbers={`${usdFormatter.format(currentPrice || 0)}`} />
+          play numbers={`${usdFormatter.format(currentPrice || historicalPriceData[historicalPriceData.length - 1]?.value)}`} />
       </StyledDiv>
       <ChartComponent chartData={historicalPriceData} {...props}></ChartComponent>
     </StyledDiv>

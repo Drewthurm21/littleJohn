@@ -29,13 +29,11 @@ export default function ProfileOverview() {
       const tickers = profileHoldings.map(holding => holding.stock)
       let res = await loadPrices(tickers, apiKey)
       setCurrentPrices(res)
-      console.log('this is res in the useEffect', res)
     }
 
     if (profileHoldings.length) {
       //get current prices and calculate profile value
       getStockPrices()
-      console.log('this is profileHoldings', profileHoldings)
     }
   }, [profileHoldings.length])
 
@@ -66,16 +64,8 @@ export default function ProfileOverview() {
     setProflieStats(profileTotals)
   }, [currentPrices.length, profileHoldings.length])
 
-
-
-
-  const printer = () => {
-    console.log('this is profileHoldings from printer', profileHoldings)
-    console.log('this is currentPrices from printer', currentPrices)
-  }
-
   return (
-    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)' onClick={printer}>
+    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)'>
       {/* insights */}
       <StyledDiv w='40%' h='75%' center>
         <StyledDiv col h='100%'>

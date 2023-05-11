@@ -28,7 +28,6 @@ const AsyncSearch = () => {
       return { symbol: option['1. symbol'], name: option['2. name'] }
     })  //filter out results from foriegn exchanges
       .filter(option => !option.symbol.includes('.'))
-    console.log('this is optionsArr', optionsArr)
     return optionsArr
   }
 
