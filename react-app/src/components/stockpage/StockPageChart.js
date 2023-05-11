@@ -35,7 +35,7 @@ export default function LineChartContainer(props) {
     }
 
     getHistoricalPriceData()
-  }, [ticker, alphaVantageKey])
+  }, [dispatch, ticker, alphaVantageKey])
 
 
   //connect websocket to finnhub for live price updates
@@ -61,7 +61,7 @@ export default function LineChartContainer(props) {
 
     //unsubscribe from ticker on unmount
     return () => ws.close()
-  }, [ticker, finnhubKey])
+  }, [dispatch, ticker, finnhubKey])
 
 
   return (
