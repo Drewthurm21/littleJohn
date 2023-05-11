@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import Sidebar from '../sidebar';
@@ -6,6 +8,10 @@ import PortfoliosSection from './PortfoliosSection';
 import ProfileOverview from './ProfileOverview';
 
 export default function HomePage() {
+  const history = useHistory()
+  const currentUser = useSelector(state => state.session.user);
+
+  if (!currentUser) history.push('/');
 
   return (
     <Container margin='5vh' spaceBetween align='flex-start'>

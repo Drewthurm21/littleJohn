@@ -11,6 +11,8 @@ import LoginPage from './components/auth/LoginPage';
 import MissingPage from './components/MissingPage';
 import HomePage from './components/homepage/HomePage';
 import StockPage from './components/stockpage/StockPage';
+import TradePage from './components/tradepage/TradePage';
+import PortfolioPage from './components/portfoliopage/PortfolioPage';
 
 import './index.css';
 
@@ -47,13 +49,13 @@ function App() {
               <HomePage />
             </ProtectedRoute>
             <ProtectedRoute path='/portfolios' exact={true} >
-              <h1> portfolios </h1>
+              <PortfolioPage />
             </ProtectedRoute>
             <ProtectedRoute path='/stocks/:ticker' exact={true} >
               <StockPage />
             </ProtectedRoute>
             <ProtectedRoute path='/trades' exact={true} >
-              <h1> trades </h1>
+              <TradePage />
             </ProtectedRoute>
             <Route path='/' exact={true} >
               <SplashPage />
