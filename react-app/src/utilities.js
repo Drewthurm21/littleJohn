@@ -36,7 +36,6 @@ export function createHoldingsData(portfolio) {
     }
   }
 
-  console.log('this is in create holdings data', holdings)
   return Object.values(holdings);
 }
 
@@ -59,7 +58,6 @@ export function consolidatePortfolioHoldings(portfolios) {
       }
       return acc
     }, {})
-  console.log('this is in consolidate portfolio holdings', allHoldings)
   return Object.values(allHoldings)
 };
 

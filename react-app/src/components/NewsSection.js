@@ -23,16 +23,17 @@ export default function NewsSection({ ticker, companyName }) {
 
     fetchCompanyNews(ticker, apiKey)
       .then(data => setNewsArticles(data))
-  }, [refresh, apiKey, companyName])
+  }, [ticker, refresh, apiKey, companyName])
 
   const changePage = (direction) => {
     //if we're going out of bounds - go back to start and refresh
-    if (direction === 'next' && startIndex + pageSize * 2 > 50 ||
-      direction === 'prev' && startIndex - pageSize < 0) {
+    if ((direction === 'next' && startIndex + pageSize * 2 > 50) ||
+      (direction === 'prev' && startIndex - pageSize < 0)) {
       setRefresh(!refresh)
       setStartIndex(0)
       return
     }
+
     //otherwise, change the start index
     if (direction === 'next') setStartIndex(startIndex + pageSize)
     else setStartIndex(startIndex - pageSize)

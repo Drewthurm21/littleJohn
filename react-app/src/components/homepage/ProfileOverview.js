@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPortfoliosThunk } from '../../store/portfolios';
-import { abbreviateNumber, consolidatePortfolioHoldings, loadPrices, usdFormatter } from '../../utilities';
+import { consolidatePortfolioHoldings, loadPrices, usdFormatter } from '../../utilities';
 import { StyledDiv, StyledSpan } from '../styledComponents/misc';
 import DoughnutChart from '../DoughnutChart';
 
@@ -18,7 +18,7 @@ export default function ProfileOverview() {
 
   useEffect(() => {
     if (!portfolios) dispatch(getPortfoliosThunk(user.id))
-  }, [user, dispatch])
+  }, [dispatch, portfolios, user])
 
   useEffect(() => {
     if (portfolios) setProfileHoldings(consolidatePortfolioHoldings(portfolios))
@@ -29,15 +29,13 @@ export default function ProfileOverview() {
       const tickers = profileHoldings.map(holding => holding.stock)
       let res = await loadPrices(tickers, apiKey)
       setCurrentPrices(res)
-      console.log('this is res in the useEffect', res)
     }
 
     if (profileHoldings.length) {
       //get current prices and calculate profile value
       getStockPrices()
-      console.log('this is profileHoldings', profileHoldings)
     }
-  }, [profileHoldings.length])
+  }, [dispatch, portfolios, profileHoldings, apiKey])
 
   useEffect(() => {
     const profileTotals = {
@@ -54,7 +52,6 @@ export default function ProfileOverview() {
           profileTotals.capitalInvested += holding.quantity
           return
         }
-
         let currentPrice = currentPrices[holding.stock]
         const value = currentPrice * holding.quantity
         profileTotals.capitalInvested += holding.cost
@@ -62,20 +59,11 @@ export default function ProfileOverview() {
         profileTotals.totalPerformance += value - holding.cost
       })
     }
-
     setProflieStats(profileTotals)
-  }, [currentPrices.length, profileHoldings.length])
-
-
-
-
-  const printer = () => {
-    console.log('this is profileHoldings from printer', profileHoldings)
-    console.log('this is currentPrices from printer', currentPrices)
-  }
+  }, [portfolios, currentPrices, profileHoldings])
 
   return (
-    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)' onClick={printer}>
+    <StyledDiv w='100%' spaceBetween align='center' bgColor='var(--gray-50)'>
       {/* insights */}
       <StyledDiv w='40%' h='75%' center>
         <StyledDiv col h='100%'>
@@ -90,19 +78,17 @@ export default function ProfileOverview() {
             .map(([label, value]) => createLineItem(label, value))}
           <StyledDiv w='85%' margin='0 0 1vh 0' spaceBetween>
             <StyledDiv txLarge>Net total:</StyledDiv>
-
-            <StyledSpan txLarge txColor='black'>{usdFormatter.format(proflieStats?.totalPerformance)}</StyledSpan>
-
+            <StyledSpan txLarge>
+              {usdFormatter.format(proflieStats?.totalPerformance)}
+            </StyledSpan>
           </StyledDiv>
         </StyledDiv>
       </StyledDiv>
-
 
       {/* doughnut */}
       <StyledDiv w='60%' h='100%' bgColor='var(--gray-200)'>
         <DoughnutChart allHoldings={profileHoldings} small={false} />
       </StyledDiv>
-
     </StyledDiv>
   )
 };

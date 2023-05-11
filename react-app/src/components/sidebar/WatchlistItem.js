@@ -26,7 +26,7 @@ export default function WatchlistItem({ listId, ticker, editList }) {
   useEffect(() => {
     if (data && data[ticker]) return
     dispatch(getSparklineInfoThunk(ticker, apiKey))
-  }, [dispatch, ticker, apiKey,])
+  }, [dispatch, ticker, apiKey, data])
 
   useEffect(() => {
     if (editList) setShowEditMenu(true)

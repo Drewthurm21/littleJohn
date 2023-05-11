@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { login, signUp } from '../../store/session';
 import { CustomBtn } from '../styledComponents/buttons';
 import { StyledDiv, StyledInput, Checkmark } from '../styledComponents/misc';
@@ -9,6 +9,7 @@ import { signupFormValidator } from './FormValidators';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,14 +27,14 @@ const SignUpForm = () => {
   }, [email, password, repeatPassword, username, signupClicked])
 
   const user = useSelector(state => state.session.user);
-  if (user) return <Redirect to='/' />;
+  if (user) return <Redirect to='/home' />;
 
   const createInput = (options, i) => {
     const { label, type, name, value, checkVal, onChange } = options;
     return (<>
       <label key={`${name}-${i}`} style={{ color: 'black' }} htmlFor='email'>{label}</label>
       {signupClicked && errors[name] && <StyledDiv>{errors[name]}</StyledDiv>}
-      <StyledDiv key={i} col>
+      <StyledDiv key={i}>
         <StyledInput h='3vw' w='18vw' margin='8px 0 2vh 0'
           name='email' type={type} value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -50,7 +51,11 @@ const SignUpForm = () => {
     if (Object.keys(errors).length) return;
 
     const data = await dispatch(signUp(username, email, password));
-    if (data) setErrors(data);
+    if (data) setErrors(data)
+    else {
+      dispatch(login(email, password));
+      history.push('/home')
+    }
   };
 
   const demoLogin = async () => {

@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AsyncSelect from 'react-select/async'
-import { StyledDiv } from '../styledComponents/misc';
 
 const AsyncSearch = () => {
   const history = useHistory()
   const apiKey = useSelector(state => state.session.apiKeys.alpha_vantage)
   const [searchTerm, setSearchTerm] = useState(null)
-  const [selectedValue, setSelectedValue] = useState(null)
 
-  let timeoutId = null;
   const handleInputChange = (value) => {
     setSearchTerm(value)
   };
@@ -28,7 +25,6 @@ const AsyncSearch = () => {
       return { symbol: option['1. symbol'], name: option['2. name'] }
     })  //filter out results from foriegn exchanges
       .filter(option => !option.symbol.includes('.'))
-    console.log('this is optionsArr', optionsArr)
     return optionsArr
   }
 

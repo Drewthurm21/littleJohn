@@ -18,13 +18,13 @@ export default function PortfoliosSection() {
     <>
       <StyledDiv w='100%' h='3vh' margin='12px 0 12px 0' align='center' spaceBetween>
         <StyledDiv margin='1vh 0' txSize='2vh'>Portfolios</StyledDiv>
-        <StyledDiv w='10%'  >
-          <StyledDiv w='15%'>
-            <ChevronContainer color='black' h='20px'>
+        <StyledDiv center w='15%' pad='0 0 0 15px'>
+          <StyledDiv w='20%'>
+            <ChevronContainer color='black' h='20px' w='20px'>
               <Chevron left color='black' />
             </ChevronContainer>
           </StyledDiv>
-          <StyledDiv w='15%'>
+          <StyledDiv w='20%'>
             <ChevronContainer color='black' h='20px'>
               <Chevron right color='black' />
             </ChevronContainer>
@@ -45,7 +45,6 @@ export default function PortfoliosSection() {
     </>
   )
 };
-
 
 const PortfolioCard = ({ portfolio }) => {
   const [portfolioHoldings, setPortfolioHoldings] = useState([])

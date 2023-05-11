@@ -35,7 +35,7 @@ export default function StockPage() {
 
   useEffect(() => {
     dispatch(getCompanyQuoteThunk(ticker, alphaVantageKey))
-  }, [ticker, alphaVantageKey])
+  }, [dispatch, ticker, alphaVantageKey])
 
   return (
     <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start' >
