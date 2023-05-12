@@ -32,11 +32,6 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
-app.register_blueprint(user_routes, url_prefix='/api/users')
-app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(watchlist_routes, url_prefix='/api/watchlists')
-app.register_blueprint(portfolio_routes, url_prefix='/api/portfolios')
-app.register_blueprint(trade_routes, url_prefix='/api/trades')
 db.init_app(app)
 Migrate(app, db)
 
@@ -48,7 +43,6 @@ CORS(app)
 # we won't be using a buildpack when we deploy to Heroku.
 # Therefore, we need to make sure that in production any
 # request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -75,4 +69,16 @@ def inject_csrf_token(response):
 def react_root(path):
     if path == 'favicon.ico':
         return app.send_from_directory('public', 'favicon.ico')
+    return app.send_static_file('index.html')
+
+
+app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(watchlist_routes, url_prefix='/api/watchlists')
+app.register_blueprint(portfolio_routes, url_prefix='/api/portfolios')
+app.register_blueprint(trade_routes, url_prefix='/api/trades')
+
+
+@app.errorhandler(404)
+def not_found(e):
     return app.send_static_file('index.html')
