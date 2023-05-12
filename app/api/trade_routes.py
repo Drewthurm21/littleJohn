@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Trade, User, Portfolio, db
-
+from datetime import datetime
 trade_routes = Blueprint('trades', __name__)
 
 
@@ -10,6 +10,9 @@ trade_routes = Blueprint('trades', __name__)
 def create_trade():
     portfolio = Portfolio.query.get(request.json['portfolio_id'])
     trade_info = {**request.json}
+    timestamp = int(trade_info['timestamp']) / 1000
+    trade_info['timestamp'] = datetime.utcfromtimestamp(
+        timestamp).strftime('%Y-%m-%d %H:%M:%S')
     total_price = trade_info['quantity'] * trade_info['price']
     holdings = portfolio.build_holdings()
 

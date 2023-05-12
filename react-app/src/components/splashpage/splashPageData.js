@@ -9,14 +9,15 @@ const cashCardImgSrc = 'https://cdn.robinhood.com/assets/generated_assets/brand/
 export const splashPageData = [
   {
     heroText: 'Investing',
-    mainText: ['Build your', 'portfolio starting', 'with just $1'],
+    mainText: ['Build your portfolio', 'starting with just $1'],
     subText: ['Invest in stocks, options, and ETFs at your pace', 'and commission-free.'],
     disclaimer: 'Stocks & funds offered through Robinhood Financial. Other fees may apply. See our Fee Schedule for more details.',
     imgSrc: phoneImgSrc,
     imgAlt: 'phone',
-    heroColor: '#36d136',
+    heroColor: 'black',
     textColor: 'black',
     bgColor: 'var(--bright-green)',
+    btnBgColor: 'var(--bright-green)',
     btnText: 'Learn more',
   },
   {

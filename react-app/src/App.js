@@ -19,7 +19,6 @@ import './index.css';
 
 function App() {
   const dispatch = useDispatch();
-
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -29,9 +28,7 @@ function App() {
     })();
   }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
+  if (!loaded) return null;
 
   return (
     <BrowserRouter>
@@ -45,7 +42,7 @@ function App() {
             <Route path='/signup' exact={true}>
               <SignupPage />
             </Route>
-            <ProtectedRoute path='/home' exact={true} >
+            <ProtectedRoute path='/home' exact={true}>
               <HomePage />
             </ProtectedRoute>
             <ProtectedRoute path='/portfolios' exact={true} >
@@ -65,7 +62,7 @@ function App() {
             </Route>
           </Switch>
         </AppInnerContainer>
-        <div className='footer'>Footer</div>
+        <div className='footer'>Footer placeholder</div>
       </AppGridContainer>
     </BrowserRouter>
   );
