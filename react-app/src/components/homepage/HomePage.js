@@ -4,7 +4,7 @@ import { Container } from '../styledComponents/containers';
 import { StyledDiv } from '../styledComponents/misc';
 import Sidebar from '../sidebar';
 import NewsSection from '../NewsSection'
-import PortfoliosSection from './PortfoliosSection';
+import PortfoliosSection from './PortfolioCardsSection';
 import ProfileOverview from './ProfileOverview';
 
 export default function HomePage() {

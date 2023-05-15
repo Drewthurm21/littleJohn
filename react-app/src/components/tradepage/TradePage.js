@@ -34,26 +34,21 @@ export default function TradePage() {
     setAllTrades(allTrades)
   }, [portfolios])
 
-  console.log(allTrades)
-
   return (
     <Container margin='5vh 3vw 0 0' spaceBetween align='flex-start'>
-
-      <Container col pad='0 10% 0 25%' align='flex-start'>
-        <StyledDiv w='100%' h='25vh'>
-          Header
-        </StyledDiv>
+      <Container col pad='3vh 10% 0 25%' align='flex-start'>
+        <StyledDiv w='100%' h='4vh' txXLarge bottomBorder>Trade History</StyledDiv>
         <StyledDiv col w='100%' >
           {allTrades.map(trade => {
             return (
-              <StyledDiv col h='55px' spaceEvenly bottomBorder margin='1vh 0'>
+              <StyledDiv col h='55px' spaceEvenly bottomBorder margin='1vh 8px'>
                 <StyledDiv spaceBetween key={trade.id} >
-                  <StyledDiv bold txMedium>{`${trade.ticker} ${trade.trade_type}`}</StyledDiv>
-                  <StyledDiv bold txMedium>{`${usdFormatter.format(trade.quantity * trade.price)}`}</StyledDiv>
+                  <StyledDiv bold txSize='1.5vh'>{`${trade.ticker} ${trade.trade_type}`}</StyledDiv>
+                  <StyledDiv bold txSize='1.5vh'>{`${usdFormatter.format(trade.quantity * trade.price)}`}</StyledDiv>
                 </StyledDiv>
-                <StyledDiv spaceBetween>
-                  <StyledDiv key={trade.id}>{trade.timestamp.toLocaleDateString()}</StyledDiv>
-                  <StyledDiv key={trade.id}>{`${trade.quantity} shares at ${usdFormatter.format(trade.price)}`}</StyledDiv>
+                <StyledDiv spaceBetween margin='0 0 8px 0'>
+                  <StyledDiv key={trade.id} txSmall>{trade.timestamp.toLocaleDateString()}</StyledDiv>
+                  <StyledDiv key={trade.id} txSmall>{`${trade.quantity} shares at ${usdFormatter.format(trade.price)}`}</StyledDiv>
                 </StyledDiv>
               </StyledDiv>
             )
@@ -61,7 +56,6 @@ export default function TradePage() {
           }
         </StyledDiv>
       </Container>
-
       <Sidebar watchlists={true} />
     </Container>
   )
