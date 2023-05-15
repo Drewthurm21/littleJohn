@@ -3,7 +3,7 @@ import { createHoldingsData, customizeChartTooltip } from '../utilities.js';
 import PieChart, { Legend, Series, Tooltip, Format, Label } from 'devextreme-react/pie-chart';
 
 
-export default function PortfolioDoughnut({ portfolio, allHoldings = null, small = true }) {
+export default function PortfolioDoughnut({ portfolio, allHoldings = null }) {
   const [chartHoldings, setChartHoldings] = useState([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function PortfolioDoughnut({ portfolio, allHoldings = null, small
       dataSource={chartHoldings}
     >
       <Series argumentField="stock" valueField='value'>
-        <Label visible={allHoldings !== null} format="thousands" />
+        <Label visible={chartHoldings.length > 0} format="thousands" />
       </Series>
       <Legend
         horizontalAlignment="right"
