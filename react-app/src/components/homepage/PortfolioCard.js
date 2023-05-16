@@ -15,7 +15,7 @@ export default function PortfolioCard({ portfolio }) {
     if (portfolioHoldings.length < 1) return
     let value = 0
     portfolioHoldings.forEach(holding => {
-      if (holding.stock === 'USD') value += holding.value
+      if (holding.stock === 'USD') value += holding.cost
       else {
         value += (holding.quantity * holding.lastPrice)
       }
@@ -37,7 +37,7 @@ export default function PortfolioCard({ portfolio }) {
                 </StyledDiv>
                 <StyledDiv txSmall>
                   {holding.stock === 'USD' ?
-                    usdFormatter.format(holding.value) :
+                    usdFormatter.format(holding.cost) :
                     usdFormatter.format((holding.quantity * holding.lastPrice))}
                 </StyledDiv>
               </StyledDiv>

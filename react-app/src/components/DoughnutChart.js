@@ -19,7 +19,7 @@ export default function PortfolioDoughnut({ portfolio, allHoldings = null }) {
       palette="Soft Pastel"
       dataSource={chartHoldings}
     >
-      <Series argumentField="stock" valueField='value'>
+      <Series argumentField="stock" valueField='cost'>
         <Label visible={chartHoldings.length > 0} format="thousands" />
       </Series>
       <Legend
