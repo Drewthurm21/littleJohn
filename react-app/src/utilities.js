@@ -9,7 +9,7 @@ export function customizeChartTooltip(arg) {
 
 export function createHoldingsData(portfolio) {
   const holdings = {
-    USD: { stock: 'USD', quantity: portfolio.balance, value: portfolio.balance, lastPrice: 1, cost: portfolio.balance },
+    USD: { stock: 'USD', quantity: portfolio.balance, lastPrice: 1, cost: portfolio.balance },
   };
 
   for (let trade of Object.values(portfolio.trades)) {
@@ -20,9 +20,15 @@ export function createHoldingsData(portfolio) {
       if (trade_type === 'buy') {
         item.quantity += quantity;
         item.cost += quantity * price;
+        item.lastPrice = price;
+        item.tradeCount += 1;
+        item.avgCost = item.cost / item.quantity;
       } else {
         item.quantity -= quantity;
         item.cost -= (quantity * price);
+        item.lastPrice = price;
+        item.tradeCount += 1;
+        item.avgCost = item.cost / item.quantity;
       }
       continue;
     }
@@ -30,9 +36,10 @@ export function createHoldingsData(portfolio) {
     holdings[ticker] = {
       stock: ticker,
       quantity: quantity,
-      value: quantity * price,
       lastPrice: price,
       cost: quantity * price,
+      tradeCount: 1,
+      avgCost: price,
     }
   }
 
