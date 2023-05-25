@@ -35,7 +35,7 @@ export default function PortfolioPage() {
         <StyledDiv w='100%' txLarge align='flex-start' margin='2vh'>Portfolio insights</StyledDiv>
         <StyledDiv w='100%' h='40%'>
           <StyledDiv w='50%' h='100%' pad='18px' bgColor='var(--gray-50)'>
-            <StyledDiv w='100%' > yo</StyledDiv>
+            <StyledDiv w='100%' txMedium> This page is currently under development =]</StyledDiv>
           </StyledDiv>
           <StyledDiv w='50%' h='100%' bgColor='var(--gray-200)'>
             {selectedPortfolio && <PortfolioDoughnut portfolio={selectedPortfolio} />}
