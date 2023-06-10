@@ -66,8 +66,9 @@ export default function WatchlistItem({ listId, ticker, editList }) {
       {!showEditMenu &&
         <StyledDiv w='40' spaceBetween col align='center'>
           <StyledDiv txSmall>${Number(data[ticker]?.currentPrice).toFixed(2)}</StyledDiv>
-          <StyledDiv txSmall
-            txColor={data[ticker]?.movement > 0 ? 'var(--money-green)' : 'var(--red-500)'}>{data[ticker]?.movement?.toFixed(2)}%</StyledDiv>
+          <StyledDiv txSmall txColor={data[ticker]?.movement > 0 ? 'var(--money-green)' : 'var(--red-500)'}>
+            {data[ticker]?.movement?.toFixed(2)}%
+          </StyledDiv>
         </StyledDiv>}
     </StyledDiv >
   )
