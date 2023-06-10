@@ -21,9 +21,10 @@ export default function TradeviewSection({ companyQuote }) {
 
   const portfolios = useSelector(state => state.portfolios)
   const watchlists = useSelector(state => state.watchlists)
-  const currentPrice = useSelector(state => state.stocks.currentPrices[ticker])
+  const currentPrice = companyQuote && Number(companyQuote['05. price'])
 
   useEffect(() => {
+
   }, [dispatch, ticker, companyQuote, portfolios, orderType, tradeVolume, selectedPortfolio])
 
   const createPortfolioOptions = () => {
@@ -87,7 +88,12 @@ export default function TradeviewSection({ companyQuote }) {
     setSelectWatchlists(false)
   }
 
-  return (companyQuote &&
+  const printer = () => {
+    console.log('portfolios', portfolios)
+    console.log('currentPrice', currentPrice)
+  }
+
+  return companyQuote && currentPrice && (
     <>
       <StyledDiv spaceBetween bottomBorder margin='0 0 1vh 0' pad='12px' >
         <StyledDiv txMedium>{`Trade ${ticker}`}</StyledDiv>

@@ -92,7 +92,7 @@ export const loadPrices = async (holdings, apiKey) => {
   return priceData
 };
 
-// Create our number formatter.
+
 export const usdFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',

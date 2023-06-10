@@ -24,8 +24,10 @@ class Portfolio(db.Model):
             if trade.ticker in holdings:
                 if trade.trade_type == 'buy':
                     holdings[trade.ticker] += trade.quantity
-                else:
+                elif trade.trade_type == 'sell':
                     holdings[trade.ticker] -= trade.quantity
+                else:  # trade_type == 'deposit'
+                    holdings['USD'] += trade.quantity
             else:
                 holdings[trade.ticker] = trade.quantity
 
@@ -34,7 +36,6 @@ class Portfolio(db.Model):
             if holdings[ticker] == 0:
                 del holdings[ticker]
 
-        holdings['USD'] = self.balance
         return holdings
 
     def to_dict(self):

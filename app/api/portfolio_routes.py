@@ -9,10 +9,11 @@ portfolio_routes = Blueprint('portfolios', __name__)
 @login_required
 def create_portfolio():
     user = User.query.get(current_user.id)
-    portfolios = Portfolio.query.filter_by(user_id=user.id).all()
-    if len(portfolios) >= 3:
-        return {'errors': ['You can only have 3 portfolios']}, 401
-    portfolio = Portfolio(**request.json)
+    portfolio = Portfolio(
+        owner_id=user.id,
+        balance=request.json['balance'],
+        name=request.json['name']
+    )
     db.session.add(portfolio)
     db.session.commit()
     return portfolio.to_dict()
@@ -29,7 +30,7 @@ def get_portfolio_info(portfolio_id):
 def update_portfolio(portfolio_id):
     user = User.query.get(current_user.id)
     portfolio = Portfolio.query.get(portfolio_id)
-    if user.id != portfolio.user_id:
+    if user.id != portfolio.owner_id:
         return {'errors': ['Users can only edit their own portfolios.']}, 401
     # assign all the values from the request.json to the portfolio object
     portfolio.update(**request.json)
@@ -42,7 +43,7 @@ def update_portfolio(portfolio_id):
 def delete_portfolio(portfolio_id):
     user = User.query.get(current_user.id)
     portfolio = Portfolio.query.get(portfolio_id)
-    if user.id != portfolio.user_id:
+    if user.id != portfolio.owner_id:
         return {'errors': ['Users can only edit their own portfolios.']}, 401
     db.session.delete(portfolio)
     db.session.commit()

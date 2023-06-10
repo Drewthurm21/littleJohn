@@ -5,6 +5,12 @@ from datetime import datetime
 trade_routes = Blueprint('trades', __name__)
 
 
+@trade_routes.route('/')
+@login_required
+def get_trades():
+    return {trade.id: trade.to_dict() for trade in Trade.query.all()}
+
+
 @trade_routes.route('/', methods=['POST'])
 @login_required
 def create_trade():
@@ -20,9 +26,11 @@ def create_trade():
         if portfolio.balance < total_price:
             return {'errors': ['Insufficient funds']}, 401
         portfolio.balance -= total_price
-    else:
+    elif trade_info['trade_type'] == 'sell':
         if holdings[trade_info['ticker']] < trade_info['quantity']:
             return {'errors': ['Insufficient shares']}, 401
+        portfolio.balance += total_price
+    else:  # trade_type == 'deposit'
         portfolio.balance += total_price
 
     trade = Trade(**trade_info)

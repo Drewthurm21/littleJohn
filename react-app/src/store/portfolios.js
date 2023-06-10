@@ -8,7 +8,7 @@ const getPortfolios = (portfolios) => ({
   portfolios
 });
 
-const addPortfolio = (portfolio) => ({
+const createPortfolio = (portfolio) => ({
   type: CREATE_PORTFOLIO,
   portfolio
 });
@@ -35,20 +35,33 @@ export const enactPortfolioTrade = (trade) => async (dispatch) => {
 };
 
 
+export const depositPortfolioFunds = (portfolioId, amount) => async (dispatch) => {
+  const response = await fetch(`/api/portfolios/${portfolioId}/deposit`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount })
+  });
+
+  const updatedPortfolio = await response.json();
+  dispatch(updatePortfolio(updatedPortfolio));
+};
+
+
 export const getPortfoliosThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}/portfolios`);
   const portfolios = await response.json();
   dispatch(getPortfolios(portfolios));
 };
 
-export const addPortfolioThunk = (portfolio) => async (dispatch) => {
+export const createPortfolioThunk = (portfolio) => async (dispatch) => {
   const response = await fetch(`/api/portfolios/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(portfolio)
   });
   const newPortfolio = await response.json();
-  dispatch(addPortfolio(newPortfolio));
+  dispatch(createPortfolio(newPortfolio));
+  return newPortfolio.id;
 };
 
 export const deletePortfolioThunk = (portfolioId) => async (dispatch) => {
