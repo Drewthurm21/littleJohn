@@ -21,6 +21,7 @@ export default function PortfolioSection() {
   const [depositAmount, setDepositAmount] = useState("")
 
   useEffect(() => {
+    setSelectedPortfolio(null)
 
   }, [portfolios])
 
@@ -154,10 +155,6 @@ export default function PortfolioSection() {
       <StyledDiv col spaceBetween pad='0 0 20px 0' bottomBorder>
         {selectedPortfolio && editingPortfolio &&
           <>
-            <label> Enter new portfolio Name
-              <StyledInput w='100%' h='30px' margin='12px 0'
-                value={updatedPortfolioName} onChange={e => setUpdatedPortfolioName(e.target.value)} />
-            </label>
             <StyledDiv bold>
               {!showDepositInput && <>
                 <StyledDiv txSize='18px' margin='20px 0 0 0' txAlign='end'
