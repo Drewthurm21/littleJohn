@@ -8,8 +8,15 @@ export function customizeChartTooltip(arg) {
 }
 
 export function createHoldingsData(portfolio) {
+  console.log(portfolio, 'PORTFOLIO in createHoldingsData')
   const holdings = {
-    USD: { stock: 'USD', quantity: portfolio.balance, lastPrice: 1, cost: portfolio.balance },
+    USD: {
+      stock: 'USD',
+      quantity: 0,
+      lastPrice: 1,
+      cost: 0,
+      tradeCount: 0
+    },
   };
 
   for (let trade of Object.values(portfolio.trades)) {
@@ -23,12 +30,18 @@ export function createHoldingsData(portfolio) {
         item.lastPrice = price;
         item.tradeCount += 1;
         item.avgCost = item.cost / item.quantity;
-      } else {
+        holdings.USD.quantity -= quantity * price;
+      } else if (trade_type === 'sell') {
         item.quantity -= quantity;
-        item.cost -= (quantity * price);
         item.lastPrice = price;
+        item.cost -= (quantity * price);
         item.tradeCount += 1;
         item.avgCost = item.cost / item.quantity;
+        holdings.USD.quantity += quantity * price;
+      } else {
+        holdings.USD.quantity += quantity;
+        holdings.USD.cost += quantity * price;
+        holdings.USD.tradeCount += 1;
       }
       continue;
     }
@@ -42,7 +55,7 @@ export function createHoldingsData(portfolio) {
       avgCost: price,
     }
   }
-
+  console.log(holdings, 'HOLDINGS in createHoldingsData')
   return Object.values(holdings);
 }
 

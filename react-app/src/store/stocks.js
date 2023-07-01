@@ -42,6 +42,7 @@ export const updateCurrentPriceThunk = (ticker, price) => (dispatch) => {
 const initialState = {
   quotes: {},
   sparklineInfo: null,
+  currentPrices: {}
 };
 
 export default function stocksReducer(state = initialState, action) {

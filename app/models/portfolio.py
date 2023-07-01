@@ -24,13 +24,12 @@ class Portfolio(db.Model):
             if trade.ticker in holdings:
                 if trade.trade_type == 'buy':
                     holdings[trade.ticker] += trade.quantity
-                elif trade.trade_type == 'sell':
+                else:
                     holdings[trade.ticker] -= trade.quantity
-                else:  # trade_type == 'deposit'
-                    holdings['USD'] += trade.quantity
             else:
                 holdings[trade.ticker] = trade.quantity
 
+        holdings['USD'] = self.balance
         # delete empty holdings
         for ticker in list(holdings):
             if holdings[ticker] == 0:
