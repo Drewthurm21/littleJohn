@@ -24,8 +24,6 @@ export const CustomBtn = styled.button`
   /* Size & Space */
   width: ${({ w }) => w || '170px'};
   height: ${({ h }) => h || '45px'};
-  min-width: ${({ minW }) => minW || '170px'};
-  min-height: ${({ minH }) => minH || '45px'};
   margin: ${({ margin }) => margin || '0px'};
   padding: ${({ pad }) => pad || '0px'};
 

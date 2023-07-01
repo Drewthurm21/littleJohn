@@ -40,9 +40,9 @@ export const updateCurrentPriceThunk = (ticker, price) => (dispatch) => {
 };
 
 const initialState = {
-  currentPrices: {},
   quotes: {},
   sparklineInfo: null,
+  currentPrices: {}
 };
 
 export default function stocksReducer(state = initialState, action) {
@@ -58,6 +58,10 @@ export default function stocksReducer(state = initialState, action) {
     case ADD_COMPANY_QUOTE:
       return {
         ...state,
+        currentPrices: {
+          ...state.currentPrices,
+          [action.payload['01. symbol']]: Number(action.payload['05. price'])
+        },
         quotes: {
           ...state.quotes,
           [action.payload['01. symbol']]: action.payload

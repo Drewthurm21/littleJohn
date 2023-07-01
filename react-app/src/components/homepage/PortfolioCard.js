@@ -13,10 +13,11 @@ export default function PortfolioCard({ portfolio }) {
 
   useEffect(() => {
     if (portfolioHoldings.length < 1) return
-    let value = 0
+    let value = portfolio.balance
     portfolioHoldings.forEach(holding => {
-      if (holding.stock === 'USD') value += holding.cost
-      else {
+      if (holding.stock === 'USD') {
+        value += 0; // do nothing
+      } else {
         value += (holding.quantity * holding.lastPrice)
       }
     })
@@ -37,7 +38,7 @@ export default function PortfolioCard({ portfolio }) {
                 </StyledDiv>
                 <StyledDiv txSmall>
                   {holding.stock === 'USD' ?
-                    usdFormatter.format(holding.cost) :
+                    usdFormatter.format(portfolio.balance) :
                     usdFormatter.format((holding.quantity * holding.lastPrice))}
                 </StyledDiv>
               </StyledDiv>

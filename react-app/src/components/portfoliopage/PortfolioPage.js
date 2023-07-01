@@ -47,8 +47,7 @@ export default function PortfolioPage() {
           ))}
         </StyledDiv>
       </Container>
-
-      <Sidebar watchlists={true} />
+      <Sidebar watchlists={true} portfolioMenu={true} />
     </Container>
   )
 };
